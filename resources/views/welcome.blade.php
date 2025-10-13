@@ -1,0 +1,549 @@
+@extends('layout.fe_master')
+@section('content')
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
+    <style>
+        :root {
+            --gradient-accent: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
+            --primary-color: #f87808;
+            --primary-dark: #9e5007;
+            --text-dark: #343a40;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: var(--gradient-accent);
+            background-size: 100% 100%;
+            animation: gradientAnimation 1s ease infinite;
+            color: black;
+            overflow-x: hidden;
+        }
+
+        canvas#particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .banner {
+            height: 94vh;
+            background-size: 300% 100%;
+            background-position: 0% 50%;
+            padding: 22%;
+            text-align: center;
+            color: white;
+        }
+
+        .banner h1 {
+            font-size: 48px;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .banner p {
+            font-size: 20px;
+            margin: 20px 0;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-section {
+            padding: 8rem 5%;
+            background-color: #fff;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), transparent);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-image {
+                width: 100%;
+                height: 300px;
+            }
+        }
+
+        h2 {
+            color: #f87808;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .spline-banner-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1000px;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .spline-banner-bg spline-viewer {
+            width: 100%;
+            height: 100%;
+        }
+
+        .stats-section {
+            padding: 5rem 5%;
+            background-color: #fff;
+            color: var(--text-dark);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        footer {
+            background-color: #f5f5f5;
+            padding: 4rem 5% 2rem;
+            color: var(--text-dark);
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-column p {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .footer-column a {
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .social-icons-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons-list {
+            display: inline-flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .social-icons-list .icon {
+            background: #ffffff;
+            border-radius: 50%;
+            padding: 12px;
+            margin: 8px;
+            width: 42px;
+            height: 42px;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .social-icons-list .instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #ffffff;
+        }
+
+        .social-icons-list .github:hover {
+            background: linear-gradient(45deg, #6e5494, #503873, #2b2a49);
+            color: #ffffff;
+        }
+
+        .social-icons-list .youtube:hover {
+            background: linear-gradient(45deg, #ff0000, #e62117, #cc0000);
+            color: #ffffff;
+        }
+
+        /* Botão voltar ao topo */
+        #btnTopo {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            outline: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        #btnTopo:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+    </style>
+
+    <canvas id="particles"></canvas>
+
+    <div class="spline-banner-bg">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.96/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/O7pPnNjyvqQmU34n/scene.splinecode"></spline-viewer>
+    </div>
+
+    <div class="banner">
+        <h1>Bem-vindo ao ISTP</h1>
+        <div class="button-wrap">
+            <button class="liquid-glass-button" onclick="document.getElementById('sobre-istp').scrollIntoView({ behavior: 'smooth' })">
+                <span>Saber mais</span>
+            </button>
+            <div class="button-shadow"></div>
+        </div>
+    </div>
+
+    <section class="about-section" id="sobre-istp">
+        <div class="section-container">
+            <h2 class="section-title">Sobre o ISTP</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>O Instituto Superior de Tecnologias do Porto (ISTP) é uma instituição de ensino superior comprometida
+                        com a formação de profissionais altamente qualificados e preparados para os desafios do século XXI.
+                    </p>
+                    <p>Fundado com o objetivo de fomentar a inovação e o desenvolvimento tecnológico na região do Porto e em
+                        Portugal, o ISTP oferece cursos que combinam teoria sólida com práticas de vanguarda.</p>
+                    <p>Nosso campus está situado numa das cidades mais dinâmicas e culturais de Portugal, proporcionando um
+                        ambiente inspirador para o aprendizado e a pesquisa.</p>
+                </div>
+                <div class="about-image">
+                    <img src="{{ asset('images/faculdade.png') }}" alt="Campus do ISTP">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="section-container">
+            <h2 class="section-title">Nossos Números</h2>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Empregabilidade</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">350+</div>
+                    <div class="stat-label">Alunos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Parcerias</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Cursos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="spline-bg" style="height: 800px">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.96/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/O7pPnNjyvqQmU34n/scene.splinecode"></spline-viewer>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>ISTP</h3>
+                <p>Transformando ideias em inovação através da educação tecnológica de excelência.</p>
+                <div class="social-icons-wrapper">
+                    <ul class="social-icons-list">
+                        <li class="icon instagram">
+                            <span><i class="fab fa-instagram"></i></span>
+                        </li>
+                        <li class="icon github">
+                            <span><i class="fab fa-github"></i></span>
+                        </li>
+                        <li class="icon youtube">
+                            <span><i class="fab fa-youtube"></i></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contato</h3>
+                <p><i class="fas fa-phone"></i> +351 123 456 789</p>
+                <p><i class="fas fa-envelope"></i> secretaria@istp.pt</p>
+                <p><i class="fas fa-clock"></i> Seg - Sex, 9h - 18h</p>
+            </div>
+            <div class="footer-column">
+                <h3>Endereço</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Rua da Tecnologia, 123</p>
+                <p>Porto, Portugal</p>
+                <p>Código 4000-000</p>
+            </div>
+            <div class="footer-column">
+                <h3>Links Rápidos</h3>
+                <a href="#">Cursos</a>
+                <a href="#">Admissões</a>
+                <a href="#">Bolsa de Estudos</a>
+                <a href="#">Eventos</a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 ISTP - Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <button id="btnTopo" title="Voltar ao início">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        const total = 80;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.radius = 3;
+            }
+
+            move() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = "#ffffff";
+                ctx.fill();
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < total; a++) {
+                for (let b = a + 1; b < total; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.strokeStyle = "rgba(255,255,255,0.3)";
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.move();
+                p.draw();
+            }
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        function init() {
+            for (let i = 0; i < total; i++) {
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        init();
+
+        // Botão Voltar ao Topo
+        const btnTopo = document.getElementById("btnTopo");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                btnTopo.style.display = "block";
+            } else {
+                btnTopo.style.display = "none";
+            }
+        });
+
+        btnTopo.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+@endsection
