@@ -347,7 +347,8 @@
     <div class="banner">
         <h1>Bem-vindo ao ISTP</h1>
         <div class="button-wrap">
-            <button class="liquid-glass-button" onclick="document.getElementById('sobre-istp').scrollIntoView({ behavior: 'smooth' })">
+            <button class="liquid-glass-button"
+                onclick="document.getElementById('sobre-istp').scrollIntoView({ behavior: 'smooth' })">
                 <span>Saber mais</span>
             </button>
             <div class="button-shadow"></div>

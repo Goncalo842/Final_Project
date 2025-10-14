@@ -88,8 +88,8 @@
             transition: all 0.3s ease;
         }
 
-        .form-control:not(:placeholder-shown) + .form-label,
-        .form-control:focus:not(:placeholder-shown) + .form-label {
+        .form-control:not(:placeholder-shown)+.form-label,
+        .form-control:focus:not(:placeholder-shown)+.form-label {
             top: -15px;
             font-size: 12px;
             color: var(--primary-color);

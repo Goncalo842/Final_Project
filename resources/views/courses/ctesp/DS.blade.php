@@ -321,7 +321,7 @@
                         abrangentes em conceção, planeamento, desenvolvimento, manutenção e otimização de software e
                         sistemas de informação integrando algoritmos, linguagens de programação, bases de dados e práticas
                         de versionamento e qualidade.</p>
-                        
+
                     <h3>Objetivos do Curso</h3>
                     <p>Capacitar os alunos para:</p>
                     <ul>

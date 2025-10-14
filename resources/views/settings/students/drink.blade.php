@@ -25,5 +25,4 @@
     </style>
 
     <canvas id="particles"></canvas>
-
 @endsection

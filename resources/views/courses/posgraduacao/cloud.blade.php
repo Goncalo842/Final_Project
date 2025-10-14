@@ -209,9 +209,11 @@
             0% {
                 background-position: 0% 50%;
             }
+
             50% {
                 background-position: 100% 50%;
             }
+
             100% {
                 background-position: 0% 50%;
             }
@@ -240,112 +242,120 @@
         }
     </style>
 
-<div class="course-banner" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-    <div class="course-banner-content">
-        <h1>Cloud Computing</h1>
-        <p>Formação abrangente em conceção, desenvolvimento e gestão de sistemas informáticos na nuvem</p>
+    <div class="course-banner"
+        style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="course-banner-content">
+            <h1>Cloud Computing</h1>
+            <p>Formação abrangente em conceção, desenvolvimento e gestão de sistemas informáticos na nuvem</p>
+        </div>
     </div>
-</div>
 
-<section class="course-section">
-    <div class="section-container">
-        <h2 class="section-title">Sobre o Curso</h2>
-        <div class="course-details">
-            <div class="course-info">
-                <div class="course-info-card">
-                    <div class="info-item">
-                        <i class="fas fa-graduation-cap"></i>
-                        <div>
-                            <h3>Grau Académico</h3>
-                            <p>Pós-Graduação (12 meses)</p>
+    <section class="course-section">
+        <div class="section-container">
+            <h2 class="section-title">Sobre o Curso</h2>
+            <div class="course-details">
+                <div class="course-info">
+                    <div class="course-info-card">
+                        <div class="info-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <h3>Grau Académico</h3>
+                                <p>Pós-Graduação (12 meses)</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h3>Duração</h3>
+                                <p>12 meses (30 ECTS)</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <h3>Regime</h3>
+                                <p>Diurno | Pós-laboral</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Localização</h3>
+                                <p>Porto</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <div>
+                                <h3>Propina Mensal</h3>
+                                <p>220€</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h3>Duração</h3>
-                            <p>12 meses (30 ECTS)</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <div>
-                            <h3>Regime</h3>
-                            <p>Diurno | Pós-laboral</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>Localização</h3>
-                            <p>Porto</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <div>
-                            <h3>Propina Mensal</h3>
-                            <p>220€</p>
-                        </div>
+
+                    <div class="course-info-card">
+                        <h3 style="color: var(--primary-color); margin-top: 0;">Áreas de Atuação</h3>
+                        <ul>
+                            <li>Arquitetura de Computação em Nuvem</li>
+                            <li>Virtualização e Contêineres</li>
+                            <li>Segurança em Ambientes Cloud</li>
+                            <li>DevOps e Automação</li>
+                            <li>Gerenciamento de Serviços Cloud</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="course-info-card">
-                    <h3 style="color: var(--primary-color); margin-top: 0;">Áreas de Atuação</h3>
+                <div class="course-description">
+                    <p>O curso de Cloud Computing prepara profissionais para projetar, implementar e gerenciar
+                        infraestruturas e serviços em nuvem, utilizando as tecnologias mais atuais para atender às demandas
+                        do mercado tecnológico.</p>
+
+                    <h3>Objetivos do Curso</h3>
+                    <p>Formar especialistas capazes de:</p>
                     <ul>
-                        <li>Arquitetura de Computação em Nuvem</li>
-                        <li>Virtualização e Contêineres</li>
-                        <li>Segurança em Ambientes Cloud</li>
-                        <li>DevOps e Automação</li>
-                        <li>Gerenciamento de Serviços Cloud</li>
+                        <li>Desenvolver soluções escaláveis em nuvem</li>
+                        <li>Gerenciar plataformas de cloud pública, privada e híbrida</li>
+                        <li>Implementar segurança e compliance em ambientes cloud</li>
+                        <li>Automatizar processos usando ferramentas DevOps</li>
+                        <li>Adaptar-se às rápidas evoluções tecnológicas no setor</li>
+                    </ul>
+
+                    <h3>Diferenciais</h3>
+                    <ul>
+                        <li>Laboratórios com infraestrutura cloud real</li>
+                        <li>Parcerias com provedores de serviços em nuvem</li>
+                        <li>Equipe docente com experiência no mercado</li>
+                        <li>Metodologia prática baseada em projetos reais</li>
+                        <li>Oportunidades de estágio em empresas inovadoras</li>
                     </ul>
                 </div>
             </div>
-
-            <div class="course-description">
-                <p>O curso de Cloud Computing prepara profissionais para projetar, implementar e gerenciar infraestruturas e serviços em nuvem, utilizando as tecnologias mais atuais para atender às demandas do mercado tecnológico.</p>
-
-                <h3>Objetivos do Curso</h3>
-                <p>Formar especialistas capazes de:</p>
-                <ul>
-                    <li>Desenvolver soluções escaláveis em nuvem</li>
-                    <li>Gerenciar plataformas de cloud pública, privada e híbrida</li>
-                    <li>Implementar segurança e compliance em ambientes cloud</li>
-                    <li>Automatizar processos usando ferramentas DevOps</li>
-                    <li>Adaptar-se às rápidas evoluções tecnológicas no setor</li>
-                </ul>
-
-                <h3>Diferenciais</h3>
-                <ul>
-                    <li>Laboratórios com infraestrutura cloud real</li>
-                    <li>Parcerias com provedores de serviços em nuvem</li>
-                    <li>Equipe docente com experiência no mercado</li>
-                    <li>Metodologia prática baseada em projetos reais</li>
-                    <li>Oportunidades de estágio em empresas inovadoras</li>
-                </ul>
-            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section class="curriculum-section">
         <div class="section-container">
-          <h2 class="section-title">Plano Curricular</h2>
-          <div class="simple-curriculum">
-            <div class="semester-box">
-              <div class="semester-title">Conteúdos e Créditos ECTS</div>
-              <ul class="courses-list">
-                <li class="course-row"><span>Introdução ao Cloud Computing</span><span class="course-credits">3 ECTS</span></li>
-                <li class="course-row"><span>Introdução aos Sistemas Servidores</span><span class="course-credits">2 ECTS</span></li>
-                <li class="course-row"><span>Virtualização I</span><span class="course-credits">4 ECTS</span></li>
-                <li class="course-row"><span>Virtualização II</span><span class="course-credits">3 ECTS</span></li>
-                <li class="course-row"><span>Virtualização III</span><span class="course-credits">6 ECTS</span></li>
-                <li class="course-row"><span>Private Cloud Computing</span><span class="course-credits">6 ECTS</span></li>
-                <li class="course-row"><span>Hybrid Cloud Computing</span><span class="course-credits">4 ECTS</span></li>
-                <li class="course-row"><span>Public Cloud Computing</span><span class="course-credits">4 ECTS</span></li>
-              </ul>
+            <h2 class="section-title">Plano Curricular</h2>
+            <div class="simple-curriculum">
+                <div class="semester-box">
+                    <div class="semester-title">Conteúdos e Créditos ECTS</div>
+                    <ul class="courses-list">
+                        <li class="course-row"><span>Introdução ao Cloud Computing</span><span class="course-credits">3
+                                ECTS</span></li>
+                        <li class="course-row"><span>Introdução aos Sistemas Servidores</span><span class="course-credits">2
+                                ECTS</span></li>
+                        <li class="course-row"><span>Virtualização I</span><span class="course-credits">4 ECTS</span></li>
+                        <li class="course-row"><span>Virtualização II</span><span class="course-credits">3 ECTS</span></li>
+                        <li class="course-row"><span>Virtualização III</span><span class="course-credits">6 ECTS</span></li>
+                        <li class="course-row"><span>Private Cloud Computing</span><span class="course-credits">6
+                                ECTS</span></li>
+                        <li class="course-row"><span>Hybrid Cloud Computing</span><span class="course-credits">4 ECTS</span>
+                        </li>
+                        <li class="course-row"><span>Public Cloud Computing</span><span class="course-credits">4 ECTS</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 @endsection

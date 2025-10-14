@@ -216,11 +216,11 @@
         }
 
         .simple-curriculum {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 2rem;
-    }
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
 
         .semester-box {
             flex: 1 1 calc(50% - 2rem);
@@ -231,9 +231,11 @@
             0% {
                 background-position: 0% 50%;
             }
+
             50% {
                 background-position: 100% 50%;
             }
+
             100% {
                 background-position: 0% 50%;
             }
@@ -262,152 +264,173 @@
         }
     </style>
 
-<div class="course-banner" style="background-image: url('https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
-    <div class="course-banner-content">
-        <h1>Engenharia Informática</h1>
-        <p>Formação abrangente em conceção, desenvolvimento e gestão de sistemas informáticos</p>
+    <div class="course-banner"
+        style="background-image: url('https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="course-banner-content">
+            <h1>Engenharia Informática</h1>
+            <p>Formação abrangente em conceção, desenvolvimento e gestão de sistemas informáticos</p>
+        </div>
     </div>
-</div>
 
-<section class="course-section">
-    <div class="section-container">
-        <h2 class="section-title">Sobre o Curso</h2>
-        <div class="course-details">
-            <div class="course-info">
-                <div class="course-info-card">
-                    <div class="info-item">
-                        <i class="fas fa-graduation-cap"></i>
-                        <div>
-                            <h3>Grau Académico</h3>
-                            <p>Licenciatura (3 Anos - 6 semestres)</p>
+    <section class="course-section">
+        <div class="section-container">
+            <h2 class="section-title">Sobre o Curso</h2>
+            <div class="course-details">
+                <div class="course-info">
+                    <div class="course-info-card">
+                        <div class="info-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <h3>Grau Académico</h3>
+                                <p>Licenciatura (3 Anos - 6 semestres)</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h3>Duração</h3>
+                                <p>3 anos (180 ECTS)</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <h3>Regime</h3>
+                                <p>Diurno | Pós-laboral</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Localização</h3>
+                                <p>Porto</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <div>
+                                <h3>Propina Mensal</h3>
+                                <p>220€</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h3>Duração</h3>
-                            <p>3 anos (180 ECTS)</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        <div>
-                            <h3>Regime</h3>
-                            <p>Diurno | Pós-laboral</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>Localização</h3>
-                            <p>Porto</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <div>
-                            <h3>Propina Mensal</h3>
-                            <p>220€</p>
-                        </div>
+
+                    <div class="course-info-card">
+                        <h3 style="color: var(--primary-color); margin-top: 0;">Áreas de Atuação</h3>
+                        <ul>
+                            <li>Desenvolvimento de Software</li>
+                            <li>Arquitetura de Sistemas</li>
+                            <li>Inteligência Artificial</li>
+                            <li>Segurança Informática</li>
+                            <li>Gestão de Projetos TI</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="course-info-card">
-                    <h3 style="color: var(--primary-color); margin-top: 0;">Áreas de Atuação</h3>
+                <div class="course-description">
+                    <p>O curso de Engenharia Informática do ISTP oferece uma formação abrangente e prática, preparando os
+                        alunos para os desafios do mercado tecnológico atual. Combinando teoria fundamental com aplicação
+                        prática, o curso desenvolve competências em diversas áreas da informática.</p>
+
+                    <h3>Objetivos do Curso</h3>
+                    <p>Formar profissionais capazes de:</p>
                     <ul>
-                        <li>Desenvolvimento de Software</li>
-                        <li>Arquitetura de Sistemas</li>
-                        <li>Inteligência Artificial</li>
-                        <li>Segurança Informática</li>
-                        <li>Gestão de Projetos TI</li>
+                        <li>Projetar e implementar sistemas de software complexos</li>
+                        <li>Analisar e resolver problemas computacionais</li>
+                        <li>Gerir projetos de desenvolvimento tecnológico</li>
+                        <li>Adaptar-se às constantes evoluções tecnológicas</li>
+                        <li>Trabalhar em equipas multidisciplinares</li>
+                    </ul>
+
+                    <h3>Diferenciais</h3>
+                    <ul>
+                        <li>Laboratórios equipados com tecnologia de ponta</li>
+                        <li>Parcerias com empresas líderes do setor tecnológico</li>
+                        <li>Corpo docente com vasta experiência profissional</li>
+                        <li>Metodologia baseada em projetos reais</li>
+                        <li>Oportunidades de estágio em empresas de referência</li>
                     </ul>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="course-description">
-                <p>O curso de Engenharia Informática do ISTP oferece uma formação abrangente e prática, preparando os alunos para os desafios do mercado tecnológico atual. Combinando teoria fundamental com aplicação prática, o curso desenvolve competências em diversas áreas da informática.</p>
-
-                <h3>Objetivos do Curso</h3>
-                <p>Formar profissionais capazes de:</p>
-                <ul>
-                    <li>Projetar e implementar sistemas de software complexos</li>
-                    <li>Analisar e resolver problemas computacionais</li>
-                    <li>Gerir projetos de desenvolvimento tecnológico</li>
-                    <li>Adaptar-se às constantes evoluções tecnológicas</li>
-                    <li>Trabalhar em equipas multidisciplinares</li>
-                </ul>
-
-                <h3>Diferenciais</h3>
-                <ul>
-                    <li>Laboratórios equipados com tecnologia de ponta</li>
-                    <li>Parcerias com empresas líderes do setor tecnológico</li>
-                    <li>Corpo docente com vasta experiência profissional</li>
-                    <li>Metodologia baseada em projetos reais</li>
-                    <li>Oportunidades de estágio em empresas de referência</li>
-                </ul>
+    <section class="curriculum-section">
+        <div class="section-container">
+            <h2 class="section-title">Plano Curricular</h2>
+            <div class="simple-curriculum">
+                <div class="semester-box">
+                    <div class="semester-title">1.º Ano – 1º Semestre</div>
+                    <ul class="courses-list">
+                        <li class="course-row"><span>Introdução à Programação</span><span class="course-credits">6
+                                ECTS</span></li>
+                        <li class="course-row"><span>Matemática Discreta</span><span class="course-credits">6 ECTS</span>
+                        </li>
+                        <li class="course-row"><span>Arquitetura de Computadores</span><span class="course-credits">5
+                                ECTS</span></li>
+                        <li class="course-row"><span>Sistemas Operativos</span><span class="course-credits">5 ECTS</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="semester-box">
+                    <div class="semester-title">1.º Ano – 2º Semestre</div>
+                    <ul class="courses-list">
+                        <li class="course-row"><span>Estruturas de Dados</span><span class="course-credits">6 ECTS</span>
+                        </li>
+                        <li class="course-row"><span>Álgebra Linear</span><span class="course-credits">6 ECTS</span></li>
+                        <li class="course-row"><span>Redes de Computadores</span><span class="course-credits">6 ECTS</span>
+                        </li>
+                        <li class="course-row"><span>Probabilidade e Estatística</span><span class="course-credits">6
+                                ECTS</span></li>
+                    </ul>
+                </div>
+                <div class="semester-box">
+                    <div class="semester-title">2.º Ano – 3º Semestre</div>
+                    <ul class="courses-list">
+                        <li class="course-row"><span>Engenharia de Software</span><span class="course-credits">6 ECTS</span>
+                        </li>
+                        <li class="course-row"><span>Bases de Dados</span><span class="course-credits">6 ECTS</span></li>
+                        <li class="course-row"><span>Sistemas Distribuídos</span><span class="course-credits">6 ECTS</span>
+                        </li>
+                        <li class="course-row"><span>Matemática Computacional</span><span class="course-credits">6
+                                ECTS</span></li>
+                    </ul>
+                </div>
+                <div class="semester-box">
+                    <div class="semester-title">2.º Ano – 4º Semestre</div>
+                    <ul class="courses-list">
+                        <li class="course-row"><span>Compiladores</span><span class="course-credits">6 ECTS</span></li>
+                        <li class="course-row"><span>Programação Web</span><span class="course-credits">6 ECTS</span></li>
+                        <li class="course-row"><span>Inteligência Artificial</span><span class="course-credits">6
+                                ECTS</span></li>
+                        <li class="course-row"><span>Segurança Informática</span><span class="course-credits">6 ECTS</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="semester-box">
+                    <div class="semester-title">3.º Ano – 5º Semestre</div>
+                    <ul class="courses-list">
+                        <li class="course-row"><span>Projeto de Desenvolvimento</span><span class="course-credits">8
+                                ECTS</span></li>
+                        <li class="course-row"><span>Ética e Deontologia</span><span class="course-credits">4 ECTS</span>
+                        </li>
+                        <li class="course-row"><span>Cloud Computing</span><span class="course-credits">6 ECTS</span></li>
+                        <li class="course-row"><span>Gestão de Projetos</span><span class="course-credits">6 ECTS</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="semester-box">
+                    <div class="semester-title">3.º Ano – 6º Semestre</div>
+                    <ul class="courses-list">
+                        <li class="course-row"><span>Estágio/Projeto Final</span><span class="course-credits">12 ECTS</span>
+                        </li>
+                        <li class="course-row"><span>Empreendedorismo Tecnológico</span><span class="course-credits">6
+                                ECTS</span></li>
+                        <li class="course-row"><span>Temas Avançados em Informática</span><span class="course-credits">6
+                                ECTS</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-
-<section class="curriculum-section">
-    <div class="section-container">
-        <h2 class="section-title">Plano Curricular</h2>
-        <div class="simple-curriculum">
-            <div class="semester-box">
-                <div class="semester-title">1.º Ano – 1º Semestre</div>
-                <ul class="courses-list">
-                    <li class="course-row"><span>Introdução à Programação</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Matemática Discreta</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Arquitetura de Computadores</span><span class="course-credits">5 ECTS</span></li>
-                    <li class="course-row"><span>Sistemas Operativos</span><span class="course-credits">5 ECTS</span></li>
-                </ul>
-            </div>
-            <div class="semester-box">
-                <div class="semester-title">1.º Ano – 2º Semestre</div>
-                <ul class="courses-list">
-                    <li class="course-row"><span>Estruturas de Dados</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Álgebra Linear</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Redes de Computadores</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Probabilidade e Estatística</span><span class="course-credits">6 ECTS</span></li>
-                </ul>
-            </div>
-            <div class="semester-box">
-                <div class="semester-title">2.º Ano – 3º Semestre</div>
-                <ul class="courses-list">
-                    <li class="course-row"><span>Engenharia de Software</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Bases de Dados</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Sistemas Distribuídos</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Matemática Computacional</span><span class="course-credits">6 ECTS</span></li>
-                </ul>
-            </div>
-            <div class="semester-box">
-                <div class="semester-title">2.º Ano – 4º Semestre</div>
-                <ul class="courses-list">
-                    <li class="course-row"><span>Compiladores</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Programação Web</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Inteligência Artificial</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Segurança Informática</span><span class="course-credits">6 ECTS</span></li>
-                </ul>
-            </div>
-            <div class="semester-box">
-                <div class="semester-title">3.º Ano – 5º Semestre</div>
-                <ul class="courses-list">
-                    <li class="course-row"><span>Projeto de Desenvolvimento</span><span class="course-credits">8 ECTS</span></li>
-                    <li class="course-row"><span>Ética e Deontologia</span><span class="course-credits">4 ECTS</span></li>
-                    <li class="course-row"><span>Cloud Computing</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Gestão de Projetos</span><span class="course-credits">6 ECTS</span></li>
-                </ul>
-            </div>
-            <div class="semester-box">
-                <div class="semester-title">3.º Ano – 6º Semestre</div>
-                <ul class="courses-list">
-                    <li class="course-row"><span>Estágio/Projeto Final</span><span class="course-credits">12 ECTS</span></li>
-                    <li class="course-row"><span>Empreendedorismo Tecnológico</span><span class="course-credits">6 ECTS</span></li>
-                    <li class="course-row"><span>Temas Avançados em Informática</span><span class="course-credits">6 ECTS</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 @endsection

@@ -61,7 +61,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             border: 2px solid var(--light-gray);
         }
 
@@ -70,7 +70,7 @@
             background: var(--primary);
             color: var(--white);
             transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(223,124,4,0.2);
+            box-shadow: 0 6px 12px rgba(223, 124, 4, 0.2);
             border-color: var(--primary);
         }
 
@@ -117,7 +117,7 @@
             background: rgba(255, 255, 255, 0.95);
             border-radius: 0.75rem;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             border: none;
@@ -125,7 +125,7 @@
 
         .card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(223,124,4,0.25);
+            box-shadow: 0 15px 30px rgba(223, 124, 4, 0.25);
         }
 
         .card::after {
@@ -200,116 +200,116 @@
         }
     </style>
 
-<canvas id="particles"></canvas>
+    <canvas id="particles"></canvas>
 
-<div class="content-wrapper">
-    <section class="explore-header">
-        <div class="category-buttons">
-            <a href="{{ route('courses') }}">Todos</a>
-            <a href="{{ route('courses.licenciatura') }}" class="active">Licenciatura</a>
-            <a href="{{ route('courses.ctesp') }}">CTeSP</a>
-            <a href="{{ route('courses.posgraduacao') }}">Pós-Graduação</a>
-        </div>
-    </section>
+    <div class="content-wrapper">
+        <section class="explore-header">
+            <div class="category-buttons">
+                <a href="{{ route('courses') }}">Todos</a>
+                <a href="{{ route('courses.licenciatura') }}" class="active">Licenciatura</a>
+                <a href="{{ route('courses.ctesp') }}">CTeSP</a>
+                <a href="{{ route('courses.posgraduacao') }}">Pós-Graduação</a>
+            </div>
+        </section>
 
-    <section class="section">
-        <h3>Licenciaturas</h3>
-        <div class="grid">
-            <a href="{{ route('informatica') }}" class="card">
-                <img src="{{ asset('images/imagem15.jpg') }}" alt="Engenharia Informática">
-                <div class="card-content">
-                    <h4>Engenharia Informática</h4>
-                    <p>Formação avançada em desenvolvimento de software e sistemas</p>
-                </div>
-            </a>
-            <a href="{{ route('multimedia') }}" class="card">
-                <img src="{{ asset('images/imagem10.jpg') }}" alt="Engenharia Multimédia">
-                <div class="card-content">
-                    <h4>Engenharia de Multimédia</h4>
-                    <p>Criação de conteúdos digitais interativos e imersivos</p>
-                </div>
-            </a>
-        </div>
-    </section>
+        <section class="section">
+            <h3>Licenciaturas</h3>
+            <div class="grid">
+                <a href="{{ route('informatica') }}" class="card">
+                    <img src="{{ asset('images/imagem15.jpg') }}" alt="Engenharia Informática">
+                    <div class="card-content">
+                        <h4>Engenharia Informática</h4>
+                        <p>Formação avançada em desenvolvimento de software e sistemas</p>
+                    </div>
+                </a>
+                <a href="{{ route('multimedia') }}" class="card">
+                    <img src="{{ asset('images/imagem10.jpg') }}" alt="Engenharia Multimédia">
+                    <div class="card-content">
+                        <h4>Engenharia de Multimédia</h4>
+                        <p>Criação de conteúdos digitais interativos e imersivos</p>
+                    </div>
+                </a>
+            </div>
+        </section>
 
-<script>
-    const canvas = document.getElementById("particles");
-    const ctx = canvas.getContext("2d");
+        <script>
+            const canvas = document.getElementById("particles");
+            const ctx = canvas.getContext("2d");
 
-    let particles = [];
-    const total = 80;
+            let particles = [];
+            const total = 80;
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
 
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 1.5;
-            this.vy = (Math.random() - 0.5) * 1.5;
-            this.radius = 3;
-        }
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 1.5;
+                    this.vy = (Math.random() - 0.5) * 1.5;
+                    this.radius = 3;
+                }
 
-        move() {
-            this.x += this.vx;
-            this.y += this.vy;
+                move() {
+                    this.x += this.vx;
+                    this.y += this.vy;
 
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-        }
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
 
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-        }
-    }
-
-    function connectParticles() {
-        for (let a = 0; a < total; a++) {
-            for (let b = a + 1; b < total; b++) {
-                let dx = particles[a].x - particles[b].x;
-                let dy = particles[a].y - particles[b].y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 150) {
+                draw() {
                     ctx.beginPath();
-                    ctx.moveTo(particles[a].x, particles[a].y);
-                    ctx.lineTo(particles[b].x, particles[b].y);
-                    ctx.strokeStyle = "rgba(255,255,255,0.3)";
-                    ctx.stroke();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = "#ffffff";
+                    ctx.fill();
                 }
             }
-        }
-    }
 
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let p of particles) {
-            p.move();
-            p.draw();
-        }
-        connectParticles();
-        requestAnimationFrame(animate);
-    }
+            function connectParticles() {
+                for (let a = 0; a < total; a++) {
+                    for (let b = a + 1; b < total; b++) {
+                        let dx = particles[a].x - particles[b].x;
+                        let dy = particles[a].y - particles[b].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
 
-    function init() {
-        resizeCanvas();
-        particles = [];
-        for (let i = 0; i < total; i++) {
-            particles.push(new Particle());
-        }
-        animate();
-    }
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.strokeStyle = "rgba(255,255,255,0.3)";
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
 
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-    });
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let p of particles) {
+                    p.move();
+                    p.draw();
+                }
+                connectParticles();
+                requestAnimationFrame(animate);
+            }
 
-    init();
-</script>
-@endsection
+            function init() {
+                resizeCanvas();
+                particles = [];
+                for (let i = 0; i < total; i++) {
+                    particles.push(new Particle());
+                }
+                animate();
+            }
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+            });
+
+            init();
+        </script>
+    @endsection

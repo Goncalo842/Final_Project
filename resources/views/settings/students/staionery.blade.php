@@ -263,8 +263,8 @@
             <h1>Papelaria</h1>
             <p>Aqui você encontra todos os materiais de papelaria: canetas, cadernos, marcadores e muito mais para apoiar os
                 seus estudos com qualidade e estilo.</p>
-                <a href="{{ route('products') }}" class="custom-btn">Ver mais</a>
-                <i class="fas fa-arrow-right"></i>
+            <a href="{{ route('products') }}" class="custom-btn">Ver mais</a>
+            <i class="fas fa-arrow-right"></i>
             </a>
         </div>
         <div class="image-box fade-in">
