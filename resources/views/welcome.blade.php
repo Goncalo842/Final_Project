@@ -337,7 +337,7 @@
 
         .reviews-section {
             padding: 8rem 5%;
-            background-color: #f9f9f9;
+            background-color: #f2f2f2;
             color: var(--text-dark);
         }
 
