@@ -364,17 +364,22 @@
         }
 
         .review-photo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f2f2f2;
             margin: 0 auto 1.5rem;
         }
 
         .review-photo img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--primary-color);
+            border-radius: 50%;
         }
 
         .review-text p {
@@ -468,7 +473,8 @@
             <div class="reviews-container">
                 <div class="review-card">
                     <div class="review-photo">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/024/983/914/small_2x/simple-user-default-icon-free-png.png" alt="Foto do aluno João Silva">
+                        <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg"
+                            alt="Foto do aluno João Silva">
                     </div>
                     <div class="review-text">
                         <p>"O ISTP superou as minhas expectativas! O ambiente é moderno e os professores estão sempre
@@ -479,7 +485,8 @@
 
                 <div class="review-card">
                     <div class="review-photo">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/024/983/914/small_2x/simple-user-default-icon-free-png.png" alt="Foto da aluna Marta Costa">
+                        <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg"
+                            alt="Foto da aluna Marta Costa">
                     </div>
                     <div class="review-text">
                         <p>"Graças ao ISTP, consegui o meu primeiro emprego na área logo após o estágio. Recomendo a todos
@@ -490,7 +497,8 @@
 
                 <div class="review-card">
                     <div class="review-photo">
-                    <img src="https://static.vecteezy.com/system/resources/thumbnails/024/983/914/small_2x/simple-user-default-icon-free-png.png" alt="Foto do aluno Ricardo Lopes">
+                        <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg"
+                            alt="Foto do aluno Ricardo Lopes">
                     </div>
                     <div class="review-text">
                         <p>"As parcerias do ISTP com empresas tecnológicas abriram portas incríveis para a minha carreira. É
