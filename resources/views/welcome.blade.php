@@ -448,7 +448,6 @@
         </div>
     </footer>
 
-    <!-- Botão Voltar ao Topo -->
     <button id="btnTopo" title="Voltar ao início">
         <i class="fas fa-arrow-up"></i>
     </button>
@@ -529,7 +528,6 @@
 
         init();
 
-        // Botão Voltar ao Topo
         const btnTopo = document.getElementById("btnTopo");
 
         window.addEventListener("scroll", () => {
