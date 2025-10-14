@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\PagamentoController;
 
+
 Route::get('', [UserController::class, 'welcome'])->name('welcome');
 Route::get('/info', [UserController::class, 'info'])->name('info');
 Route::get('/courses', [UserController::class, 'courses'])->name('courses');
