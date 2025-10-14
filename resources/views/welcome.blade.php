@@ -334,6 +334,65 @@
             background-color: var(--primary-dark);
             transform: translateY(-3px);
         }
+
+        .reviews-section {
+            padding: 8rem 5%;
+            background-color: #f9f9f9;
+            color: var(--text-dark);
+        }
+
+        .reviews-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        .review-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .review-photo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .review-photo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        .review-text p {
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .review-text h4 {
+            margin: 0.5rem 0 0;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .review-text span {
+            font-size: 0.95rem;
+            color: #555;
+        }
     </style>
 
     <canvas id="particles"></canvas>
@@ -346,7 +405,8 @@
     <div class="banner">
         <h1>Bem-vindo ao ISTP</h1>
         <div class="button-wrap">
-            <button class="liquid-glass-button" onclick="document.getElementById('sobre-istp').scrollIntoView({ behavior: 'smooth' })">
+            <button class="liquid-glass-button"
+                onclick="document.getElementById('sobre-istp').scrollIntoView({ behavior: 'smooth' })">
                 <span>Saber mais</span>
             </button>
             <div class="button-shadow"></div>
@@ -401,6 +461,46 @@
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.96/build/spline-viewer.js"></script>
         <spline-viewer url="https://prod.spline.design/O7pPnNjyvqQmU34n/scene.splinecode"></spline-viewer>
     </div>
+
+    <section class="reviews-section">
+        <div class="section-container">
+            <h2 class="section-title">Avaliações dos Alunos</h2>
+            <div class="reviews-container">
+                <div class="review-card">
+                    <div class="review-photo">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/024/983/914/small_2x/simple-user-default-icon-free-png.png" alt="Foto do aluno João Silva">
+                    </div>
+                    <div class="review-text">
+                        <p>"O ISTP superou as minhas expectativas! O ambiente é moderno e os professores estão sempre
+                            disponíveis para ajudar. Aprendi imenso no curso de Desenvolvimento de Software."</p>
+                        <h4>João Silva</h4>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-photo">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/024/983/914/small_2x/simple-user-default-icon-free-png.png" alt="Foto da aluna Marta Costa">
+                    </div>
+                    <div class="review-text">
+                        <p>"Graças ao ISTP, consegui o meu primeiro emprego na área logo após o estágio. Recomendo a todos
+                            que procuram uma formação prática e de qualidade."</p>
+                        <h4>Marta Costa</h4>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-photo">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/024/983/914/small_2x/simple-user-default-icon-free-png.png" alt="Foto do aluno Ricardo Lopes">
+                    </div>
+                    <div class="review-text">
+                        <p>"As parcerias do ISTP com empresas tecnológicas abriram portas incríveis para a minha carreira. É
+                            uma faculdade que realmente investe nos alunos."</p>
+                        <h4>Ricardo Lopes</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-container">
