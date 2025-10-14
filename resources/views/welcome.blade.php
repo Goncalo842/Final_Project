@@ -311,7 +311,6 @@
             color: #ffffff;
         }
 
-        /* Botão voltar ao topo */
         #btnTopo {
             position: fixed;
             bottom: 30px;
@@ -347,8 +346,7 @@
     <div class="banner">
         <h1>Bem-vindo ao ISTP</h1>
         <div class="button-wrap">
-            <button class="liquid-glass-button"
-                onclick="document.getElementById('sobre-istp').scrollIntoView({ behavior: 'smooth' })">
+            <button class="liquid-glass-button" onclick="document.getElementById('sobre-istp').scrollIntoView({ behavior: 'smooth' })">
                 <span>Saber mais</span>
             </button>
             <div class="button-shadow"></div>
@@ -437,9 +435,9 @@
             </div>
             <div class="footer-column">
                 <h3>Links Rápidos</h3>
-                <a href="#">Cursos</a>
-                <a href="#">Admissões</a>
-                <a href="#">Bolsa de Estudos</a>
+                <a href="{{ url('courses') }}">Cursos</a>
+                <a href="{{ url('info') }}">Candidatos</a>
+                <a href="{{ url('contact') }}">Contacto</a>
                 <a href="#">Eventos</a>
             </div>
         </div>
