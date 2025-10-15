@@ -473,7 +473,7 @@
             <div class="reviews-container">
                 <div class="review-card">
                     <div class="review-photo">
-                        <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg"
+                        <img src="{{ asset('images/default.png') }}"
                             alt="Foto do aluno João Silva">
                     </div>
                     <div class="review-text">
@@ -485,7 +485,7 @@
 
                 <div class="review-card">
                     <div class="review-photo">
-                        <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg"
+                        <img src="{{ asset('images/default.png') }}"
                             alt="Foto da aluna Marta Costa">
                     </div>
                     <div class="review-text">
@@ -497,7 +497,7 @@
 
                 <div class="review-card">
                     <div class="review-photo">
-                        <img src="https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg"
+                        <img src="{{ asset('images/default.png') }}"
                             alt="Foto do aluno Ricardo Lopes">
                     </div>
                     <div class="review-text">

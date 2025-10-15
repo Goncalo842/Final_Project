@@ -25,7 +25,7 @@
             @auth
                 <div class="dropdown">
                     <button class="btn dropdown-toggle account-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/024/983/914/small_2x/simple-user-default-icon-free-png.png" alt="Perfil" class="profile-img">
+                        <img src="{{ asset('images/login.png') }}" alt="Perfil" class="profile-img">
                         {{ Auth::user()->name }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
