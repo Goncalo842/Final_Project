@@ -211,7 +211,7 @@
         }
 
         .contact-form-section {
-            background: var(--white);
+            background: #f2f2f2;
             padding: 4rem 2rem;
             margin-bottom: 5rem;
         }

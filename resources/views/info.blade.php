@@ -552,7 +552,6 @@
                 <p class="contact-info">
                     <i class="fas fa-clock"></i> Horário: Seg-Sex 9h-18h | Sáb 9h-13h
                 </p>
-                <a href="#" class="btn-primary">Agendar Sessão Informativa</a>
             </div>
         </div>
     </div>
