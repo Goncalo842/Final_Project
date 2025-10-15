@@ -445,6 +445,16 @@
             font-size: 0.95rem;
             color: #555;
         }
+
+        .review-stars {
+            color: #f87808;
+            margin-bottom: 0.8rem;
+        }
+
+        .review-stars i {
+            margin: 0 2px;
+            font-size: 1.1rem;
+        }
     </style>
 
     <canvas id="particles"></canvas>
@@ -596,19 +606,6 @@
             </div>
         </div>
     </section>
-
-    <style>
-        .review-stars {
-            color: #f87808;
-            margin-bottom: 0.8rem;
-        }
-
-        .review-stars i {
-            margin: 0 2px;
-            font-size: 1.1rem;
-        }
-    </style>
-
 
     <footer>
         <div class="footer-container">
