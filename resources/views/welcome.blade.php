@@ -347,12 +347,26 @@
             justify-content: center;
             gap: 2.5rem;
         }
+        
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 2.5rem;
+            animation: scrollCarousel 30s linear infinite;
+        }
 
         .review-card {
+            flex: 0 0 350px;
             background: #fff;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            max-width: 350px;
             padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
@@ -361,6 +375,39 @@
         .review-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes scrollCarousel {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .carousel-fade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120px;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(to right, #f2f2f2 0%, transparent 100%);
+            z-index: 2;
+        }
+
+        .carousel-fade.right {
+            left: auto;
+            right: 0;
+            background: linear-gradient(to left, #f2f2f2 0%, transparent 100%);
+        }
+
+        .carousel-track::after {
+            content: "";
+            display: flex;
+            width: 100%;
         }
 
         .review-photo {
@@ -470,42 +517,56 @@
     <section class="reviews-section">
         <div class="section-container">
             <h2 class="section-title">Avaliações dos Alunos</h2>
-            <div class="reviews-container">
-                <div class="review-card">
-                    <div class="review-photo">
-                        <img src="{{ asset('images/default.png') }}"
-                            alt="Foto do aluno João Silva">
+            <div class="carousel">
+                <div class="carousel-fade"></div>
+                <div class="carousel-track">
+                    <div class="review-card">
+                        <div class="review-photo">
+                            <img src="{{ asset('images/default.png') }}" alt="Foto do aluno João Silva">
+                        </div>
+                        <div class="review-text">
+                            <p>"O ISTP superou as minhas expectativas! O ambiente é moderno e os professores estão sempre
+                                disponíveis para ajudar. Aprendi imenso no curso de Desenvolvimento de Software."</p>
+                            <h4>João Silva</h4>
+                        </div>
                     </div>
-                    <div class="review-text">
-                        <p>"O ISTP superou as minhas expectativas! O ambiente é moderno e os professores estão sempre
-                            disponíveis para ajudar. Aprendi imenso no curso de Desenvolvimento de Software."</p>
-                        <h4>João Silva</h4>
-                    </div>
-                </div>
 
-                <div class="review-card">
-                    <div class="review-photo">
-                        <img src="{{ asset('images/default.png') }}"
-                            alt="Foto da aluna Marta Costa">
+                    <div class="review-card">
+                        <div class="review-photo">
+                            <img src="{{ asset('images/default.png') }}" alt="Foto da aluna Marta Costa">
+                        </div>
+                        <div class="review-text">
+                            <p>"Graças ao ISTP, consegui o meu primeiro emprego na área logo após o estágio. Recomendo a
+                                todos
+                                que procuram uma formação prática e de qualidade."</p>
+                            <h4>Marta Costa</h4>
+                        </div>
                     </div>
-                    <div class="review-text">
-                        <p>"Graças ao ISTP, consegui o meu primeiro emprego na área logo após o estágio. Recomendo a todos
-                            que procuram uma formação prática e de qualidade."</p>
-                        <h4>Marta Costa</h4>
-                    </div>
-                </div>
 
-                <div class="review-card">
-                    <div class="review-photo">
-                        <img src="{{ asset('images/default.png') }}"
-                            alt="Foto do aluno Ricardo Lopes">
+                    <div class="review-card">
+                        <div class="review-photo">
+                            <img src="{{ asset('images/default.png') }}" alt="Foto do aluno Ricardo Lopes">
+                        </div>
+                        <div class="review-text">
+                            <p>"As parcerias do ISTP com empresas tecnológicas abriram portas incríveis para a minha
+                                carreira. É
+                                uma faculdade que realmente investe nos alunos."</p>
+                            <h4>Ricardo Lopes</h4>
+                        </div>
                     </div>
-                    <div class="review-text">
-                        <p>"As parcerias do ISTP com empresas tecnológicas abriram portas incríveis para a minha carreira. É
-                            uma faculdade que realmente investe nos alunos."</p>
-                        <h4>Ricardo Lopes</h4>
+
+                    <div class="review-card">
+                        <div class="review-photo">
+                            <img src="{{ asset('images/default.png') }}" alt="Foto da aluna Sofia Almeida">
+                        </div>
+                        <div class="review-text">
+                            <p>"As aulas práticas e os projetos em grupo foram fundamentais para o meu desenvolvimento
+                                profissional. Recomendo!"</p>
+                            <h4>Sofia Almeida</h4>
+                        </div>
                     </div>
                 </div>
+                <div class="carousel-fade right"></div>
             </div>
         </div>
     </section>
@@ -559,6 +620,11 @@
     </button>
 
     <script>
+        const track = document.querySelector('.carousel-track');
+        if (track) {
+            track.innerHTML += track.innerHTML;
+        }
+
         const canvas = document.getElementById("particles");
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth;
