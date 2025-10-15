@@ -639,8 +639,8 @@
             <div class="footer-column">
                 <h3>Links Rápidos</h3>
                 <a href="#">Cursos</a>
-                <a href="#">Admissões</a>
-                <a href="#">Bolsa de Estudos</a>
+                <a href="#">Candidatos</a>
+                <a href="#">Contacto</a>
                 <a href="#">Eventos</a>
             </div>
         </div>
