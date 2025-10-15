@@ -347,7 +347,7 @@
             justify-content: center;
             gap: 2.5rem;
         }
-        
+
         .carousel {
             position: relative;
             overflow: hidden;
@@ -527,6 +527,13 @@
                         <div class="review-text">
                             <p>"O ISTP superou as minhas expectativas! O ambiente é moderno e os professores estão sempre
                                 disponíveis para ajudar. Aprendi imenso no curso de Desenvolvimento de Software."</p>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                             <h4>João Silva</h4>
                         </div>
                     </div>
@@ -539,6 +546,12 @@
                             <p>"Graças ao ISTP, consegui o meu primeiro emprego na área logo após o estágio. Recomendo a
                                 todos
                                 que procuram uma formação prática e de qualidade."</p>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                             <h4>Marta Costa</h4>
                         </div>
                     </div>
@@ -551,6 +564,13 @@
                             <p>"As parcerias do ISTP com empresas tecnológicas abriram portas incríveis para a minha
                                 carreira. É
                                 uma faculdade que realmente investe nos alunos."</p>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                             <h4>Ricardo Lopes</h4>
                         </div>
                     </div>
@@ -562,6 +582,12 @@
                         <div class="review-text">
                             <p>"As aulas práticas e os projetos em grupo foram fundamentais para o meu desenvolvimento
                                 profissional. Recomendo!"</p>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
                             <h4>Sofia Almeida</h4>
                         </div>
                     </div>
@@ -570,6 +596,19 @@
             </div>
         </div>
     </section>
+
+    <style>
+        .review-stars {
+            color: #f87808;
+            margin-bottom: 0.8rem;
+        }
+
+        .review-stars i {
+            margin: 0 2px;
+            font-size: 1.1rem;
+        }
+    </style>
+
 
     <footer>
         <div class="footer-container">
