@@ -55,4 +55,9 @@
 
 <br>
 </body>
+<script defer src="{{ asset('js/n8n-chat-widget.js') }}"
+        data-endpoint="http://localhost:5678/webhook/b663ae95-d857-4d40-a340-514ec557432e"
+        data-title="ARIS - Artificial Response Intelligence System"
+        data-welcome="Olá! Eu sou a ARIS, a assistente virtual do ISTP Porto. Em que posso ajudar?"
+        data-placeholder="Escreva a sua mensagem..." data-position="bottom-right"></script>
 </html>

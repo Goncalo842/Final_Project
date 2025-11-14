@@ -651,9 +651,7 @@
         </div>
     </footer>
 
-    <button id="btnTopo" title="Voltar ao início">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    
 
     <script>
         const track = document.querySelector('.carousel-track');
