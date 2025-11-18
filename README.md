@@ -72,18 +72,3 @@ Start the Laravel development server:
 ```bash
 php artisan serve
 ```
-
-### 5. Build Frontend Assets
-Run Vite to build and watch frontend assets:
-
-```bash
-npm run dev
-```
-
-### 6. Available Scripts
-
-```bash
-php artisan serve - Start the Laravel development server
-php artisan migrate - Run database migrations
-```
-
