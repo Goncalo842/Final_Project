@@ -6,6 +6,7 @@ use App\Http\Controllers\FaltaController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\PagamentoController;
+use App\Http\Controllers\SaldoController;
 
 
 Route::get('', [UserController::class, 'welcome'])->name('welcome');
@@ -55,6 +56,8 @@ Route::get('/staionery', [SettingsController::class, 'staionery'])->name('staion
 Route::get('/drink', [SettingsController::class, 'drink'])->name('drink');
 
 Route::get('/sproducts', [SettingsController::class, 'products'])->name('products');
+Route::get('/saldo/recarregar', [SaldoController::class, 'saldo'])->name('saldo.recarregar');
+Route::post('/saldo/recarregar', [SaldoController::class, 'recarregar'])->name('saldo.recarregar');
 
 Route::fallback(function() {
     return view('fallback');

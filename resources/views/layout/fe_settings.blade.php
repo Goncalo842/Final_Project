@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/settings.css') }}">
 </head>
 <body>
@@ -41,6 +42,13 @@
                         {{ Auth::user()->name }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <form action="{{ route('saldo.recarregar') }}" method="GET">
+                                <button class="dropdown-item" type="submit">
+                                    Saldo: {{ number_format(Auth::user()->saldo, 2, ',', '.') }} €
+                                </button>
+                            </form>
+                        </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
