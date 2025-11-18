@@ -644,10 +644,13 @@
                 <a href="#">Eventos</a>
             </div>
         </div>
-        <div class="copyright">
-            &copy; 2025 ISTP - Todos os direitos reservados.
-        </div>
-    </footer>
+            <div class="copyright">
+                &copy; 2025 ISTP - Todos os direitos reservados.
+                <a href="https://www.livroreclamacoes.pt" target="_blank" class="complaint-book">
+                    <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações" style="width: 150px; height: auto;">
+                </a>
+            </div>
+        </footer>
 
     <script>
         const canvas = document.getElementById("particles");
