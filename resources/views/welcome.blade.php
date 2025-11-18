@@ -455,6 +455,12 @@
             margin: 0 2px;
             font-size: 1.1rem;
         }
+
+        .complaint-book {
+            display: inline-block;
+            margin-left: 1000px;
+            vertical-align: middle;
+        }
     </style>
 
     <canvas id="particles"></canvas>
@@ -640,18 +646,21 @@
             </div>
             <div class="footer-column">
                 <h3>Links Rápidos</h3>
-                <a href="#">Cursos</a>
-                <a href="#">Candidatos</a>
-                <a href="#">Contacto</a>
+                <a href="{{ url('courses') }}">Cursos</a>
+                <a href="{{ url('info') }}">Candidatos</a>
+                <a href="{{ url('contact') }}">Contacto</a>
                 <a href="#">Eventos</a>
             </div>
         </div>
         <div class="copyright">
             &copy; 2025 ISTP - Todos os direitos reservados.
+            <a href="https://www.livroreclamacoes.pt" target="_blank" class="complaint-book">
+                <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações" style="width: 150px; height: auto;">
+            </a>
         </div>
     </footer>
 
-    
+
 
     <script>
         const track = document.querySelector('.carousel-track');
