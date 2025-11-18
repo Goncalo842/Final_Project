@@ -649,9 +649,6 @@
                 <a href="{{ url('courses') }}">Cursos</a>
                 <a href="{{ url('info') }}">Candidatos</a>
                 <a href="{{ url('contact') }}">Contacto</a>
-                <a href="{{ url('courses') }}">Cursos</a>
-                <a href="{{ url('info') }}">Candidatos</a>
-
                 <a href="#">Eventos</a>
             </div>
         </div>
