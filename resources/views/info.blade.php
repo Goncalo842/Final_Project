@@ -291,6 +291,7 @@
             padding: 4rem 5% 2rem;
             color: var(--text-dark);
             border-top: 1px solid #ddd;
+            position: relative;
         }
 
         .footer-container {
@@ -325,16 +326,11 @@
             background-color: var(--primary-color);
         }
 
-        .footer-column p {
+        .footer-column p,
+        .footer-column a {
             margin-bottom: 1rem;
             color: var(--text-dark);
             line-height: 1.6;
-        }
-
-        .footer-column a {
-            margin-bottom: 1rem;
-            display: block;
-            color: var(--text-dark);
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -351,7 +347,19 @@
             border-top: 1px solid #ddd;
             color: #777;
             font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
         }
+
+        .complaint-book {
+            position: absolute;
+            right: 5%;
+            bottom: 20px;
+            display: inline-block;
+        }
+
 
         @media (max-width: 768px) {
             .footer-container {
@@ -595,13 +603,14 @@
                 <a href="#">Eventos</a>
             </div>
         </div>
-            <div class="copyright">
-                &copy; 2025 ISTP - Todos os direitos reservados.
-                <a href="https://www.livroreclamacoes.pt" target="_blank" class="complaint-book">
-                    <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações" style="width: 150px; height: auto;">
-                </a>
-            </div>
-        </footer>
+        <div class="copyright">
+            <span>&copy; 2025 ISTP - Todos os direitos reservados.</span>
+            <a href="https://www.livroreclamacoes.pt" target="_blank" class="complaint-book">
+                <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações"
+                    style="width: 150px; height: auto;">
+            </a>
+        </div>
+    </footer>
 
     <script>
         const canvas = document.getElementById("particles");

@@ -204,6 +204,7 @@
             padding: 4rem 5% 2rem;
             color: var(--text-dark);
             border-top: 1px solid #ddd;
+            position: relative;
         }
 
         .footer-container {
@@ -238,16 +239,11 @@
             background-color: var(--primary-color);
         }
 
-        .footer-column p {
+        .footer-column p,
+        .footer-column a {
             margin-bottom: 1rem;
             color: var(--text-dark);
             line-height: 1.6;
-        }
-
-        .footer-column a {
-            margin-bottom: 1rem;
-            display: block;
-            color: var(--text-dark);
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -264,7 +260,19 @@
             border-top: 1px solid #ddd;
             color: #777;
             font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
         }
+
+        .complaint-book {
+            position: absolute;
+            right: 5%;
+            bottom: 20px;
+            display: inline-block;
+        }
+
 
         .social-icons-wrapper {
             display: flex;
@@ -454,12 +462,6 @@
         .review-stars i {
             margin: 0 2px;
             font-size: 1.1rem;
-        }
-
-        .complaint-book {
-            display: inline-block;
-            margin-left: 1000px;
-            vertical-align: middle;
         }
     </style>
 
@@ -653,9 +655,10 @@
             </div>
         </div>
         <div class="copyright">
-            &copy; 2025 ISTP - Todos os direitos reservados.
+            <span>&copy; 2025 ISTP - Todos os direitos reservados.</span>
             <a href="https://www.livroreclamacoes.pt" target="_blank" class="complaint-book">
-                <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações" style="width: 150px; height: auto;">
+                <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações"
+                    style="width: 150px; height: auto;">
             </a>
         </div>
     </footer>
