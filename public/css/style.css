@@ -360,7 +360,6 @@ a {
     initial-value: -45deg;
 }
 
-/* n8n-chat-widget.css – estilos básicos do widget genérico */
 #n8n-chat-toggle {
     position: fixed;
     right: 20px;
@@ -494,7 +493,6 @@ a {
     font-size: 13px;
 }
 
-/* Mobile fullscreen */
 @media (max-width: 768px) {
     #n8n-chat-container.n8n-mobile {
         top: 0;

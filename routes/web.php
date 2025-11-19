@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FaltaController;
+use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LetterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\PagamentoController;
-use App\Http\Controllers\SaldoController;
-
 
 Route::get('', [UserController::class, 'welcome'])->name('welcome');
 Route::get('/info', [UserController::class, 'info'])->name('info');
@@ -54,6 +54,11 @@ Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('u
 
 Route::get('/staionery', [SettingsController::class, 'staionery'])->name('staionery');
 Route::get('/drink', [SettingsController::class, 'drink'])->name('drink');
+
+Route::get('/food', [LetterController::class, 'letter'])->name('letter');
+Route::get('/letter/create', [LetterController::class, 'create'])->name('letter.create');
+Route::post('/letter/store', [LetterController::class, 'store'])->name('letter.store');
+Route::get('/letter/{id}', [LetterController::class, 'show'])->name('letter.show');
 
 Route::get('/sproducts', [SettingsController::class, 'products'])->name('products');
 Route::get('/saldo/recarregar', [SaldoController::class, 'saldo'])->name('saldo.recarregar');
