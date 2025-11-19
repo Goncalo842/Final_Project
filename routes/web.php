@@ -63,6 +63,7 @@ Route::get('/letter/{id}', [LetterController::class, 'show'])->name('letter.show
 Route::get('/sproducts', [SettingsController::class, 'products'])->name('products');
 Route::get('/saldo/recarregar', [SaldoController::class, 'saldo'])->name('saldo.recarregar');
 Route::post('/saldo/recarregar', [SaldoController::class, 'recarregar'])->name('saldo.recarregar');
+Route::post('/produto/adquirir/{id}', [SaldoController::class, 'adquirir'])->name('produto.adquirir');
 
 Route::fallback(function() {
     return view('fallback');

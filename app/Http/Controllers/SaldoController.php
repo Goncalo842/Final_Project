@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Letter;
 
 class SaldoController extends Controller
 {
@@ -23,5 +25,20 @@ class SaldoController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Recarga de R$ ' . number_format($valor, 2, ',', '.') . ' realizada com sucesso!');
+    }
+
+    public function adquirir($id)
+    {
+        $produto = Letter::findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->saldo < $produto->preco) {
+            return redirect()->back()->with('error', 'Saldo insuficiente para adquirir este produto.');
+        }
+
+        $user->saldo -= $produto->preco;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Produto adquirido com sucesso!');
     }
 }

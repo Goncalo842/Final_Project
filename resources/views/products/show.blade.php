@@ -350,7 +350,7 @@
     <div class="luxury-container">
         <main>
             <section class="luxury-product animate-in delay-1">
-                <!-- Botão de voltar premium -->
+
                 <a href="javascript:void(0);" class="back-button" onclick="history.back();">
                     <i class="fas fa-arrow-left"></i> Voltar
                 </a>
@@ -370,10 +370,12 @@
                         <div class="price-container">
                             <span class="current-price">€{{ $produto->preco }}</span>
                         </div>
-
-                        <a href="#" class="purchase-button">
-                            <i class="fas fa-lock"></i> Adquirir Agora
-                        </a>
+                        <form method="POST" action="{{ route('produto.adquirir', $produto->id) }}">
+                            @csrf
+                            <button type="submit" class="purchase-button">
+                                <i class="fas fa-lock"></i> Adquirir Agora
+                            </button>
+                        </form>
                     </div>
                 </div>
             </section>
