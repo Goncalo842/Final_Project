@@ -28,7 +28,7 @@
                     <a href="{{ route('pay') }}">Pagamento</a>
                 @endif
             @endauth
-            <a href="{{ url('staionery') }}">Papelaria</a>
+            <a href="{{ url('staionery') }}">Loja</a>
             <a href="{{ url('grade') }}">Avaliações</a>
         </nav>
 

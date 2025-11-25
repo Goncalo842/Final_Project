@@ -29,7 +29,8 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text);
             background: var(--light-bg);
-            -webkit-font-smoothing: antialiased
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         a {
@@ -39,20 +40,36 @@
 
         .hero {
             position: relative;
-            min-height: 72vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
-            background-image: url('{{ asset('images/hero.png') }}');
+            background-image: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            background-attachment: fixed;
             padding: 56px 0;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(0, 0, 0, 0.7) 100%
+            );
+            z-index: 1;
         }
 
         .hero-overlay {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, rgba(8, 12, 15, 0.55) 0%, rgba(8, 12, 15, 0.25) 40%, rgba(255, 255, 255, 0.02) 100%);
             position: absolute;
             left: 0;
             top: 0;
@@ -76,18 +93,20 @@
         }
 
         .hero h1 {
-            font-size: 42px;
+            font-size: 3.5rem;
             line-height: 1.05;
             margin-bottom: 18px;
             font-weight: 800;
             text-shadow: 0 6px 30px rgba(0, 0, 0, 0.45);
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero p {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
+            font-size: 1.2rem;
             margin-bottom: 22px;
             max-width: 520px;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
 
         .btn-cta {
@@ -96,16 +115,18 @@
             gap: 12px;
             background: linear-gradient(180deg, var(--orange-500), var(--orange-600));
             color: white;
-            padding: 12px 20px;
-            border-radius: 10px;
+            padding: 16px 28px;
+            border-radius: 12px;
             font-weight: 700;
+            font-size: 1.1rem;
             box-shadow: 0 8px 30px rgba(208, 106, 9, 0.25);
             border: none;
             transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.4s both;
         }
 
         .btn-cta:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 12px 35px rgba(208, 106, 9, 0.35);
         }
 
@@ -114,6 +135,7 @@
             justify-content: center;
             align-items: flex-end;
             position: relative;
+            animation: float 6s ease-in-out infinite;
         }
 
         .hero .bottle img {
@@ -124,6 +146,7 @@
             border-radius: 18px;
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
             transition: transform 0.3s ease;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
         }
 
         .hero .bottle img:hover {
@@ -138,44 +161,58 @@
             gap: 18px;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 3;
         }
 
         .feature {
             flex: 1;
             text-align: center;
-            background: white;
-            padding: 18px;
-            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 28px 18px;
+            border-radius: 16px;
             box-shadow: var(--card-shadow);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .feature:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
 
         .feature .icon {
-            width: 72px;
-            height: 72px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background: var(--orange-400);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 800;
             box-shadow: 0 8px 20px rgba(240, 122, 26, 0.18);
+            margin-bottom: 10px;
+        }
+
+        .feature h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
         }
 
         .feature small {
-            font-size: 13px;
+            font-size: 0.9rem;
             color: #666;
-            margin-top: 6px
+            margin-top: 6px;
+            line-height: 1.4;
         }
 
         .shop {
@@ -186,14 +223,29 @@
 
         .shop-header {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 48px;
         }
 
         .shop-header h2 {
-            font-size: 20px;
-            color: #444;
-            font-weight: 700;
-            letter-spacing: 0.06em
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .shop-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--orange-500);
+            border-radius: 2px;
         }
 
         .tabs {
@@ -229,26 +281,38 @@
         .products {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
+            gap: 28px;
             margin-top: 28px;
         }
 
         .card {
             background: white;
-            border-radius: 14px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 24px;
             box-shadow: var(--card-shadow);
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             transition: all 0.3s ease;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--orange-400), var(--orange-600));
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
         .card .img-wrap {
@@ -259,18 +323,19 @@
             justify-content: center;
             border-radius: 12px;
             background: linear-gradient(180deg, rgba(240, 122, 26, 0.04), rgba(240, 122, 26, 0.01));
-            overflow: hidden
+            overflow: hidden;
+            padding: 20px;
         }
 
         .card .img-wrap img {
             max-width: 160px;
             max-height: 160px;
             display: block;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
         }
 
         .card:hover .img-wrap img {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         .tag {
@@ -280,30 +345,33 @@
             background: var(--orange-600);
             color: white;
             font-size: 12px;
-            padding: 6px 10px;
+            padding: 6px 12px;
             border-radius: 999px;
             font-weight: 700;
-            box-shadow: 0 6px 20px rgba(208, 106, 9, 0.18)
+            box-shadow: 0 6px 20px rgba(208, 106, 9, 0.18);
+            z-index: 2;
         }
 
         .card h3 {
-            font-size: 16px;
+            font-size: 1.3rem;
             font-weight: 800;
             color: #222;
-            margin-top: 6px
+            margin-top: 6px;
+            text-align: center;
         }
 
         .card p.desc {
-            font-size: 13px;
+            font-size: 0.95rem;
             color: #666;
             text-align: center;
-            margin: 0 8px
+            margin: 0 8px;
+            line-height: 1.5;
         }
 
         .price {
             font-weight: 800;
             margin-top: 6px;
-            font-size: 18px;
+            font-size: 1.4rem;
             color: var(--orange-600);
         }
 
@@ -331,7 +399,7 @@
         }
 
         .btn-add {
-            padding: 10px 18px;
+            padding: 12px 20px;
             border-radius: 10px;
             border: none;
             background: var(--orange-500);
@@ -350,7 +418,7 @@
         }
 
         .btn-view {
-            padding: 10px 18px;
+            padding: 12px 20px;
             border-radius: 10px;
             border: 1px solid var(--orange-500);
             background: transparent;
@@ -365,51 +433,6 @@
             background: var(--orange-500);
             color: white;
             transform: translateY(-2px);
-        }
-
-        @media (max-width: 1100px) {
-            .hero .container {
-                grid-template-columns: 1fr 340px
-            }
-
-            .products {
-                grid-template-columns: repeat(2, 1fr)
-            }
-        }
-
-        @media (max-width: 760px) {
-            .hero {
-                min-height: 60vh
-            }
-
-            .hero .container {
-                grid-template-columns: 1fr;
-                padding: 32px
-            }
-
-            .features {
-                flex-direction: column;
-                margin: 8px auto
-            }
-
-            .products {
-                grid-template-columns: 1fr;
-                gap: 16px
-            }
-
-            .hero h1 {
-                font-size: 28px
-            }
-
-            .hero p {
-                font-size: 14px
-            }
-        }
-
-        .muted-note {
-            font-size: 12px;
-            color: #777;
-            margin-top: 8px
         }
 
         .category-tabs {
@@ -431,10 +454,99 @@
             transition: all 0.3s ease;
         }
 
-        .category-btn:hover {
+        .category-btn:hover, .category-btn.active {
             background: var(--orange-400);
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(240, 122, 26, 0.2);
+        }
+
+        .category-btn.active {
+            background: var(--orange-500);
+            border-color: var(--orange-500);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .hero .container {
+                grid-template-columns: 1fr 340px
+            }
+
+            .products {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width: 760px) {
+            .hero {
+                min-height: 70vh;
+                background-attachment: scroll;
+            }
+
+            .hero .container {
+                grid-template-columns: 1fr;
+                padding: 32px;
+                text-align: center;
+            }
+
+            .features {
+                flex-direction: column;
+                margin: 8px auto;
+                gap: 20px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+                gap: 20px
+            }
+
+            .hero h1 {
+                font-size: 2.2rem
+            }
+
+            .hero p {
+                font-size: 1rem
+            }
+
+            .hero .bottle {
+                margin-top: 20px;
+            }
+
+            .hero .bottle img {
+                width: 280px;
+            }
+
+            .shop-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        .muted-note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 8px
         }
     </style>
 
@@ -446,15 +558,18 @@
         <div class="container">
             <div class="left">
                 <div
-                    style="display:inline-block;background:var(--accent);padding:8px 12px;border-radius:999px;margin-bottom:12px;color:var(--orange-600);font-weight:800;font-size:13px">
-                    PREMIUM QUALITY</div>
+                    style="display:inline-block;background:var(--accent);padding:8px 16px;border-radius:999px;margin-bottom:20px;color:var(--orange-600);font-weight:800;font-size:14px;border: 1px solid rgba(240, 122, 26, 0.2);">
+                    PREMIUM QUALITY
+                </div>
                 <h1>Canetas de escrita suave que inspiram criatividade</h1>
                 <p>Descubra nossa seleção premium de canetas - designs ergonômicos, tinta de fluxo contínuo e estilo incomparável para cada momento de escrita.</p>
 
-                <div style="display:flex;gap:12px;align-items:center;margin-top:20px">
+                <div style="display:flex;gap:15px;align-items:center;margin-top:30px;flex-wrap: wrap;">
                     <a href="{{ route('products') }}" class="btn-cta">COMPRAR AGORA</a>
                     <a href="{{ route('products') }}"
-                        style="padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.12);color:white;font-weight:700;border:1px solid rgba(255,255,255,0.06);transition:all 0.3s ease;">Explorar</a>
+                        style="padding:14px 20px;border-radius:10px;background:rgba(255,255,255,0.15);color:white;font-weight:700;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;backdrop-filter: blur(5px);">
+                        Explorar Coleção
+                    </a>
                 </div>
 
             </div>
@@ -465,14 +580,32 @@
         </div>
     </section>
 
+    <section class="features" aria-label="Features">
+        <div class="feature">
+            <div class="icon">✓</div>
+            <h3>Qualidade Premium</h3>
+            <small>Materiais de alta durabilidade e acabamento impecável</small>
+        </div>
+        <div class="feature">
+            <div class="icon">✓</div>
+            <h3>Escrita Suave</h3>
+            <small>Ponta de precisão para uma experiência de escrita única</small>
+        </div>
+        <div class="feature">
+            <div class="icon">✓</div>
+            <h3>Presente Perfeito</h3>
+            <small>Embalagem elegante ideal para presentear</small>
+        </div>
+    </section>
+
     <section class="shop" aria-label="Shop">
         <div class="shop-header">
             <h2>Nossas Canetas</h2>
             <div class="category-tabs">
-                <button class="category-btn" onclick="filterProducts('all')">Todas</button>
-                <button class="category-btn" onclick="filterProducts('e')">Papelaria</button>
-                <button class="category-btn" onclick="filterProducts('premium')">Bufete</button>
-                <button class="category-btn" onclick="filterProducts('gift')">Impressão</button>
+                <button class="category-btn active" onclick="filterProducts('all')">Todas</button>
+                <button class="category-btn" onclick="filterProducts('executive')">Papelaria</button>
+                <button class="category-btn" onclick="filterProducts('premium')">Impressões</button>
+                <button class="category-btn" onclick="filterProducts('gift')">Comida</button>
             </div>
         </div>
 
@@ -486,7 +619,7 @@
                     <p class="desc">Design ergonômico, tinta de fluxo contínuo, acabamento em aço inoxidável - perfeita para reuniões</p>
                 </div>
                 <div class="actions">
-                    <a href="{{ route('letter') }}" class="category-btn">Ver detalhes</a>
+                    <a href="{{ route('letter') }}" class="btn-view">Ver detalhes</a>
                 </div>
             </article>
 
@@ -500,7 +633,7 @@
                     <p class="desc">Conjunto com 3 canetas premium em estojo de madeira - ideal para presentear</p>
                 </div>
                 <div class="actions">
-                    <a href="{{ route('letter') }}" class="category-btn">Ver detalhes</a>
+                    <a href="{{ route('letter') }}" class="btn-view">Ver detalhes</a>
                 </div>
             </article>
 
@@ -513,7 +646,7 @@
                     <p class="desc">Edição limitada com detalhes em ouro 18k, madeira nobre e mecanismo suíço</p>
                 </div>
                 <div class="actions">
-                    <a href="{{ route('letter') }}" class="category-btn">Ver detalhes</a>
+                    <a href="{{ route('letter') }}" class="btn-view">Ver detalhes</a>
                 </div>
             </article>
         </div>
@@ -603,6 +736,18 @@ window.addEventListener('load', () => {
 
 function filterProducts(category) {
     const products = document.querySelectorAll('.card');
+    const buttons = document.querySelectorAll('.category-btn');
+
+    // Update active button
+    buttons.forEach(btn => {
+        if (btn.textContent.toLowerCase().includes(category) || (category === 'all' && btn.textContent.toLowerCase().includes('todas'))) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    // Filter products
     products.forEach(product => {
         if (category === 'all' || product.dataset.category === category) {
             product.style.display = 'flex';

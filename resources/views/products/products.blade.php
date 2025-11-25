@@ -458,9 +458,9 @@
 
                     <div class="pricing-section">
                         <div class="price-container">
-                            <span class="original-price">€499,00</span>
-                            <span class="current-price">€399,00</span>
-                            <span class="discount-badge">Poupa 20%</span>
+                            <span class="original-price">€5,00</span>
+                            <span class="current-price">€2,99</span>
+                            <span class="discount-badge">Poupa 40%</span>
                         </div>
 
                         <a href="#" class="purchase-button">

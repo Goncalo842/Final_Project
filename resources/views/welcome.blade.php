@@ -34,13 +34,17 @@
             background-position: 0% 50%;
             padding: 22%;
             text-align: center;
-            color: white;
+            color: rgb(255, 255, 255);
         }
 
         .banner h1 {
-            font-size: 48px;
+            font-size: 50px;
             margin: 0;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            font-weight: 900;
+            text-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.7),
+        6px 6px 10px rgba(0, 0, 0, 0.5),
+        0px 0px 15px rgba(0, 0, 0, 0.3);
         }
 
         .banner p {
@@ -164,7 +168,7 @@
 
         .spline-banner-bg spline-viewer {
             width: 100%;
-            height: 100%;
+            height: 105%;
         }
 
         .stats-section {
@@ -272,7 +276,6 @@
             bottom: 20px;
             display: inline-block;
         }
-
 
         .social-icons-wrapper {
             display: flex;
