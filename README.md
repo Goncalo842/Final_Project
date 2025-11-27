@@ -1,5 +1,12 @@
 # ISTP - University Platform
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Final project developed with Laravel, featuring a full web application built using modern PHP frameworks and the MVC architecture.
+
+This project includes robust functionality, a well-structured organization, and follows best practices from the Laravel ecosystem.
+
+
 ## Features
 - 🔐 Authentication system with role-based access control
 - 👤 User profile management
