@@ -1,11 +1,26 @@
 # ISTP - University Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PHP Version](https://img.shields.io/badge/PHP-8.0+-blue.svg)](https://www.php.net/)
+[![Laravel Version](https://img.shields.io/badge/Laravel-10.x-red.svg)](https://laravel.com/)
 
 Final project developed with Laravel, featuring a full web application built using modern PHP frameworks and the MVC architecture.
 
 This project includes robust functionality, a well-structured organization, and follows best practices from the Laravel ecosystem.
 
+---
+
+## 🎯 Project Overview
+
+ISTP - University Platform is a comprehensive web application designed for managing university operations, including courses, users, and student interactions. The platform is built with Laravel and adheres to MVC architecture best practices.
+
+Key goals of the project:
+
+- Provide a secure and structured platform for university administration.
+- Offer students and professors a seamless experience with role-based access.
+- Integrate intelligent tools like a chatbot to enhance user support.
+
+---
 
 ## Features
 - 🔐 Authentication system with role-based access control
