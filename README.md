@@ -97,3 +97,17 @@ php artisan serve
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👥 Authors
+
+Academic project developed at **ISTEC** for the Final Project course.  
+
+---
+
+## 🙏 Acknowledgments
+
+- ISTEC faculty and staff 
+- Open-source community for the libraries and tools used in this project
+
