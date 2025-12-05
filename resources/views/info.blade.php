@@ -2,43 +2,15 @@
 @section('content')
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
     <style>
-        :root {
-            --primary-color: #f87808;
-            --primary-light: #ff9a3c;
-            --primary-dark: #9e5007;
-            --secondary-color: #0056b3;
-            --text-dark: #343a40;
-            --text-medium: #495057;
-            --text-light: #6c757d;
-            --light-bg: #f8fafc;
-            --white: #ffffff;
-            --gray-light: #e9ecef;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
-            --border-radius: 8px;
-            --transition: all 0.3s ease;
-        }
-
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--light-bg);
-            color: var(--text-dark);
-            line-height: 1.6;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-        }
-
-        canvas#particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
-            opacity: 0.8;
+            background: var(--gradient-accent);
+            background-size: 100% 100%;
+            color: black;
+            overflow-x: hidden;
         }
 
         .admission-hero {
@@ -285,141 +257,6 @@
                 font-size: 1rem;
             }
         }
-
-        footer {
-            background-color: #f5f5f5;
-            padding: 4rem 5% 2rem;
-            color: var(--text-dark);
-            border-top: 1px solid #ddd;
-            position: relative;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 3rem;
-        }
-
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .footer-column h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary-color);
-        }
-
-        .footer-column p,
-        .footer-column a {
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-            line-height: 1.6;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-column a:hover {
-            color: var(--primary-color);
-            transform: translateX(5px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #ddd;
-            color: #777;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .complaint-book {
-            position: absolute;
-            right: 5%;
-            bottom: 20px;
-            display: inline-block;
-        }
-
-
-        @media (max-width: 768px) {
-            .footer-container {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .footer-column {
-                min-width: 100%;
-            }
-
-            .footer-column h3 {
-                margin-bottom: 1rem;
-            }
-        }
-
-        .social-icons-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-
-        .social-icons-list {
-            display: inline-flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .social-icons-list .icon {
-            background: #ffffff;
-            border-radius: 50%;
-            padding: 12px;
-            margin: 8px;
-            width: 42px;
-            height: 42px;
-            font-size: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .social-icons-list .instagram:hover {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: #ffffff;
-        }
-
-        .social-icons-list .github:hover {
-            background: linear-gradient(45deg, #6e5494, #503873, #2b2a49);
-            color: #ffffff;
-        }
-
-        .social-icons-list .youtube:hover {
-            background: linear-gradient(45deg, #ff0000, #e62117, #cc0000);
-            color: #ffffff;
-        }
     </style>
 
     <canvas id="particles"></canvas>
@@ -496,7 +333,7 @@
                         <li>Efetue o pagamento da taxa de candidatura</li>
                         <li>Submeta a sua candidatura</li>
                     </ol>
-                    <a href="#" class="btn-primary">Aceder ao Portal de Candidaturas</a>
+                    <a href="{{ route('candidaturas.create') }}" class="btn-primary">Aceder ao Portal de Candidaturas</a>
                 </div>
             </div>
 

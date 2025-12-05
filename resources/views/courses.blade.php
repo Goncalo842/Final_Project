@@ -2,34 +2,18 @@
 @section('content')
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
     <style>
-        :root {
-            --primary: #df7c04;
-            --primary-color: #f87808;
-            --light-orange: #ff9a3c;
-            --light-gray: #f5f5f5;
-            --dark: #333333;
-            --white: #ffffff;
-        }
-
         body {
-            background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
+            height: 100%;
+            background: var(--gradient-accent);
+            background-size: 100% 100%;
+            animation: gradientAnimation 1s ease infinite;
+            color: black;
             overflow-x: hidden;
         }
-
-        canvas#particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
+        
         .content-wrapper {
             position: relative;
             z-index: 1;
@@ -199,141 +183,6 @@
             .section h3 {
                 font-size: 1.5rem;
             }
-        }
-
-        footer {
-            background-color: #f5f5f5;
-            padding: 4rem 5% 2rem;
-            color: var(--text-dark);
-            border-top: 1px solid #ddd;
-            position: relative;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 3rem;
-        }
-
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .footer-column h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary-color);
-        }
-
-        .footer-column p,
-        .footer-column a {
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-            line-height: 1.6;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-column a:hover {
-            color: var(--primary-color);
-            transform: translateX(5px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #ddd;
-            color: #777;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .complaint-book {
-            position: absolute;
-            right: 5%;
-            bottom: 20px;
-            display: inline-block;
-        }
-
-
-        @media (max-width: 768px) {
-            .footer-container {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .footer-column {
-                min-width: 100%;
-            }
-
-            .footer-column h3 {
-                margin-bottom: 1rem;
-            }
-        }
-
-        .social-icons-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-
-        .social-icons-list {
-            display: inline-flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .social-icons-list .icon {
-            background: #ffffff;
-            border-radius: 50%;
-            padding: 12px;
-            margin: 8px;
-            width: 42px;
-            height: 42px;
-            font-size: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .social-icons-list .instagram:hover {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: #ffffff;
-        }
-
-        .social-icons-list .github:hover {
-            background: linear-gradient(45deg, #6e5494, #503873, #2b2a49);
-            color: #ffffff;
-        }
-
-        .social-icons-list .youtube:hover {
-            background: linear-gradient(45deg, #ff0000, #e62117, #cc0000);
-            color: #ffffff;
         }
     </style>
 

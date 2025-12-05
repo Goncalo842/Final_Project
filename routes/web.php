@@ -2,19 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\FaltaController;
 use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\PagamentoController;
+use App\Http\Controllers\CandidaturaController;
 
 Route::get('', [UserController::class, 'welcome'])->name('welcome');
 Route::get('/info', [UserController::class, 'info'])->name('info');
 Route::get('/courses', [UserController::class, 'courses'])->name('courses');
 Route::get('/contact', [UserController::class, 'contact'])->name('contact');
+Route::get('/eventos', [EventController::class, 'index'])->name('eventos');
 
 Route::post('/login', [UserController::class, 'loginPost'])->name('login.post');
+
+Route::get('/candidaturas/create', [CandidaturaController::class, 'create'])->name('candidaturas.create');
+Route::post('/candidaturas', [CandidaturaController::class, 'store'])->name('candidaturas.store');
 
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'store'])->name('storeuser');

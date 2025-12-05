@@ -7,10 +7,33 @@
     cursor: url("http://www.rw-designer.com/cursor-extern.php?id=18678"), auto !important;
 }
 
-body {
-    font-family: "Montserrat", sans-serif;
-    color: #333333;
-    line-height: 1.5;
+:root {
+    --gradient-accent: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
+    --primary: #df7c04;
+    --primary-color: #f87808;
+    --light-orange: #ff9a3c;
+    --light-gray: #f5f5f5;
+    --primary-dark: #9e5007;
+    --text-dark: #343a40;
+    --dark: #333333;
+    --white: #ffffff;
+    --primary-light: #ff9a3c;
+    --text-medium: #495057;
+    --text-light: #6c757d;
+    --light-bg: #f8fafc;
+    --gray-light: #e9ecef;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+canvas#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 a {
@@ -546,7 +569,7 @@ footer {
 }
 
 .footer-column h3::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -620,7 +643,14 @@ footer {
 }
 
 .social-icons-list .instagram:hover {
-    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    background: linear-gradient(
+        45deg,
+        #f09433,
+        #e6683c,
+        #dc2743,
+        #cc2366,
+        #bc1888
+    );
     color: #ffffff;
 }
 

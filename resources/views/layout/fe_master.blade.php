@@ -10,8 +10,8 @@
 </head>
 <div class="container topbar-container d-flex justify-content-between align-items-center py-3">
     <div class="logo">
-        <img src="images/imagem2.jpeg" alt="ISTP Logo" style="height: 80px;">
-    </div>
+    <img src="{{ asset('images/imagem2.jpeg') }}" alt="ISTP Logo" style="height: 80px;">
+</div>
 
     <nav class="nav-center d-flex gap-3">
         <a href="{{ url('/') }}">Sobre</a>
