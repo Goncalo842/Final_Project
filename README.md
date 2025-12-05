@@ -72,3 +72,4 @@ Start the Laravel development server:
 ```bash
 php artisan serve
 ```
+
