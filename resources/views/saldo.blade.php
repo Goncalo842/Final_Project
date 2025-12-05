@@ -55,7 +55,6 @@
             align-items: start;
         }
 
-        /* Left Side - Saldo */
         .left-panel {
             display: flex;
             flex-direction: column;
@@ -150,7 +149,6 @@
             margin-top: 15px;
         }
 
-        /* Right Side - Pagamento */
         .right-panel {
             display: flex;
             flex-direction: column;
@@ -478,7 +476,6 @@
             animation: pulse 2s infinite;
         }
 
-        /* Loading animation for buttons */
         .loading {
             position: relative;
             pointer-events: none;
@@ -574,7 +571,6 @@
     <canvas id="particles"></canvas>
 
     <div class="dashboard-container">
-        <!-- Left Side - Saldo -->
         <div class="left-panel">
             <div class="saldo-box">
                 <h1>Saldo Atual</h1>
@@ -583,7 +579,6 @@
             </div>
         </div>
 
-        <!-- Right Side - Pagamento -->
         <div class="right-panel">
             <div class="payment-methods">
                 <h2>Escolha um Método de Pagamento</h2>
@@ -739,16 +734,13 @@
             let selectedMethod = null;
             let selectedAmount = null;
 
-            // Add visual feedback for selected payment method
             paymentOptions.forEach(option => {
                 option.addEventListener('click', function() {
-                    // Remove selection from all options
                     paymentOptions.forEach(opt => {
                         opt.style.borderColor = 'transparent';
                         opt.style.background = 'rgba(255, 255, 255, 0.7)';
                     });
 
-                    // Add selection to clicked option
                     this.style.borderColor = 'var(--primary-light)';
                     this.style.background = 'rgba(255, 255, 255, 0.9)';
 
@@ -761,7 +753,6 @@
                     customAmountInput.value = '';
                     selectedAmount = null;
 
-                    // Update button state
                     updateConfirmButton();
                 });
             });
