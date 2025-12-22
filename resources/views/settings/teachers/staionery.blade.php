@@ -1,630 +1,808 @@
 @extends('layout.fe_settings')
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <style>
         :root {
-            --orange-600: #d86a09;
-            --orange-500: #f07a1a;
-            --orange-400: #ff9a3c;
-            --light-bg: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
-            --text: #222;
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --glass: rgba(255, 255, 255, 0.7);
-            --accent: rgba(240, 122, 26, 0.12);
+            --primary: #df7c04;
+            --primary-dark: #c46d03;
+            --primary-light: #e88b1a;
+            --accent: rgba(223, 124, 4, 0.1);
+            --orange-600: #c46d03;
+            --orange-400: #e88b1a;
+            --gold: linear-gradient(135deg, #df7c04 0%, #c46d03 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 12px 32px rgba(223, 124, 4, 0.2);
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
-            padding: 0
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
+            color: #2d3748;
+            overflow-x: hidden;
         }
 
         canvas#particles {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: -1;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text);
-            background: var(--light-bg);
-            -webkit-font-smoothing: antialiased
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .hero {
             position: relative;
-            min-height: 72vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
-            background-image: url('{{ asset('images/hero.png') }}');
-            background-size: cover;
-            background-position: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-            padding: 56px 0;
+            padding: 60px 5%;
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.95) 0%,
+                    rgba(255, 255, 255, 0.95) 67%,
+                    rgba(223, 124, 4, 0.15) 67%,
+                    rgba(232, 139, 26, 0.15) 100%);
+            overflow: hidden;
         }
 
-        .hero-overlay {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(8, 12, 15, 0.55) 0%, rgba(8, 12, 15, 0.25) 40%, rgba(255, 255, 255, 0.02) 100%);
+        .hero::before {
+            content: '';
             position: absolute;
-            left: 0;
             top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            pointer-events: none;
         }
 
-        .hero .container {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            opacity: 0.6;
+        }
+
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 24px;
-            display: grid;
-            grid-template-columns: 1fr 480px;
-            gap: 2.5rem;
-            align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
-        .hero .left {
-            color: white;
-            max-width: 650px;
+        .left,
+        .right {
+            flex: 1;
+        }
+
+        .left {
+            padding-right: 50px;
         }
 
         .hero h1 {
-            font-size: 42px;
-            line-height: 1.05;
-            margin-bottom: 18px;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
-            text-shadow: 0 6px 30px rgba(0, 0, 0, 0.45);
+            color: #2d3748;
+            margin: 20px 0;
+            line-height: 1.2;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        .hero p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
-            margin-bottom: 22px;
-            max-width: 520px;
-        }
-
-        .btn-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(180deg, var(--orange-500), var(--orange-600));
-            color: white;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-            box-shadow: 0 8px 30px rgba(208, 106, 9, 0.25);
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(208, 106, 9, 0.35);
-        }
-
-        .hero .bottle {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
+        .hero h1 .highlight {
+            color: var(--primary);
+            display: inline-block;
             position: relative;
         }
 
-        .hero .bottle img {
-            width: 360px;
-            max-width: 100%;
-            transform: translateY(10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            border-radius: 18px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-            transition: transform 0.3s ease;
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: rgba(223, 124, 4, 0.2);
+            z-index: -1;
+            border-radius: 5px;
         }
 
-        .hero .bottle img:hover {
-            transform: translateY(10px) scale(1.05);
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: #718096;
+            line-height: 1.8;
+            margin: 25px 0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            padding: 10px 20px;
+            border-radius: 999px;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(223, 124, 4, 0.3);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 1.2s ease-out;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .btn-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-cta:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn-cta:hover {
+            color: white;
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(223, 124, 4, 0.3);
+            border-color: var(--primary);
+        }
+
+        .btn-cta span {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .btn-secondary:hover {
+            gap: 12px;
+            color: var(--primary-dark);
+        }
+
+        .bottle {
+            position: relative;
+            animation: floatBottle 3s ease-in-out infinite;
+        }
+
+        .bottle img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(223, 124, 4, 0.2));
+        }
+
+        @keyframes floatBottle {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(2deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .features {
-            max-width: 1200px;
-            margin: -48px auto 48px;
-            padding: 28px 24px;
-            display: flex;
-            gap: 18px;
-            justify-content: space-between;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.5) 0%,
+                    rgba(223, 124, 4, 0.05) 100%);
+            border-radius: 30px;
         }
 
         .feature {
-            flex: 1;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 30px;
+            border-radius: 20px;
             text-align: center;
-            background: white;
-            padding: 18px;
-            border-radius: 14px;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            backdrop-filter: blur(10px);
         }
 
         .feature:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+            background: white;
         }
 
         .feature .icon {
-            width: 72px;
-            height: 72px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
             border-radius: 50%;
-            background: var(--orange-400);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 28px;
-            font-weight: 800;
-            box-shadow: 0 8px 20px rgba(240, 122, 26, 0.18);
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 16px rgba(223, 124, 4, 0.3);
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
 
         .feature small {
-            font-size: 13px;
-            color: #666;
-            margin-top: 6px
+            color: #718096;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .shop {
-            max-width: 1200px;
-            margin: 48px auto;
-            padding: 0 24px 80px;
+            padding: 80px 5% 100px;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .shop::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background:
+                linear-gradient(180deg,
+                    rgba(223, 124, 4, 0.03) 0%,
+                    transparent 100%);
+            pointer-events: none;
+            border-radius: 50px;
         }
 
         .shop-header {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
         }
 
         .shop-header h2 {
-            font-size: 20px;
-            color: #444;
-            font-weight: 700;
-            letter-spacing: 0.06em
-        }
-
-        .tabs {
-            display: flex;
-            gap: 18px;
-            justify-content: center;
-            margin-top: 10px
-        }
-
-        .tab {
-            padding: 8px 16px;
-            border-radius: 999px;
-            background: transparent;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            font-weight: 600;
-            color: #777;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tab:hover {
-            border-color: var(--orange-400);
-            color: var(--orange-500);
-        }
-
-        .tab.active {
-            background: transparent;
-            color: var(--orange-600);
-            border-color: rgba(240, 122, 26, 0.12);
-            box-shadow: 0 6px 20px rgba(240, 122, 26, 0.06)
-        }
-
-        .products {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-            margin-top: 28px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 20px;
-            box-shadow: var(--card-shadow);
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #2d3748;
+            margin-bottom: 30px;
+            font-weight: 800;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s ease;
+            display: inline-block;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .card .img-wrap {
-            width: 220px;
-            height: 220px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            background: linear-gradient(180deg, rgba(240, 122, 26, 0.04), rgba(240, 122, 26, 0.01));
-            overflow: hidden
-        }
-
-        .card .img-wrap img {
-            max-width: 160px;
-            max-height: 160px;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .img-wrap img {
-            transform: scale(1.1);
-        }
-
-        .tag {
+        .shop-header h2::after {
+            content: '';
             position: absolute;
-            top: 14px;
-            right: 14px;
-            background: var(--orange-600);
-            color: white;
-            font-size: 12px;
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-weight: 700;
-            box-shadow: 0 6px 20px rgba(208, 106, 9, 0.18)
-        }
-
-        .card h3 {
-            font-size: 16px;
-            font-weight: 800;
-            color: #222;
-            margin-top: 6px
-        }
-
-        .card p.desc {
-            font-size: 13px;
-            color: #666;
-            text-align: center;
-            margin: 0 8px
-        }
-
-        .price {
-            font-weight: 800;
-            margin-top: 6px;
-            font-size: 18px;
-            color: var(--orange-600);
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .btn-outline {
-            padding: 10px 14px;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
             border-radius: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            background: transparent;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-outline:hover:not(:disabled) {
-            border-color: var(--orange-400);
-            color: var(--orange-500);
-        }
-
-        .btn-add {
-            padding: 10px 18px;
-            border-radius: 10px;
-            border: none;
-            background: var(--orange-500);
-            color: white;
-            font-weight: 800;
-            box-shadow: 0 8px 30px rgba(240, 122, 26, 0.12);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .btn-add:hover {
-            background: var(--orange-600);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(240, 122, 26, 0.25);
-        }
-
-        .btn-view {
-            padding: 10px 18px;
-            border-radius: 10px;
-            border: 1px solid var(--orange-500);
-            background: transparent;
-            color: var(--orange-500);
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .btn-view:hover {
-            background: var(--orange-500);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 1100px) {
-            .hero .container {
-                grid-template-columns: 1fr 340px
-            }
-
-            .products {
-                grid-template-columns: repeat(2, 1fr)
-            }
-        }
-
-        @media (max-width: 760px) {
-            .hero {
-                min-height: 60vh
-            }
-
-            .hero .container {
-                grid-template-columns: 1fr;
-                padding: 32px
-            }
-
-            .features {
-                flex-direction: column;
-                margin: 8px auto
-            }
-
-            .products {
-                grid-template-columns: 1fr;
-                gap: 16px
-            }
-
-            .hero h1 {
-                font-size: 28px
-            }
-
-            .hero p {
-                font-size: 14px
-            }
-        }
-
-        .muted-note {
-            font-size: 12px;
-            color: #777;
-            margin-top: 8px
+            box-shadow: 0 2px 10px rgba(223, 124, 4, 0.3);
         }
 
         .category-tabs {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
             flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 40px;
         }
 
         .category-btn {
-            padding: 12px 24px;
-            border: 2px solid var(--orange-400);
-            background: transparent;
-            color: var(--orange-600);
-            border-radius: 25px;
-            font-weight: 700;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d3748;
+            border: 2px solid rgba(223, 124, 4, 0.2);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
         }
 
-        .category-btn:hover {
-            background: var(--orange-400);
+        .category-btn:hover,
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
+            border-color: var(--primary);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(223, 124, 4, 0.3);
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 2px solid rgba(223, 124, 4, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(223, 124, 4, 0.4);
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .img-wrap {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(223, 124, 4, 0.03), rgba(255, 255, 255, 0.5));
+        }
+
+        .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover .img-wrap img {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        .card>div:last-of-type {
+            padding: 30px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .desc {
+            color: #718096;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 12px 0 20px;
+            min-height: 48px;
+        }
+
+        .actions {
+            margin-top: 20px;
+        }
+
+        .btn-view {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(223, 124, 4, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-view::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-view:hover::before {
+            left: 100%;
+        }
+
+        .btn-view:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(223, 124, 4, 0.4);
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 5%;
+            }
+
+            .left {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                padding: 60px 5%;
+                gap: 25px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .category-tabs {
+                gap: 10px;
+            }
+
+            .category-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn-cta {
+                padding: 14px 30px;
+                font-size: 1rem;
+            }
+
+            .shop-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .card>div:last-of-type {
+                padding: 20px;
+            }
         }
     </style>
 
     <canvas id="particles"></canvas>
 
     <section class="hero" aria-label="Hero banner">
-        <div class="hero-overlay" aria-hidden="true"></div>
-
-        <div class="container">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
             <div class="left">
-                <div
-                    style="display:inline-block;background:var(--accent);padding:8px 12px;border-radius:999px;margin-bottom:12px;color:var(--orange-600);font-weight:800;font-size:13px">
-                    PREMIUM QUALITY</div>
-                <h1>Canetas de escrita suave que inspiram criatividade</h1>
-                <p>Descubra nossa seleção premium de canetas - designs ergonômicos, tinta de fluxo contínuo e estilo incomparável para cada momento de escrita.</p>
-
-                <div style="display:flex;gap:12px;align-items:center;margin-top:20px">
-                    <a href="{{ route('products') }}" class="btn-cta">COMPRAR AGORA</a>
-                    <a href="{{ route('products') }}"
-                        style="padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.12);color:white;font-weight:700;border:1px solid rgba(255,255,255,0.06);transition:all 0.3s ease;">Explorar</a>
+                <div class="premium-badge">
+                    <i class="fas fa-star"></i>
+                    <span>PREMIUM QUALITY</span>
                 </div>
-
+                <h1>Canetas de <span class="highlight">escrita suave</span> que inspiram criatividade</h1>
+                <p>Descubra nossa seleção premium de canetas - designs ergonômicos, tinta de fluxo contínuo e estilo
+                    incomparável para cada momento de escrita.</p>
+                <div style="display:flex;gap:15px;align-items:center;margin-top:35px;flex-wrap:wrap;">
+                    <a href="{{ route('products') }}" class="btn-cta">
+                        <span>
+                            <i class="fas fa-shopping-cart"></i>
+                            COMPRAR AGORA
+                        </span>
+                    </a>
+                    <a href="{{ route('products') }}" class="btn-secondary">
+                        <span>Explorar Coleção</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-
             <div class="bottle" aria-hidden="true">
-                <img src="{{ asset('images/caneta.png') }}" alt="Caneta premium">
+                <img src="{{ asset('images/caneta.png') }}" alt="Caneta premium" style="max-height:500px;">
             </div>
+        </div>
+    </section>
+
+    <section class="features" aria-label="Features">
+        <div class="feature">
+            <div class="icon"><i class="fas fa-check"></i></div>
+            <h3>Qualidade Premium</h3>
+            <small>Materiais de alta durabilidade e acabamento impecável</small>
+        </div>
+        <div class="feature">
+            <div class="icon"><i class="fas fa-pen-fancy"></i></div>
+            <h3>Escrita Suave</h3>
+            <small>Ponta de precisão para uma experiência de escrita única</small>
+        </div>
+        <div class="feature">
+            <div class="icon"><i class="fas fa-gift"></i></div>
+            <h3>Presente Perfeito</h3>
+            <small>Embalagem elegante ideal para presentear</small>
         </div>
     </section>
 
     <section class="shop" aria-label="Shop">
         <div class="shop-header">
-            <h2>Nossas Canetas</h2>
+            <h2>Nossa Coleção Exclusiva</h2>
             <div class="category-tabs">
-                <button class="category-btn" onclick="filterProducts('all')">Todas</button>
-                <button class="category-btn" onclick="filterProducts('e')">Papelaria</button>
-                <button class="category-btn" onclick="filterProducts('premium')">Bufete</button>
-                <button class="category-btn" onclick="filterProducts('gift')">Impressão</button>
+                <button class="category-btn active" onclick="filterProducts('all')">
+                    <i class="fas fa-th"></i>
+                    <span>Todos</span>
+                </button>
+                <button class="category-btn" onclick="filterProducts('executive')">
+                    <i class="fas fa-book"></i>
+                    <span>Papelaria</span>
+                </button>
+                <button class="category-btn" onclick="filterProducts('premium')">
+                    <i class="fas fa-print"></i>
+                    <span>Impressões</span>
+                </button>
+                <button class="category-btn" onclick="filterProducts('gift')">
+                    <i class="fas fa-utensils"></i>
+                    <span>Comida</span>
+                </button>
             </div>
         </div>
 
         <div class="products" role="list">
-            <article class="card" role="listitem" aria-label="Caneta Executiva" data-category="executive">
+            <article class="card" role="listitem" data-category="executive">
                 <div class="img-wrap">
                     <img src="{{ asset('images/caneta.png') }}" alt="Caneta Executiva">
                 </div>
                 <div style="text-align:center;width:100%">
                     <h3>Caneta Executiva Premium</h3>
-                    <p class="desc">Design ergonômico, tinta de fluxo contínuo, acabamento em aço inoxidável - perfeita para reuniões</p>
+                    <p class="desc">Design ergonômico, tinta de fluxo contínuo, acabamento em aço inoxidável</p>
                 </div>
                 <div class="actions">
-                    <a href="{{ route('letter') }}" class="category-btn">Ver detalhes</a>
+                    <a href="{{ route('letter') }}" class="btn-view">
+                        <span>Ver detalhes</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </article>
 
-            <article class="card" role="listitem" aria-label="Kit Presente" data-category="gift">
-                <div class="tag">MAIS VENDIDO</div>
+            <article class="card" role="listitem" data-category="gift">
+                <div class="tag">
+                    <i class="fas fa-fire"></i>
+                    <span>MAIS VENDIDO</span>
+                </div>
                 <div class="img-wrap">
-                    <img src="{{ asset('images/prato.png') }}" alt="Kit de Canetas Presente">
+                    <img src="{{ asset('images/prato.png') }}" alt="Kit Presente">
                 </div>
                 <div style="text-align:center;width:100%">
                     <h3>Kit Presente Elegance</h3>
-                    <p class="desc">Conjunto com 3 canetas premium em estojo de madeira - ideal para presentear</p>
+                    <p class="desc">Conjunto com 3 canetas premium em estojo de madeira</p>
                 </div>
                 <div class="actions">
-                    <a href="{{ route('letter') }}" class="category-btn">Ver detalhes</a>
+                    <a href="{{ route('letter') }}" class="btn-view">
+                        <span>Ver detalhes</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </article>
 
-            <article class="card" role="listitem" aria-label="Caneta Signature" data-category="premium">
+            <article class="card" role="listitem" data-category="premium">
                 <div class="img-wrap">
                     <img src="{{ asset('images/impressora.png') }}" alt="Caneta Signature">
                 </div>
                 <div style="text-align:center;width:100%">
                     <h3>Caneta Signature Edition</h3>
-                    <p class="desc">Edição limitada com detalhes em ouro 18k, madeira nobre e mecanismo suíço</p>
+                    <p class="desc">Edição limitada com detalhes em ouro 18k e mecanismo suíço</p>
                 </div>
                 <div class="actions">
-                    <a href="{{ route('letter') }}" class="category-btn">Ver detalhes</a>
+                    <a href="{{ route('letter') }}" class="btn-view">
+                        <span>Ver detalhes</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </article>
         </div>
     </section>
 
-<script>
-window.addEventListener('load', () => {
-    const canvas = document.getElementById("particles");
-    const ctx = canvas.getContext("2d");
+    <script>
+        window.addEventListener('load', () => {
+            const canvas = document.getElementById("particles");
+            const ctx = canvas.getContext("2d");
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
 
-    const particles = [];
-    const totalParticles = 80;
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
 
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 1.5;
-            this.vy = (Math.random() - 0.5) * 1.5;
-            this.radius = 3;
-        }
+            const particles = [];
+            const totalParticles = 80;
 
-        move() {
-            this.x += this.vx;
-            this.y += this.vy;
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 1.5;
+                    this.vy = (Math.random() - 0.5) * 1.5;
+                    this.radius = 3;
+                }
 
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-        }
+                move() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
 
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-        }
-    }
-
-    function connectParticles() {
-        for (let i = 0; i < totalParticles; i++) {
-            for (let j = i + 1; j < totalParticles; j++) {
-                let dx = particles[i].x - particles[j].x;
-                let dy = particles[i].y - particles[j].y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 150) {
+                draw() {
                     ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance/150})`;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+                    ctx.fill();
                 }
             }
-        }
-    }
 
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < totalParticles; i++) {
+                particles.push(new Particle());
+            }
 
-        particles.forEach(p => {
-            p.move();
-            p.draw();
+            function connectParticles() {
+                for (let a = 0; a < totalParticles; a++) {
+                    for (let b = a + 1; b < totalParticles; b++) {
+                        let dx = particles[a].x - particles[b].x;
+                        let dy = particles[a].y - particles[b].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.3 * (1 - distance / 150)})`;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let p of particles) {
+                    p.move();
+                    p.draw();
+                }
+                connectParticles();
+                requestAnimationFrame(animate);
+            }
+
+            animate();
         });
 
-        connectParticles();
+        function filterProducts(category) {
+            const cards = document.querySelectorAll('.card');
+            const buttons = document.querySelectorAll('.category-btn');
 
-        requestAnimationFrame(animate);
-    }
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.category-btn').classList.add('active');
 
-    function initParticles() {
-        for (let i = 0; i < totalParticles; i++) {
-            particles.push(new Particle());
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInUp 0.6s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
-        animate();
-    }
-
-    initParticles();
-});
-
-function filterProducts(category) {
-    const products = document.querySelectorAll('.card');
-    products.forEach(product => {
-        if (category === 'all' || product.dataset.category === category) {
-            product.style.display = 'flex';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-}
-
-function viewProduct(productId) {
-    window.location.href = `/products/${productId}`;
-}
-</script>
-
-<style>
-canvas#particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    pointer-events: none;
-}
-</style>
-
+    </script>
 @endsection

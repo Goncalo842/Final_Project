@@ -464,10 +464,10 @@
             </div>
             <div class="footer-column">
                 <h3>Links Rápidos</h3>
-                <a href="{{ url('courses') }}">Cursos</a>
-                <a href="{{ url('info') }}">Candidatos</a>
-                <a href="{{ url('contact') }}">Contacto</a>
-                <a href="#">Eventos</a>
+                <a href="{{ route('courses') }}">Cursos</a>
+                <a href="{{ route('info') }}">Candidatos</a>
+                <a href="{{ route('contact') }}">Contacto</a>
+                <a href="{{ route('eventos') }}">Eventos</a>
             </div>
         </div>
         <div class="copyright">

@@ -434,17 +434,16 @@
             </div>
             <div class="footer-column">
                 <h3>Links Rápidos</h3>
-                <a href="{{ url('courses') }}">Cursos</a>
-                <a href="{{ url('info') }}">Candidatos</a>
-                <a href="{{ url('contact') }}">Contacto</a>
-                <a href="#">Eventos</a>
+                <a href="{{ route('courses') }}">Cursos</a>
+                <a href="{{ route('info') }}">Candidatos</a>
+                <a href="{{ route('contact') }}">Contacto</a>
+                <a href="{{ route('eventos') }}">Eventos</a>
             </div>
         </div>
         <div class="copyright">
             <span>&copy; 2025 ISTP - Todos os direitos reservados.</span>
             <a href="https://www.livroreclamacoes.pt" target="_blank" class="complaint-book">
-                <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações"
-                    style="width: 150px; height: auto;">
+                <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações" style="width: 150px; height: auto;">
             </a>
         </div>
     </footer>

@@ -54,6 +54,8 @@ Route::post('/professor/faltas', [FaltaController::class, 'store']);
 
 Route::get('/pagamentos', [PagamentoController::class, 'pay'])->name('pay');
 Route::post('/pagamentos/finalizar', [PagamentoController::class, 'complete'])->name('complete');
+Route::get('/pagamentos/{mes}/comprovativo', [PagamentoController::class, 'downloadReceipt'])->name('pagamentos.receipt');
+Route::get('/documents/download', [SettingsController::class, 'downloadDocuments'])->name('documents.download');
 
 Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('user.edit');
 Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('user.update');
@@ -66,7 +68,7 @@ Route::get('/letter/create', [LetterController::class, 'create'])->name('letter.
 Route::post('/letter/store', [LetterController::class, 'store'])->name('letter.store');
 Route::get('/letter/{id}', [LetterController::class, 'show'])->name('letter.show');
 
-Route::get('/sproducts', [SettingsController::class, 'products'])->name('products');
+Route::get('/products', [SettingsController::class, 'products'])->name('products');
 Route::get('/saldo/recarregar', [SaldoController::class, 'saldo'])->name('saldo.recarregar');
 Route::post('/saldo/recarregar', [SaldoController::class, 'recarregar'])->name('saldo.recarregar');
 Route::post('/produto/adquirir/{id}', [SaldoController::class, 'adquirir'])->name('produto.adquirir');

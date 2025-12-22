@@ -8,7 +8,14 @@
 }
 
 :root {
-    --gradient-accent: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
+    --gradient-accent: linear-gradient(
+        135deg,
+        #e3e2e2,
+        #e3e2e2,
+        #c4c4c4,
+        #e3e2e2,
+        #e3e2e2
+    );
     --primary: #df7c04;
     --primary-color: #f87808;
     --light-orange: #ff9a3c;
