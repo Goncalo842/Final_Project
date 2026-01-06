@@ -6,7 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FaltaController;
 use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\LetterController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\CandidaturaController;
@@ -75,11 +75,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/saldo/recarregar', [SaldoController::class, 'recarregar'])->name('saldo.recarregar');
     Route::post('/produto/adquirir/{id}', [SaldoController::class, 'adquirir'])->name('produto.adquirir');
 
-    // Letters
-    Route::get('/food', [LetterController::class, 'letter'])->name('letter');
-    Route::get('/letter/create', [LetterController::class, 'create'])->name('letter.create');
-    Route::post('/letter/store', [LetterController::class, 'store'])->name('letter.store');
-    Route::get('/letter/{id}', [LetterController::class, 'show'])->name('letter.show');
+    // Stock
+    Route::get('/food', [StockController::class, 'letter'])->name('letter');
+    Route::get('/letter/create', [StockController::class, 'create'])->name('letter.create');
+    Route::post('/letter/store', [StockController::class, 'store'])->name('letter.store');
+    Route::get('/letter/{id}', [StockController::class, 'show'])->name('letter.show');
 });
 
 Route::fallback(function() {

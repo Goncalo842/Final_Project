@@ -312,7 +312,7 @@
                     </div>
                     <div class="contact-info">
                         <div class="info-label">Morada</div>
-                        <div class="info-value">4050-037 Porto, Portugal</div>
+                        <div class="info-value">Porto, Portugal</div>
                     </div>
                     <div class="contact-info">
                         <div class="info-label">Transportes</div>
