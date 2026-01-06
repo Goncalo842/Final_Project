@@ -37,15 +37,13 @@ class StockController extends Controller
             $imagemPath = $request->file('imagem')->store('produtos', 'public');
         }
 
-        // Criando o registro no banco de dados
         Stock::create([
             'nome' => $request->nome,
             'descricao' => $request->descricao,
             'preco' => $request->preco,
-            'imagem' => $imagemPath, // Caminho da imagem salvo no banco
+            'imagem' => $imagemPath,
         ]);
 
-        // Redirecionando com uma mensagem de sucesso
         return redirect()->route('letter')->with('success', 'Produto adicionado com sucesso!');
     }
 }
