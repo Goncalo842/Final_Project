@@ -76,10 +76,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/produto/adquirir/{id}', [SaldoController::class, 'adquirir'])->name('produto.adquirir');
 
     // Stock
-    Route::get('/food', [StockController::class, 'letter'])->name('letter');
-    Route::get('/letter/create', [StockController::class, 'create'])->name('letter.create');
-    Route::post('/letter/store', [StockController::class, 'store'])->name('letter.store');
-    Route::get('/letter/{id}', [StockController::class, 'show'])->name('letter.show');
+    Route::get('/stock', [StockController::class, 'index'])->name('stock');
+    Route::get('/stock/create', [StockController::class, 'create'])->name('stock.create');
+    Route::post('/stock/store', [StockController::class, 'store'])->name('stock.store');
+    Route::get('/stock/{id}', [StockController::class, 'show'])->name('stock.show');
 });
 
 Route::fallback(function() {

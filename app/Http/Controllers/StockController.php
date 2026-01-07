@@ -13,7 +13,8 @@ class StockController extends Controller
         return view('products.show', compact('produto'));
     }
 
-    function letter() {
+    public function index()
+    {
         $produtos = Stock::all();
         return view('shop.letter', compact('produtos'));
     }
@@ -44,6 +45,6 @@ class StockController extends Controller
             'imagem' => $imagemPath,
         ]);
 
-        return redirect()->route('letter')->with('success', 'Produto adicionado com sucesso!');
+        return redirect()->route('stock')->with('success', 'Produto adicionado com sucesso!');
     }
 }
