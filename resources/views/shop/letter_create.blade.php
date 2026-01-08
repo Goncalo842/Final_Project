@@ -44,7 +44,7 @@
             </div>
         @endif
 
-        <form action="{{ route('letter.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('stock.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div style="margin-bottom:1rem;">
                 <label>Nome do Produto</label>

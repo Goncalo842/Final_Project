@@ -30,7 +30,7 @@ class StockController extends Controller
             'nome' => 'required|string|max:255',
             'descricao' => 'required|string',
             'preco' => 'required|numeric',
-            'imagem' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'imagem' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
         ]);
 
         $imagemPath = null;

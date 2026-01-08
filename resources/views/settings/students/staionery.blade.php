@@ -728,7 +728,7 @@
             </div>
             <div class="hero-decor" aria-hidden="true"></div>
             <div class="notebook-visual" aria-hidden="true">
-                <img src="{{ asset('images/default.png') }}" alt="Caderno premium" loading="lazy">
+                <img src="{{ asset('images/caderno.png') }}" alt="Caderno premium" loading="lazy">
                 <div class="floating-note">
                     <i class="fas fa-book-open"></i>
                     <span>Papel 100 g/m²</span>
@@ -775,7 +775,7 @@
                             <i class="fas fa-cart-plus"></i>
                             Comprar
                         </a>
-                        <a href="{{ route('letter') }}" class="btn-view">
+                        <a href="{{ route('stock') }}" class="btn-view">
                             <span>Ver detalhes</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
@@ -800,7 +800,7 @@
                         <i class="fas fa-cart-plus"></i>
                         Comprar
                     </a>
-                    <a href="{{ route('letter') }}" class="btn-view">
+                    <a href="{{ route('stock') }}" class="btn-view">
                         <span>Ver detalhes</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -821,7 +821,7 @@
                         <i class="fas fa-cart-plus"></i>
                         Comprar
                     </a>
-                    <a href="{{ route('letter') }}" class="btn-view">
+                    <a href="{{ route('stock') }}" class="btn-view">
                         <span>Ver detalhes</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>

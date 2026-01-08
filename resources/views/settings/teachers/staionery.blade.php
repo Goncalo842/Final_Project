@@ -775,7 +775,7 @@
                             <i class="fas fa-cart-plus"></i>
                             Comprar
                         </a>
-                        <a href="{{ route('letter') }}" class="btn-view">
+                        <a href="{{ route('stock') }}" class="btn-view">
                             <span>Ver detalhes</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
@@ -800,7 +800,7 @@
                         <i class="fas fa-cart-plus"></i>
                         Comprar
                     </a>
-                    <a href="{{ route('letter') }}" class="btn-view">
+                    <a href="{{ route('stock') }}" class="btn-view">
                         <span>Ver detalhes</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -821,7 +821,7 @@
                         <i class="fas fa-cart-plus"></i>
                         Comprar
                     </a>
-                    <a href="{{ route('letter') }}" class="btn-view">
+                    <a href="{{ route('stock') }}" class="btn-view">
                         <span>Ver detalhes</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
