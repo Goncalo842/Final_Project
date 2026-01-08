@@ -47,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the pagamentos for the user.
+     */
+    public function pagamentos()
+    {
+        return $this->hasMany(Pagamento::class);
+    }
 }
