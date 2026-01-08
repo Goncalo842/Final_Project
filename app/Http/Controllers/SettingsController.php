@@ -37,6 +37,52 @@ class SettingsController extends Controller
             return view('settings.teachers.teacher');
         }
     }
+    public function downloadDocuments()
+    {
+        $userId = auth()->user()->id;
+
+        $faltas = DB::table('faltas')
+            ->where('user_id', $userId)
+            ->get();
+
+        foreach ($faltas as $falta) {
+            $disciplina = DB::table('disciplina')->where('id', $falta->disciplina_id)->first();
+            $falta->disciplina_nome = $disciplina->nome ?? 'Disciplina não encontrada';
+            $falta->motivo = 'Falta';
+        }
+
+        // sample static data for dates and vacations; replace with DB if available
+        $importantDates = [
+            '16-09-2025 - Início 1º Semestre',
+            '01-03-2026 - Fim 1º Semestre',
+            '05-03-2026 - Início 2º Semestre'
+        ];
+
+        $vacations = ['21-12 / 03-01-2026 - Férias de natal', '03/04-03-2026 - Férias de pascoa'];
+
+        $notices = [
+            ['title' => 'Alteração de Horário', 'text' => 'Mudança temporária no horário das aulas.'],
+            ['title' => 'Entrega de Trabalhos', 'text' => 'Prazo final para entrega de trabalhos práticos.']
+        ];
+
+        $data = ['user' => auth()->user(), 'faltas' => $faltas, 'importantDates' => $importantDates, 'vacations' => $vacations, 'notices' => $notices];
+
+        $html = view('documents.all_documents', $data)->render();
+
+        if (class_exists(\Dompdf\Dompdf::class)) {
+            $dompdf = new \Dompdf\Dompdf();
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return response($dompdf->output(), 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="documentos_escola.pdf"',
+            ]);
+        }
+
+        return back()->with('sucesso', 'Para gerar PDFs instale o Dompdf: execute `composer require dompdf/dompdf`.');
+    }
 
     public function products(){
 
@@ -86,13 +132,11 @@ class SettingsController extends Controller
                 ->first();
 
             if ($existing) {
-                // Atualiza nota
                 DB::table('user_disciplina')
                     ->where('user_id', $userId)
                     ->where('disciplina_id', $disciplinaId)
                     ->update(['nota' => $nota]);
             } else {
-                // Insere nova nota
                 DB::table('user_disciplina')->insert([
                     'user_id' => $userId,
                     'disciplina_id' => $disciplinaId,

@@ -279,7 +279,7 @@
 
                 <div class="subcard">
                     <h3><i class="fas fa-file-alt"></i> Documentos</h3>
-                    <p><a href="#"><i class="fas fa-external-link-alt"></i> Ver lista</a></p>
+                    <p><a href="{{ route('documents.download') }}"><i class="fas fa-external-link-alt"></i> Ver lista</a></p>
                 </div>
             </section>
 

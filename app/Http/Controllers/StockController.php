@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Letter;
+use App\Models\Stock;
 
-class LetterController extends Controller
+class StockController extends Controller
 {
     public function show($id)
     {
-        $produto = Letter::findOrFail($id);
+        $produto = Stock::findOrFail($id);
         return view('products.show', compact('produto'));
     }
 
-    function letter() {
-        $produtos = Letter::all();
+    public function index()
+    {
+        $produtos = Stock::all();
         return view('shop.letter', compact('produtos'));
     }
 
@@ -29,7 +30,7 @@ class LetterController extends Controller
             'nome' => 'required|string|max:255',
             'descricao' => 'required|string',
             'preco' => 'required|numeric',
-            'imagem' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'imagem' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
         ]);
 
         $imagemPath = null;
@@ -37,15 +38,13 @@ class LetterController extends Controller
             $imagemPath = $request->file('imagem')->store('produtos', 'public');
         }
 
-        // Criando o registro no banco de dados
-        Letter::create([
+        Stock::create([
             'nome' => $request->nome,
             'descricao' => $request->descricao,
             'preco' => $request->preco,
-            'imagem' => $imagemPath, // Caminho da imagem salvo no banco
+            'imagem' => $imagemPath,
         ]);
 
-        // Redirecionando com uma mensagem de sucesso
-        return redirect()->route('letter')->with('success', 'Produto adicionado com sucesso!');
+        return redirect()->route('stock')->with('success', 'Produto adicionado com sucesso!');
     }
 }

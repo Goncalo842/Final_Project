@@ -81,8 +81,10 @@
 
     .product-image {
         width: 100%;
-        height: 220px;
-        object-fit: cover;
+        height: 280px;
+        object-fit: contain;
+        padding: 1rem;
+        background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
         border-bottom: 1px solid var(--text-light);
     }
 
@@ -155,7 +157,7 @@
 
 <div class="products-wrapper">
     <div class="top-actions">
-        <a href="{{ route('letter.create') }}"><i class="fas fa-plus"></i> Adicionar Produto</a>
+        <a href="{{ route('stock.create') }}"><i class="fas fa-plus"></i> Adicionar Produto</a>
     </div>
 
     <h1 style="color: var(--primary-color); font-weight: 800; margin-bottom: 2rem;">Nossos Produtos</h1>
@@ -163,12 +165,12 @@
     <div class="products-grid">
         @foreach($produtos as $produto)
             <div class="product-card">
-                <a href="{{ route('letter.show', $produto->id) }}">
-                    <img src="{{ asset('storage/' . $produto->imagem) }}" alt="{{ $produto->nome }}" class="product-image">
+                <a href="{{ route('stock.show', $produto->id) }}">
+                    <img src="{{ asset($produto->imagem ? 'storage/' . $produto->imagem : 'images/default.png') }}" alt="{{ $produto->nome }}" class="product-image">
                     <div class="product-content">
                         <div class="product-title">{{ $produto->nome }}</div>
                         <div class="product-description">{{ $produto->descricao }}</div>
-                        <div class="product-price">{{ $produto->preco }} €</div>
+                        <div class="product-price">€ {{ number_format($produto->preco, 2, ',', '.') }}</div>
                     </div>
                 </a>
             </div>

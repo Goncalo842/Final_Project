@@ -2,13 +2,6 @@
 @section('content')
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
     <style>
-        :root {
-            --gradient-accent: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
-            --primary-color: #f87808;
-            --primary-dark: #9e5007;
-            --text-dark: #343a40;
-        }
-
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -19,13 +12,6 @@
             animation: gradientAnimation 1s ease infinite;
             color: black;
             overflow-x: hidden;
-        }
-
-        canvas#particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
         }
 
         .banner {
@@ -42,9 +28,9 @@
             margin: 0;
             font-weight: 900;
             text-shadow:
-        3px 3px 5px rgba(0, 0, 0, 0.7),
-        6px 6px 10px rgba(0, 0, 0, 0.5),
-        0px 0px 15px rgba(0, 0, 0, 0.3);
+                3px 3px 5px rgba(0, 0, 0, 0.7),
+                6px 6px 10px rgba(0, 0, 0, 0.5),
+                0px 0px 15px rgba(0, 0, 0, 0.3);
         }
 
         .banner p {
@@ -532,10 +518,10 @@
             </div>
             <div class="footer-column">
                 <h3>Links Rápidos</h3>
-                <a href="{{ url('courses') }}">Cursos</a>
-                <a href="{{ url('info') }}">Candidatos</a>
-                <a href="{{ url('contact') }}">Contacto</a>
-                <a href="#">Eventos</a>
+                <a href="{{ route('courses') }}">Cursos</a>
+                <a href="{{ route('info') }}">Candidatos</a>
+                <a href="{{ route('contact') }}">Contacto</a>
+                <a href="{{ route('eventos') }}">Eventos</a>
             </div>
         </div>
         <div class="copyright">

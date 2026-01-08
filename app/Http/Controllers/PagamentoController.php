@@ -23,6 +23,39 @@ class PagamentoController extends Controller
         return view('settings.students.pay', compact('meses', 'mesesPagos'));
     }
 
+    public function downloadReceipt($mes)
+    {
+        $user = Auth::user();
+
+        $pagamento = Pagamento::where('user_id', $user->id)->where('mes', $mes)->first();
+
+        if (!$pagamento || !$pagamento->pago) {
+            return back()->with('sucesso', 'Comprovativo não disponível para esse mês.');
+        }
+
+        $data = [
+            'user' => $user,
+            'pagamento' => $pagamento,
+            'mes' => $mes,
+        ];
+
+        $html = view('payments.receipt', $data)->render();
+
+        if (class_exists(\Dompdf\Dompdf::class)) {
+            $dompdf = new \Dompdf\Dompdf();
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return response($dompdf->output(), 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => "attachment; filename=\"comprovativo_{$mes}.pdf\"",
+            ]);
+        }
+
+        return back()->with('sucesso', 'Para gerar PDFs instale o Dompdf: execute `composer require dompdf/dompdf` ou `composer require barryvdh/laravel-dompdf`.');
+    }
+
     public function complete(Request $request)
     {
         $request->validate([

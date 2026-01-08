@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Letter extends Model
+class Stock extends Model
 {
     use HasFactory;
 
-    protected $table = 'letter'; // opcional, se o nome não seguir plural padrão
+    protected $table = 'stock';
 
     protected $fillable = [
         'nome',
