@@ -55,7 +55,7 @@
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 3rem;
-            color: var(--primary-color);
+            color: #d36605;
             position: relative;
             display: inline-block;
             left: 50%;
@@ -125,7 +125,7 @@
         }
 
         h2 {
-            color: #f87808;
+            color: #df7c04;
         }
 
         @keyframes gradientAnimation {
@@ -337,7 +337,7 @@
 
     <canvas id="particles"></canvas>
 
-    <div class="spline-banner-bg">
+    <div class="spline-banner-bg" aria-hidden="true">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.96/build/spline-viewer.js"></script>
         <spline-viewer url="https://prod.spline.design/O7pPnNjyvqQmU34n/scene.splinecode"></spline-viewer>
     </div>

@@ -187,6 +187,7 @@
 
             <div class="login-footer">
                 Não tem uma conta? <a href="{{ route('register') }}">Registe-se aqui</a>
+                <p><a href="{{ route('password.request') }}">Esqueceste-te da palavra-passe?</a></p>
             </div>
         </form>
     </div>
