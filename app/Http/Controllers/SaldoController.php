@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Letter;
+use App\Models\Stock;
 
 class SaldoController extends Controller
 {
@@ -29,7 +29,7 @@ class SaldoController extends Controller
 
     public function adquirir($id)
     {
-        $produto = Letter::findOrFail($id);
+        $produto = Stock::findOrFail($id);
         $user = Auth::user();
 
         if ($user->saldo < $produto->preco) {

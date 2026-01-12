@@ -1,4 +1,5 @@
 @extends('layout.fe_settings')
+
 @section('content')
     <style>
         :root {
@@ -206,209 +207,6 @@
             border-radius: 2px;
         }
 
-        .payment-options {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .payment-option {
-            display: flex;
-            align-items: center;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .payment-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .payment-option:hover::before {
-            left: 100%;
-        }
-
-        .payment-option:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateX(10px);
-            border-color: var(--primary-light);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .payment-icon {
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary-gradient);
-            color: white;
-            border-radius: 50%;
-            margin-right: 20px;
-            font-size: 1.4rem;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(138, 77, 0, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-
-        .payment-option:hover .payment-icon {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 6px 20px rgba(138, 77, 0, 0.4);
-        }
-
-        .payment-info {
-            flex-grow: 1;
-            text-align: left;
-            position: relative;
-            z-index: 2;
-        }
-
-        .payment-info h3 {
-            font-size: 1.3rem;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .payment-info p {
-            font-size: 0.95rem;
-            color: var(--text-light);
-        }
-
-        .payment-arrow {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            transition: var(--transition);
-            position: relative;
-            z-index: 2;
-        }
-
-        .payment-option:hover .payment-arrow {
-            transform: translateX(8px);
-            color: var(--primary-light);
-        }
-
-        .amount-selector {
-            margin-top: 35px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 16px;
-            display: none;
-            border: 1px solid rgba(255,255,255,0.3);
-            animation: slideUp 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .amount-selector::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--primary-gradient);
-        }
-
-        .amount-selector.active {
-            display: block;
-        }
-
-        .amount-selector h3 {
-            font-size: 1.4rem;
-            color: var(--text-dark);
-            margin-bottom: 25px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .amount-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .amount-option {
-            padding: 18px 12px;
-            background: white;
-            border: 2px solid #e8e8e8;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            font-size: 1.1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .amount-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0;
-            background: var(--primary-gradient);
-            transition: height 0.3s ease;
-            z-index: -1;
-        }
-
-        .amount-option:hover {
-            border-color: var(--primary-light);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .amount-option:hover::before {
-            height: 100%;
-        }
-
-        .amount-option.selected {
-            background: var(--primary-light);
-            color: white;
-            border-color: var(--primary-light);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(138, 77, 0, 0.3);
-        }
-
-        .custom-amount {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .custom-amount input {
-            flex-grow: 1;
-            padding: 18px 20px;
-            border: 2px solid #e8e8e8;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            transition: var(--transition);
-            background: white;
-        }
-
-        .custom-amount input:focus {
-            border-color: var(--primary-light);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(204, 122, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
         .confirm-btn {
             width: 100%;
             padding: 20px;
@@ -450,49 +248,79 @@
             transform: translateY(0);
         }
 
+        .confirm-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-light);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(204, 122, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 20px 30px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 500;
+            animation: slideInRight 0.5s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideUp {
+        @keyframes slideInRight {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateX(100px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0);
             }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        .loading {
-            position: relative;
-            pointer-events: none;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid transparent;
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
@@ -529,20 +357,6 @@
             .payment-methods {
                 padding: 30px 20px;
             }
-
-            .amount-options {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .payment-option {
-                padding: 20px;
-            }
-
-            .payment-icon {
-                width: 50px;
-                height: 50px;
-                margin-right: 15px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -550,16 +364,8 @@
                 font-size: 2.8rem;
             }
 
-            .amount-options {
-                grid-template-columns: 1fr;
-            }
-
             .payment-methods h2 {
                 font-size: 1.7rem;
-            }
-
-            .payment-info h3 {
-                font-size: 1.2rem;
             }
 
             .dashboard-container {
@@ -569,6 +375,20 @@
     </style>
 
     <canvas id="particles"></canvas>
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-error">
+            <i class="fas fa-exclamation-circle" style="margin-right: 10px;"></i>
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="dashboard-container">
         <div class="left-panel">
@@ -581,73 +401,111 @@
 
         <div class="right-panel">
             <div class="payment-methods">
-                <h2>Escolha um Método de Pagamento</h2>
-                <div class="payment-options">
-                    <div class="payment-option" data-method="paypal">
-                        <div class="payment-icon">
-                            <i class="fab fa-paypal"></i>
-                        </div>
-                        <div class="payment-info">
-                            <h3>PayPal</h3>
-                            <p>Pagamento rápido e seguro</p>
-                        </div>
-                        <div class="payment-arrow">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
+                <h2>Recarregar Saldo via Stripe</h2>
+
+                <form id="paymentForm">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="amount">
+                            <i class="fas fa-euro-sign" style="margin-right: 5px;"></i>
+                            Valor da Recarga (€)
+                        </label>
+                        <input
+                            type="number"
+                            id="amount"
+                            name="amount"
+                            min="5"
+                            step="0.01"
+                            placeholder="Mínimo €5.00"
+                            required
+                        >
+                        <small style="color: var(--text-light); font-size: 0.9rem; margin-top: 5px; display: block;">
+                            Valor mínimo: €5.00
+                        </small>
                     </div>
 
-                    <div class="payment-option" data-method="credit_card">
-                        <div class="payment-icon">
-                            <i class="far fa-credit-card"></i>
-                        </div>
-                        <div class="payment-info">
-                            <h3>Cartão de Crédito</h3>
-                            <p>Visa, Mastercard, American Express</p>
-                        </div>
-                        <div class="payment-arrow">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope" style="margin-right: 5px;"></i>
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ Auth::user()->email }}"
+                            placeholder="seu@email.com"
+                            required
+                        >
                     </div>
 
-                    <div class="payment-option" data-method="bank_transfer">
-                        <div class="payment-icon">
-                            <i class="fas fa-university"></i>
-                        </div>
-                        <div class="payment-info">
-                            <h3>Transferência Bancária</h3>
-                            <p>Transferência direta para a sua conta</p>
-                        </div>
-                        <div class="payment-arrow">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
+                    <div class="form-group">
+                        <label for="cardholder-name">
+                            <i class="fas fa-user" style="margin-right: 5px;"></i>
+                            Nome no Cartão
+                        </label>
+                        <input
+                            type="text"
+                            id="cardholder-name"
+                            name="cardholder_name"
+                            placeholder="Nome como está no cartão"
+                            required
+                        >
                     </div>
-                </div>
 
-                <div class="amount-selector" id="amountSelector">
-                    <h3>Selecione o valor para recarregar</h3>
-                    <div class="amount-options">
-                        <div class="amount-option" data-amount="10">10 €</div>
-                        <div class="amount-option" data-amount="25">25 €</div>
-                        <div class="amount-option" data-amount="50">50 €</div>
-                        <div class="amount-option" data-amount="75">75 €</div>
-                        <div class="amount-option" data-amount="100">100 €</div>
-                        <div class="amount-option" data-amount="200">200 €</div>
+                    <div class="form-group">
+                        <label for="card-element">
+                            <i class="fas fa-credit-card" style="margin-right: 5px;"></i>
+                            Informações do Cartão
+                        </label>
+                        <div id="card-element" style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white;"></div>
+                        <div id="card-errors" role="alert" style="color: #e74c3c; font-size: 0.9rem; margin-top: 8px;"></div>
                     </div>
-                    <div class="custom-amount">
-                        <input type="number" id="customAmount" placeholder="Outro valor (€)" min="5" step="0.01">
-                    </div>
-                    <form method="POST" action="{{ route('saldo.recarregar') }}" id="paymentForm">
-                        @csrf
-                        <input type="hidden" name="method" id="selectedMethod">
-                        <input type="hidden" name="valor" id="selectedAmount">
-                        <button type="submit" class="confirm-btn">Confirmar Recarga</button>
-                    </form>
-                </div>
+
+                    <button type="submit" class="confirm-btn" id="submit-btn">
+                        <i class="fab fa-stripe" style="margin-right: 8px;"></i>
+                        Pagar com Stripe
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
+        const stripe = Stripe('{{ config("services.stripe.key") }}');
+        const elements = stripe.elements();
+
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    color: '#1a1a1a',
+                    fontFamily: '"Montserrat", sans-serif',
+                    '::placeholder': {
+                        color: '#aab7c4',
+                    },
+                },
+                invalid: {
+                    color: '#e74c3c',
+                    iconColor: '#e74c3c'
+                }
+            },
+            hidePostalCode: true
+        });
+
+        cardElement.mount('#card-element');
+
+        cardElement.on('change', function(event) {
+            const displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
         const canvas = document.getElementById("particles");
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth;
@@ -722,91 +580,83 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const paymentOptions = document.querySelectorAll('.payment-option');
-            const amountSelector = document.getElementById('amountSelector');
-            const amountOptions = document.querySelectorAll('.amount-option');
-            const customAmountInput = document.getElementById('customAmount');
-            const selectedMethodInput = document.getElementById('selectedMethod');
-            const selectedAmountInput = document.getElementById('selectedAmount');
             const paymentForm = document.getElementById('paymentForm');
-            const confirmBtn = document.querySelector('.confirm-btn');
+            const amountInput = document.getElementById('amount');
+            const emailInput = document.getElementById('email');
+            const cardholderName = document.getElementById('cardholder-name');
+            const submitBtn = document.getElementById('submit-btn');
 
-            let selectedMethod = null;
-            let selectedAmount = null;
+            paymentForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
 
-            paymentOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    paymentOptions.forEach(opt => {
-                        opt.style.borderColor = 'transparent';
-                        opt.style.background = 'rgba(255, 255, 255, 0.7)';
+                const amount = parseFloat(amountInput.value);
+
+                if (!amount || amount < 5) {
+                    alert('Por favor, insira um valor mínimo de €5.00');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
+
+                try {
+                    const response = await fetch('{{ route("stripe.checkout") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            amount: amount,
+                            email: emailInput.value
+                        })
                     });
 
-                    this.style.borderColor = 'var(--primary-light)';
-                    this.style.background = 'rgba(255, 255, 255, 0.9)';
+                    const data = await response.json();
 
-                    selectedMethod = this.getAttribute('data-method');
-                    selectedMethodInput.value = selectedMethod;
+                    if (data.error) {
+                        alert('Erro: ' + data.error);
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fab fa-stripe"></i> Pagar com Stripe';
+                        return;
+                    }
 
-                    amountSelector.classList.add('active');
+                    const {error, paymentIntent} = await stripe.confirmCardPayment(data.clientSecret, {
+                        payment_method: {
+                            card: cardElement,
+                            billing_details: {
+                                name: cardholderName.value,
+                                email: emailInput.value
+                            }
+                        }
+                    });
 
-                    amountOptions.forEach(opt => opt.classList.remove('selected'));
-                    customAmountInput.value = '';
-                    selectedAmount = null;
+                    if (error) {
+                        document.getElementById('card-errors').textContent = error.message;
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fab fa-stripe"></i> Pagar com Stripe';
+                    } else if (paymentIntent.status === 'succeeded') {
+                        window.location.href = '{{ route("payment.success") }}?payment_intent=' + paymentIntent.id;
+                    }
 
-                    updateConfirmButton();
-                });
-            });
-
-            amountOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    amountOptions.forEach(opt => opt.classList.remove('selected'));
-                    this.classList.add('selected');
-                    customAmountInput.value = '';
-                    selectedAmount = this.getAttribute('data-amount');
-                    selectedAmountInput.value = selectedAmount;
-
-                    updateConfirmButton();
-                });
-            });
-
-            customAmountInput.addEventListener('input', function() {
-                amountOptions.forEach(opt => opt.classList.remove('selected'));
-                selectedAmount = this.value;
-                selectedAmountInput.value = selectedAmount;
-
-                updateConfirmButton();
-            });
-
-            function updateConfirmButton() {
-                if (selectedMethod && selectedAmount && selectedAmount >= 5) {
-                    confirmBtn.style.opacity = '1';
-                    confirmBtn.style.cursor = 'pointer';
-                } else {
-                    confirmBtn.style.opacity = '0.7';
-                    confirmBtn.style.cursor = 'not-allowed';
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Erro ao processar pagamento. Tente novamente.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fab fa-stripe"></i> Pagar com Stripe';
                 }
-            }
-
-            paymentForm.addEventListener('submit', function(e) {
-                if (!selectedMethod) {
-                    e.preventDefault();
-                    alert('Por favor, selecione um método de pagamento.');
-                    return;
-                }
-
-                if (!selectedAmount || selectedAmount < 5) {
-                    e.preventDefault();
-                    alert('Por favor, selecione um valor válido (mínimo 5€).');
-                    return;
-                }
-
-                // Add loading state
-                confirmBtn.classList.add('loading');
-                confirmBtn.innerHTML = 'Processando...';
             });
 
             init();
-            updateConfirmButton();
+
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateX(100px)';
+                    setTimeout(() => alert.remove(), 500);
+                }, 5000);
+            });
         });
     </script>
 

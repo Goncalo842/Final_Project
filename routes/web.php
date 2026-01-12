@@ -10,6 +10,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\CandidaturaController;
+use App\Http\Controllers\StripeController;
 
 // Public routes (no authentication required)
 Route::get('', [UserController::class, 'welcome'])->name('welcome');
@@ -74,6 +75,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/saldo/recarregar', [SaldoController::class, 'saldo'])->name('saldo.recarregar');
     Route::post('/saldo/recarregar', [SaldoController::class, 'recarregar'])->name('saldo.recarregar');
     Route::post('/produto/adquirir/{id}', [SaldoController::class, 'adquirir'])->name('produto.adquirir');
+
+    // Stripe
+    Route::post('/create-checkout', [StripeController::class, 'checkout'])->name('stripe.checkout');
+    Route::get('/payment-success', [StripeController::class, 'success'])->name('payment.success');
+    Route::get('/payment-failure', [StripeController::class, 'failure'])->name('payment.failure');
 
     // Stock
     Route::get('/stock', [StockController::class, 'index'])->name('stock');
