@@ -197,6 +197,86 @@
             background-color: var(--primary-light);
         }
 
+        .grades-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+            gap: 8px;
+        }
+
+        .btn-orange--small {
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 6px;
+        }
+
+        /* Header dropdown */
+        .grades-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .grades-header-actions {
+            position: relative;
+        }
+
+        .grades-toggle {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--primary-color);
+            padding: 6px;
+            border-radius: 6px;
+        }
+
+        .grades-toggle:focus { outline: none; box-shadow: 0 0 0 3px rgba(138,77,0,0.12); }
+
+        .grades-dropdown {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+            transform-origin: top right;
+            transition: opacity 220ms cubic-bezier(.2,.8,.2,1), transform 220ms cubic-bezier(.2,.8,.2,1);
+            pointer-events: none;
+            min-width: 220px;
+            z-index: 30;
+        }
+
+        .grades-dropdown.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .grades-dropdown a { display: block; text-decoration: none; }
+
+        .grades-toggle .fa-chevron-down { transition: transform 200ms ease; }
+        .grades-toggle[aria-expanded="true"] .fa-chevron-down { transform: rotate(180deg); }
+
+        .download-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .download-item:hover {
+            background: rgba(138,77,0,0.06);
+        }
+
         .reader {
             background-color: rgba(255, 251, 230, 0.9);
             border-left: 5px solid var(--primary-light);
@@ -302,7 +382,20 @@
             </div>
 
             <div class="grades-card">
-                <h2><i class="fas fa-edit"></i> Lançamento de Notas</h2>
+                <div class="grades-header">
+                    <h2><i class="fas fa-edit"></i> Lançamento de Notas</h2>
+                    <div class="grades-header-actions">
+                        <button class="grades-toggle" id="gradesToggle" aria-expanded="false" aria-controls="gradesDropdown">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+
+                        <div class="grades-dropdown" id="gradesDropdown" role="menu" aria-hidden="true">
+                            <a href="{{ route('grades.download') }}" class="btn-orange btn-orange--small">
+                                <i class="fas fa-download"></i> Descarregar Todas as Notas
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
                 <form action="{{ route('store.grade') }}" method="POST">
                     @csrf
@@ -438,6 +531,28 @@
                 }
             });
         });
+
+        // Dropdown toggle for grades actions
+        const gradesToggle = document.getElementById('gradesToggle');
+        const gradesDropdown = document.getElementById('gradesDropdown');
+
+        if (gradesToggle && gradesDropdown) {
+            gradesToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isShown = gradesDropdown.classList.toggle('show');
+                gradesDropdown.setAttribute('aria-hidden', !isShown);
+                gradesToggle.setAttribute('aria-expanded', isShown);
+            });
+
+            // close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!gradesDropdown.contains(e.target) && !gradesToggle.contains(e.target)) {
+                    gradesDropdown.classList.remove('show');
+                    gradesDropdown.setAttribute('aria-hidden', 'true');
+                    gradesToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
 
         init();
     </script>

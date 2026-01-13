@@ -51,7 +51,6 @@ class SettingsController extends Controller
             $falta->motivo = 'Falta';
         }
 
-        // sample static data for dates and vacations; replace with DB if available
         $importantDates = [
             '16-09-2025 - Início 1º Semestre',
             '01-03-2026 - Fim 1º Semestre',
@@ -118,6 +117,40 @@ class SettingsController extends Controller
 
             return view('settings.teachers.grades', compact('users', 'disciplinas', 'grades'));
         }
+    }
+
+    public function downloadGrades()
+    {
+        $users = User::where('user_type', 10)->get();
+        $disciplinas = DB::table('disciplina')->get();
+        $grades = DB::table('user_disciplina')->get();
+
+        $filename = 'notas_alunos_' . date('Ymd_His') . '.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ];
+
+        $callback = function () use ($users, $disciplinas, $grades) {
+            $handle = fopen('php://output', 'w');
+
+            $header = array_merge(['Aluno'], $disciplinas->pluck('nome')->toArray());
+            fputcsv($handle, $header);
+
+            foreach ($users as $user) {
+                $row = [$user->name];
+                foreach ($disciplinas as $disc) {
+                    $g = $grades->where('user_id', $user->id)->where('disciplina_id', $disc->id)->first();
+                    $row[] = $g->nota ?? '';
+                }
+                fputcsv($handle, $row);
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 
     public function store(Request $request)
