@@ -21,15 +21,21 @@
         </div>
 
         <nav class="nav-center">
-            <a href="{{ url('/settings') }}">Inicio</a>
-            <a href="{{ route('user.edit') }}">Caderneta</a>
+            @if(!Auth::check() || Auth::user()->user_type != 30)
+                <a href="{{ url('/settings') }}">Inicio</a>
+                <a href="{{ route('user.edit') }}">Caderneta</a>
+            @endif
+
             @auth
                 @if (Auth::user()->user_type == 10)
                     <a href="{{ route('pay') }}">Pagamento</a>
                 @endif
             @endauth
-            <a href="{{ url('staionery') }}">Loja</a>
-            <a href="{{ url('grade') }}">Avaliações</a>
+
+            @auth
+                <a href="{{ url('staionery') }}">Loja</a>
+                <a href="{{ url('grade') }}">Avaliações</a>
+            @endauth
         </nav>
 
         <nav class="d-flex align-items-center gap-3">

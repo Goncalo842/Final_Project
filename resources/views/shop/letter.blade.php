@@ -157,7 +157,11 @@
 
 <div class="products-wrapper">
     <div class="top-actions">
-        <a href="{{ route('stock.create') }}"><i class="fas fa-plus"></i> Adicionar Produto</a>
+        @auth
+            @if(Auth::user()->user_type == 30)
+                <a href="{{ route('stock.create') }}"><i class="fas fa-plus"></i> Adicionar Produto</a>
+            @endif
+        @endauth
     </div>
 
     <h1 style="color: var(--primary-color); font-weight: 800; margin-bottom: 2rem;">Nossos Produtos</h1>
@@ -173,6 +177,19 @@
                         <div class="product-price">€ {{ number_format($produto->preco, 2, ',', '.') }}</div>
                     </div>
                 </a>
+
+                @auth
+                    @if(Auth::user()->user_type == 30)
+                        <div class="product-actions" style="padding:12px 18px; display:flex; gap:8px;">
+                            <a href="{{ route('stock.edit', $produto->id) }}" class="btn btn-secondary" style="flex:0 0 auto;">Editar</a>
+                            <form method="POST" action="{{ route('stock.destroy', $produto->id) }}" onsubmit="return confirm('Remover este produto?');" style="margin:0;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-primary" style="flex:0 0 auto;">Remover</button>
+                            </form>
+                        </div>
+                    @endif
+                @endauth
             </div>
         @endforeach
     </div>

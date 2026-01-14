@@ -87,6 +87,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/stock/create', [StockController::class, 'create'])->name('stock.create');
     Route::post('/stock/store', [StockController::class, 'store'])->name('stock.store');
     Route::get('/stock/{id}', [StockController::class, 'show'])->name('stock.show');
+    Route::get('/stock/{id}/edit', [StockController::class, 'edit'])->name('stock.edit');
+    Route::put('/stock/{id}', [StockController::class, 'update'])->name('stock.update');
+    Route::delete('/stock/{id}', [StockController::class, 'destroy'])->name('stock.destroy');
 });
 
 Route::fallback(function() {

@@ -41,11 +41,11 @@
 
         .hero {
             position: relative;
-            min-height: 82vh;
+            min-height: 93vh;
             display: flex;
             align-items: center;
-            padding: 70px 6%;
-            background: linear-gradient(135deg, #e3e2e2 0%, #dcd6d0 38%, rgba(138,77,0,0.06) 60%, #ecebeb 100%);
+            padding: 90px 6%;
+            background: linear-gradient(135deg, #e3e2e2 0%, #fff7f1 38%, rgba(176, 109, 0, 0.06) 60%, #ffffff 100%);
             border: 1px solid rgba(0,0,0,0.03);
             border-radius: 26px;
             box-shadow: 0 22px 54px rgba(0,0,0,0.06);
