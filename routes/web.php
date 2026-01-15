@@ -53,6 +53,12 @@ Route::middleware(['auth'])->group(function () {
     route::get('/grade', [SettingsController::class, 'grade'])->name('grade');
     Route::post('/store-grade', [SettingsController::class, 'store'])->name('store.grade');
     Route::get('/grades/download', [SettingsController::class, 'downloadGrades'])->name('grades.download');
+    // Candidaturas admin actions
+    Route::post('/candidaturas/{id}/accept', [CandidaturaController::class, 'accept'])->name('candidaturas.accept');
+    Route::post('/candidaturas/{id}/reject', [CandidaturaController::class, 'reject'])->name('candidaturas.reject');
+    // Admin UI for candidaturas
+    Route::get('/admin/candidaturas', [CandidaturaController::class, 'index'])->name('admin.candidaturas.index');
+    Route::get('/admin/candidaturas/{id}', [CandidaturaController::class, 'show'])->name('admin.candidaturas.show');
     Route::get('/staionery', [SettingsController::class, 'staionery'])->name('staionery');
     Route::get('/drink', [SettingsController::class, 'drink'])->name('drink');
     Route::get('/products', [SettingsController::class, 'products'])->name('products');

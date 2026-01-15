@@ -16,8 +16,14 @@ class SettingsController extends Controller
 
     public function settings()
     {
-        $userId = auth()->user()->id;
-        if (auth()->user()->user_type == 10) {
+        $user = auth()->user();
+
+        if ($user->user_type == 30) {
+            return redirect()->route('admin.candidaturas.index');
+        }
+
+        $userId = $user->id;
+        if ($user->user_type == 10) {
 
             $faltas = DB::table('faltas')
                 ->where('user_id', $userId)
@@ -30,9 +36,9 @@ class SettingsController extends Controller
             }
 
             return view('settings.students.student', compact('faltas'));
-        } else {
-            return view('settings.teachers.teacher');
         }
+
+        return view('settings.teachers.teacher');
     }
 
     public function downloadDocuments()

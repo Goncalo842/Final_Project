@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/settings.css') }}">
 </head>
+
 <body>
 
     <div class="container bar-container">
@@ -21,7 +23,7 @@
         </div>
 
         <nav class="nav-center">
-            @if(!Auth::check() || Auth::user()->user_type != 30)
+            @if (!Auth::check() || Auth::user()->user_type != 30)
                 <a href="{{ url('/settings') }}">Inicio</a>
                 <a href="{{ route('user.edit') }}">Caderneta</a>
             @endif
@@ -33,6 +35,9 @@
             @endauth
 
             @auth
+                @if (Auth::user()->user_type == 30)
+                    <a href="{{ route('admin.candidaturas.index') }}">Candidaturas</a>
+                @endif
                 <a href="{{ url('staionery') }}">Loja</a>
                 <a href="{{ url('grade') }}">Avaliações</a>
             @endauth

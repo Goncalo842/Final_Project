@@ -460,7 +460,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('candidaturas.store') }}" method="POST" enctype="multipart/form-data" class="edit-form">
+            <form action="{{ route('candidaturas.store') }}" method="POST" class="edit-form">
                 @csrf
 
                 <h3 class="section-title">
@@ -488,7 +488,7 @@
                         <i class="fas fa-phone"></i> Telefone <span class="required">*</span>
                     </label>
                     <input type="tel" id="telefone" name="telefone" class="form-input" value="{{ old('telefone') }}"
-                        required placeholder="+351 912 345 678">
+                        required placeholder="912 345 678" inputmode="numeric" maxlength="11">
                 </div>
 
                 <div class="form-group">
@@ -504,7 +504,7 @@
                         <i class="fas fa-id-card"></i> NIF <span class="required">*</span>
                     </label>
                     <input type="text" id="nif" name="nif" class="form-input" value="{{ old('nif') }}"
-                        required placeholder="000000000">
+                        required placeholder="000000000" maxlength="9" inputmode="numeric" pattern="\d{9}" title="NIF com 9 dígitos">
                 </div>
 
                 <div class="form-group full-width">
@@ -520,15 +520,26 @@
                         <i class="fas fa-mail-bulk"></i> Código Postal <span class="required">*</span>
                     </label>
                     <input type="text" id="codigo_postal" name="codigo_postal" class="form-input" placeholder="0000-000"
-                        value="{{ old('codigo_postal') }}" required>
+                        value="{{ old('codigo_postal') }}" required inputmode="numeric" maxlength="8">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="localidade">
                         <i class="fas fa-city"></i> Localidade <span class="required">*</span>
                     </label>
-                    <input type="text" id="localidade" name="localidade" class="form-input"
-                        value="{{ old('localidade') }}" required placeholder="Cidade/Vila">
+                    <select id="localidade" name="localidade" class="form-select" required>
+                        <option value="">Selecione a localidade...</option>
+                        @php
+                            $cidades = [
+                                'Lisboa','Porto','Vila Nova de Gaia','Braga','Coimbra','Aveiro','Faro','Leiria','Setúbal',
+                                'Viseu','Santarém','Évora','Castelo Branco','Beja','Bragança','Guarda','Portalegre',
+                                'Viana do Castelo','Vila Real','Ponta Delgada','Funchal'
+                            ];
+                        @endphp
+                        @foreach($cidades as $cidade)
+                            <option value="{{ $cidade }}" @if(old('localidade') == $cidade) selected @endif>{{ $cidade }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <h3 class="section-title">
@@ -565,26 +576,7 @@
                     <p class="help-text">Selecione primeiro o tipo de curso acima</p>
                 </div>
 
-                <h3 class="section-title">
-                    <i class="fas fa-file-pdf"></i> Currículo
-                </h3>
-
-                <div class="file-upload-wrapper">
-                    <input type="file" id="curriculo" name="curriculo" class="file-upload-input" accept=".pdf"
-                        required>
-                    <label for="curriculo" class="file-upload-label" id="file-label">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <div class="file-upload-text">
-                            <strong>Clique para fazer upload do CV</strong>
-                            <small>ou arraste o ficheiro aqui (apenas PDF, máx. 5MB)</small>
-                        </div>
-                    </label>
-                    <div class="file-name-display" id="file-name-display">
-                        <i class="fas fa-file-pdf"></i>
-                        <span id="file-name"></span>
-                    </div>
-                    <p class="help-text">O currículo deve estar no formato PDF e não deve exceder 5MB</p>
-                </div>
+                <!-- Currículo section removed -->
 
                 <h3 class="section-title">
                     <i class="fas fa-comment-dots"></i> Motivação
@@ -763,43 +755,37 @@
             });
         });
 
-        const fileInput = document.getElementById('curriculo');
-        const fileLabel = document.getElementById('file-label');
-        const fileNameDisplay = document.getElementById('file-name-display');
-        const fileName = document.getElementById('file-name');
+        // Format postal code as 0000-000
+        const codigoPostalInput = document.getElementById('codigo_postal');
+        if (codigoPostalInput) {
+            codigoPostalInput.addEventListener('input', (e) => {
+                let v = e.target.value.replace(/\D/g, '');
+                if (v.length > 7) v = v.slice(0,7);
+                if (v.length > 4) {
+                    e.target.value = v.slice(0,4) + '-' + v.slice(4);
+                } else {
+                    e.target.value = v;
+                }
+            });
+        }
 
-        fileInput.addEventListener('change', function(e) {
-            if (this.files && this.files[0]) {
-                const file = this.files[0];
-                fileName.textContent = file.name;
-                fileLabel.classList.add('has-file');
-                fileNameDisplay.style.display = 'flex';
-            }
-        });
+        // Format telefone as groups of 3 digits (max 9 digits): 912 345 678
+        const telefoneInput = document.getElementById('telefone');
+        if (telefoneInput) {
+            telefoneInput.addEventListener('input', (e) => {
+                let digits = e.target.value.replace(/\D/g, '').slice(0,9);
+                let parts = [];
+                for (let i = 0; i < digits.length; i += 3) parts.push(digits.slice(i, i+3));
+                e.target.value = parts.join(' ');
+            });
+        }
 
-        fileLabel.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            fileLabel.style.borderColor = '#df7c04';
-            fileLabel.style.background = 'rgba(223, 124, 4, 0.05)';
-        });
-
-        fileLabel.addEventListener('dragleave', () => {
-            fileLabel.style.borderColor = '#e0e0e0';
-            fileLabel.style.background = '#f9f9f9';
-        });
-
-        fileLabel.addEventListener('drop', (e) => {
-            e.preventDefault();
-            fileLabel.style.borderColor = '#e0e0e0';
-            fileLabel.style.background = '#f9f9f9';
-
-            if (e.dataTransfer.files.length) {
-                fileInput.files = e.dataTransfer.files;
-                const event = new Event('change', {
-                    bubbles: true
-                });
-                fileInput.dispatchEvent(event);
-            }
-        });
+        // Ensure NIF only digits and max 9
+        const nifInput = document.getElementById('nif');
+        if (nifInput) {
+            nifInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '').slice(0,9);
+            });
+        }
     </script>
 @endsection
