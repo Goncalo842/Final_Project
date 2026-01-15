@@ -59,6 +59,13 @@ Route::middleware(['auth'])->group(function () {
     // Admin UI for candidaturas
     Route::get('/admin/candidaturas', [CandidaturaController::class, 'index'])->name('admin.candidaturas.index');
     Route::get('/admin/candidaturas/{id}', [CandidaturaController::class, 'show'])->name('admin.candidaturas.show');
+
+    // Documents downloads (plano curricular, regulamento interno)
+        Route::get('/documents/plano/{course?}', [SettingsController::class, 'downloadPlano'])->name('documents.plano');
+        Route::get('/documents/regulamento/{course?}', [SettingsController::class, 'downloadRegulamento'])->name('documents.regulamento');
+        Route::get('/documents/guia', [SettingsController::class, 'downloadGuia'])->name('documents.guia');
+        Route::get('/documents/criterios', [SettingsController::class, 'downloadCriterios'])->name('documents.criterios');
+        Route::get('/documents/administracao', [SettingsController::class, 'downloadAdministracao'])->name('documents.administracao');
     Route::get('/staionery', [SettingsController::class, 'staionery'])->name('staionery');
     Route::get('/drink', [SettingsController::class, 'drink'])->name('drink');
     Route::get('/products', [SettingsController::class, 'products'])->name('products');

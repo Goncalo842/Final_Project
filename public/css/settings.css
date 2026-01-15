@@ -60,6 +60,20 @@ a {
     color: #d9850f;
 }
 
+.subcard a.doc-link {
+    color: #000 !important;
+    text-decoration: none !important;
+    font-weight: 500;
+}
+.subcard a.doc-link i {
+    color: #000;
+    margin-right: 8px;
+}
+.subcard a.doc-link:hover {
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
 .bar-container {
     display: flex;
     align-items: center;

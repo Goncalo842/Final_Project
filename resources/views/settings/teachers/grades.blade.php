@@ -368,9 +368,9 @@
             <section class="card">
                 <h2><i class="fas fa-question-circle"></i> Ajuda</h2>
                 <div class="subcard">
-                    <p><a href="#"><i class="fas fa-external-link-alt"></i> Guia de lançamento</a></p>
-                    <p><a href="#"><i class="fas fa-external-link-alt"></i> Critérios de avaliação</a></p>
-                    <p><a href="#"><i class="fas fa-external-link-alt"></i> Contatar administração</a></p>
+                    <p><a href="{{ route('documents.guia') }}"><i class="fas fa-external-link-alt"></i> Guia de lançamento</a></p>
+                    <p><a href="{{ route('documents.criterios') }}"><i class="fas fa-external-link-alt"></i> Critérios de avaliação</a></p>
+                    <p><a href="{{ route('documents.administracao') }}"><i class="fas fa-external-link-alt"></i> Contatar administração</a></p>
                 </div>
             </section>
         </aside>

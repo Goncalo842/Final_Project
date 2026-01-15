@@ -359,8 +359,8 @@
 
                 <div class="subcard">
                     <h3>Documentos</h3>
-                    <p><a href="#">Plano curricular</a></p>
-                    <p><a href="#">Regulamento interno</a></p>
+                    <p><a href="{{ route('documents.plano') }}" class="doc-link" rel="noopener"><i class="fas fa-external-link-alt"></i> Plano curricular</a></p>
+                    <p><a href="{{ route('documents.regulamento') }}" class="doc-link" rel="noopener"><i class="fas fa-external-link-alt"></i> Regulamento interno</a></p>
                 </div>
             </section>
 
@@ -679,4 +679,5 @@
 
         init();
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @endsection
