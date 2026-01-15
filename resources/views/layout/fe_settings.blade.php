@@ -18,7 +18,7 @@
     <div class="container bar-container">
         <div class="logo">
             <a href="{{ url('/') }}">
-                <img src="{{ asset('images/imagem2.jpeg') }}" alt="ISTP Logo" style="height: 80px;">
+                <img src="{{ asset('images/logo.png') }}" alt="ISTP Logo" style="height: 80px;">
             </a>
         </div>
 
