@@ -19,27 +19,48 @@
             position: relative;
             overflow-x: hidden;
             min-height: 100vh;
+            margin: 0;
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             border-left: 5px solid var(--primary-color);
         }
 
+        .card h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 26px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
         .main-panel {
-            padding: 20px
+            flex: 1;
+            max-width: 900px;
         }
 
         dl dt {
             font-weight: 700;
-            color: #555
+            color: var(--primary-color);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         dl dd {
-            margin: 0 0 12px 0
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
         }
 
         canvas#particles {
@@ -48,25 +69,94 @@
             left: 0;
             z-index: -1;
         }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .btn-warning {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(138, 77, 0, 0.3);
+        }
+
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: capitalize;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffc107;
+        }
+
+        .status-accepted {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px 30px;
+            background: rgba(138, 77, 0, 0.02);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(138, 77, 0, 0.1);
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px solid rgba(138, 77, 0, 0.1);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
     </style>
 
     <canvas id="particles"></canvas>
 
-    <main style="display:flex;gap:20px;padding:20px;">
-        <aside style="width:260px;">
+    <main style="display:flex;gap:30px;padding:40px;max-width:1400px;margin:0 auto;">
+        <aside style="width:300px;">
             <section class="card">
                 <h2>Detalhes</h2>
-                <p>Visualize os dados submetidos pelo candidato.</p>
+                <p>Visualize todos os dados submetidos pelo candidato e tome uma decisão.</p>
             </section>
         </aside>
 
         <section class="main-panel">
             <div class="card">
-                <h2>Detalhes da Candidatura #{{ $cand->id }}</h2>
+                <h2>🎓 Candidatura #{{ $cand->id }}</h2>
 
-                <dl style="display:grid;grid-template-columns:1fr 2fr;gap:8px 20px;">
+                <dl class="info-grid">
                     <dt>Nome</dt>
-                    <dd>{{ $cand->nome }}</dd>
+                    <dd><strong>{{ $cand->nome }}</strong></dd>
                     <dt>Email</dt>
                     <dd>{{ $cand->email }}</dd>
                     <dt>Telefone</dt>
@@ -86,25 +176,37 @@
                     <dt>Curso ID</dt>
                     <dd>{{ $cand->curso_id }}</dd>
                     <dt>Motivação</dt>
-                    <dd style="white-space:pre-wrap;">{{ $cand->motivacao }}</dd>
+                    <dd style="white-space:pre-wrap;background:white;padding:15px;border-radius:8px;border-left:3px solid var(--primary-color);">{{ $cand->motivacao }}</dd>
                     <dt>Status</dt>
-                    <dd>{{ ucfirst($cand->status) }}</dd>
+                    <dd>
+                        <span class="status-badge status-{{ $cand->status }}">
+                        @if($cand->status === 'pending')
+                            Pendente
+                        @elseif($cand->status === 'accepted')
+                            Aceite
+                        @elseif($cand->status === 'rejected')
+                            Rejeitado
+                        @else
+                            {{ ucfirst($cand->status) }}
+                        @endif
+                        </span>
+                    </dd>
                     <dt>Enviado em</dt>
                     <dd>{{ $cand->created_at }}</dd>
                 </dl>
 
-                <div style="margin-top:16px;">
+                <div class="action-buttons">
                     @if ($cand->status === 'pending')
                         <form action="{{ route('candidaturas.accept', $cand->id) }}" method="POST"
-                            style="display:inline-block;margin-right:8px;">@csrf<button
-                                class="btn btn-primary">Aceitar</button></form>
+                            style="display:inline-block;">@csrf<button
+                                class="btn btn-warning">✓ Aceitar Candidatura</button></form>
 
                         <form action="{{ route('candidaturas.reject', $cand->id) }}" method="POST"
-                            style="display:inline-block;">@csrf<button class="btn btn-secondary">Rejeitar</button></form>
+                            style="display:inline-block;">@csrf<button class="btn btn-warning">✗ Rejeitar Candidatura</button></form>
                     @endif
 
-                    <a href="{{ route('admin.candidaturas.index') }}" class="btn btn-secondary"
-                        style="margin-left:12px;">Voltar</a>
+                    <a href="{{ route('admin.candidaturas.index') }}" class="btn btn-warning">
+                        ← Voltar à Lista</a>
                 </div>
             </div>
         </section>

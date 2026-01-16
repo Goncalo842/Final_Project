@@ -19,39 +19,90 @@
             position: relative;
             overflow-x: hidden;
             min-height: 100vh;
+            margin: 0;
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             border-left: 5px solid var(--primary-color);
         }
 
+        .card h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
         .main-panel {
-            padding: 20px
+            flex: 1;
+            max-width: 1200px;
         }
 
         table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            border-radius: 8px;
-            overflow: hidden
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         th {
             background: var(--primary-color);
             color: #fff;
-            padding: 12px;
-            text-align: left
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        th:first-child {
+            text-align: center;
+        }
+
+        th:last-child {
+            text-align: center;
         }
 
         td {
             background: white;
-            padding: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.05)
+            padding: 14px 12px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            vertical-align: middle;
+        }
+
+        td:first-child {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(138, 77, 0, 0.02);
+            transform: scale(1.01);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
         }
 
         canvas#particles {
@@ -60,23 +111,83 @@
             left: 0;
             z-index: -1;
         }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .btn-warning {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(138, 77, 0, 0.3);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-accepted {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .alert-success {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #155724;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+        }
     </style>
 
     <canvas id="particles"></canvas>
 
-    <main style="display:flex;gap:20px;padding:20px;">
-        <aside style="width:260px;">
+    <main style="display:flex;gap:30px;padding:40px;max-width:1600px;margin:0 auto;">
+        <aside style="width:300px;">
             <section class="card">
-                <h2>Admin — Candidaturas</h2>
-                <p>Lista de candidaturas submetidas. Aceite ou rejeite conforme necessário.</p>
+                <h2>Candidaturas</h2>
+                <p>Gerencie as candidaturas submetidas pelos alunos. Aceite ou rejeite conforme necessário.</p>
             </section>
         </aside>
 
         <section class="main-panel">
             <div class="card">
                 @if (session('message'))
-                    <div style="padding:10px;background:#e6ffe6;border:1px solid #8fd18f;margin-bottom:10px;">
-                        {{ session('message') }}</div>
+                    <div class="alert-success">
+                        ✓ {{ session('message') }}
+                    </div>
                 @endif
 
                 <table>
@@ -94,23 +205,36 @@
                     <tbody>
                         @foreach ($candidaturas as $c)
                             <tr>
-                                <td>{{ $c->id }}</td>
-                                <td>{{ $c->nome }}</td>
-                                <td>{{ $c->email }}</td>
+                                <td><strong>#{{ $c->id }}</strong></td>
+                                <td><strong>{{ $c->nome }}</strong></td>
+                                <td style="color: #666;">{{ $c->email }}</td>
                                 <td>{{ $c->localidade }}</td>
                                 <td>{{ $c->tipo_curso }}</td>
-                                <td>{{ ucfirst($c->status) }}</td>
                                 <td>
-                                    <a href="{{ route('admin.candidaturas.show', $c->id) }}" class="btn btn-secondary"
-                                        style="margin-right:6px;">Ver</a>
-                                    @if ($c->status === 'pending')
-                                        <form action="{{ route('candidaturas.accept', $c->id) }}" method="POST"
-                                            style="display:inline-block;margin-right:6px;">@csrf<button
-                                                class="btn btn-primary">Aceitar</button></form>
-                                        <form action="{{ route('candidaturas.reject', $c->id) }}" method="POST"
-                                            style="display:inline-block;">@csrf<button
-                                                class="btn btn-secondary">Rejeitar</button></form>
-                                    @endif
+                                    <span class="status-badge status-{{ $c->status }}">
+                                        @if($c->status === 'pending')
+                                            Pendente
+                                        @elseif($c->status === 'accepted')
+                                            Aceite
+                                        @elseif($c->status === 'rejected')
+                                            Rejeitado
+                                        @else
+                                            {{ ucfirst($c->status) }}
+                                        @endif
+                                    </span>
+                                </td>
+                                <td>
+                                    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+                                        <a href="{{ route('admin.candidaturas.show', $c->id) }}" class="btn btn-warning">Ver</a>
+                                        @if ($c->status === 'pending')
+                                            <form action="{{ route('candidaturas.accept', $c->id) }}" method="POST"
+                                                style="display:inline-block;">@csrf<button
+                                                    class="btn btn-warning">✓ Aceitar</button></form>
+                                            <form action="{{ route('candidaturas.reject', $c->id) }}" method="POST"
+                                                style="display:inline-block;">@csrf<button
+                                                    class="btn btn-warning">✗ Rejeitar</button></form>
+                                        @endif
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

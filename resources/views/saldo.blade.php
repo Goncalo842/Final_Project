@@ -92,7 +92,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
             opacity: 0;
             transition: var(--transition);
         }
@@ -122,7 +122,7 @@
             color: transparent;
             font-weight: 800;
             margin: 15px 0;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
             position: relative;
             display: inline-block;
         }
@@ -231,7 +231,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.7s ease;
         }
 
@@ -308,8 +308,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes slideInRight {
@@ -317,6 +324,7 @@
                 opacity: 0;
                 transform: translateX(100px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -324,8 +332,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @media (max-width: 1024px) {
@@ -335,7 +348,8 @@
                 max-width: 600px;
             }
 
-            .left-panel, .right-panel {
+            .left-panel,
+            .right-panel {
                 width: 100%;
             }
         }
@@ -376,14 +390,14 @@
 
     <canvas id="particles"></canvas>
 
-    @if(session('success'))
+    @if (session('success'))
         <div class="alert alert-success">
             <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
             {{ session('success') }}
         </div>
     @endif
 
-    @if(session('error'))
+    @if (session('error'))
         <div class="alert alert-error">
             <i class="fas fa-exclamation-circle" style="margin-right: 10px;"></i>
             {{ session('error') }}
@@ -401,7 +415,7 @@
 
         <div class="right-panel">
             <div class="payment-methods">
-                <h2>Recarregar Saldo via Stripe</h2>
+                <h2>Recarregar Saldo</h2>
 
                 <form id="paymentForm">
                     @csrf
@@ -411,15 +425,8 @@
                             <i class="fas fa-euro-sign" style="margin-right: 5px;"></i>
                             Valor da Recarga (€)
                         </label>
-                        <input
-                            type="number"
-                            id="amount"
-                            name="amount"
-                            min="5"
-                            step="0.01"
-                            placeholder="Mínimo €5.00"
-                            required
-                        >
+                        <input type="number" id="amount" name="amount" min="5" step="0.01"
+                            placeholder="Mínimo €5.00" required>
                         <small style="color: var(--text-light); font-size: 0.9rem; margin-top: 5px; display: block;">
                             Valor mínimo: €5.00
                         </small>
@@ -430,14 +437,8 @@
                             <i class="fas fa-envelope" style="margin-right: 5px;"></i>
                             Email
                         </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="{{ Auth::user()->email }}"
-                            placeholder="seu@email.com"
-                            required
-                        >
+                        <input type="email" id="email" name="email" value="{{ Auth::user()->email }}"
+                            placeholder="seu@email.com" required>
                     </div>
 
                     <div class="form-group">
@@ -445,13 +446,8 @@
                             <i class="fas fa-user" style="margin-right: 5px;"></i>
                             Nome no Cartão
                         </label>
-                        <input
-                            type="text"
-                            id="cardholder-name"
-                            name="cardholder_name"
-                            placeholder="Nome como está no cartão"
-                            required
-                        >
+                        <input type="text" id="cardholder-name" name="cardholder_name"
+                            placeholder="Nome como está no cartão" required>
                     </div>
 
                     <div class="form-group">
@@ -459,8 +455,10 @@
                             <i class="fas fa-credit-card" style="margin-right: 5px;"></i>
                             Informações do Cartão
                         </label>
-                        <div id="card-element" style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white;"></div>
-                        <div id="card-errors" role="alert" style="color: #e74c3c; font-size: 0.9rem; margin-top: 8px;"></div>
+                        <div id="card-element"
+                            style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white;"></div>
+                        <div id="card-errors" role="alert" style="color: #e74c3c; font-size: 0.9rem; margin-top: 8px;">
+                        </div>
                     </div>
 
                     <button type="submit" class="confirm-btn" id="submit-btn">
@@ -474,7 +472,7 @@
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-        const stripe = Stripe('{{ config("services.stripe.key") }}');
+        const stripe = Stripe('{{ config('services.stripe.key') }}');
         const elements = stripe.elements();
 
         const cardElement = elements.create('card', {
@@ -600,7 +598,7 @@
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
 
                 try {
-                    const response = await fetch('{{ route("stripe.checkout") }}', {
+                    const response = await fetch('{{ route('stripe.checkout') }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -621,7 +619,10 @@
                         return;
                     }
 
-                    const {error, paymentIntent} = await stripe.confirmCardPayment(data.clientSecret, {
+                    const {
+                        error,
+                        paymentIntent
+                    } = await stripe.confirmCardPayment(data.clientSecret, {
                         payment_method: {
                             card: cardElement,
                             billing_details: {
@@ -636,7 +637,8 @@
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = '<i class="fab fa-stripe"></i> Pagar com Stripe';
                     } else if (paymentIntent.status === 'succeeded') {
-                        window.location.href = '{{ route("payment.success") }}?payment_intent=' + paymentIntent.id;
+                        window.location.href = '{{ route('payment.success') }}?payment_intent=' +
+                            paymentIntent.id;
                     }
 
                 } catch (error) {
@@ -661,5 +663,6 @@
     </script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 @endsection
