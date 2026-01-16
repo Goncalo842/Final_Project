@@ -616,19 +616,41 @@
 
         const btnTopo = document.getElementById("btnTopo");
 
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
+        function updateBtnTopoVisibility(scrollY) {
+            if (!btnTopo) {
+                return;
+            }
+            if (scrollY > 300) {
                 btnTopo.style.display = "block";
             } else {
                 btnTopo.style.display = "none";
             }
+        }
+
+        let lastKnownScrollY = window.scrollY || 0;
+        let ticking = false;
+
+        window.addEventListener("scroll", () => {
+            lastKnownScrollY = window.scrollY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateBtnTopoVisibility(lastKnownScrollY);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
 
-        btnTopo.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
+        updateBtnTopoVisibility(lastKnownScrollY);
+
+        if (btnTopo) {
+            btnTopo.addEventListener("click", () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
             });
-        });
+        }
     </script>
 @endsection
