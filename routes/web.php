@@ -1,16 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\CandidaturaController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FaltaController;
-use App\Http\Controllers\SaldoController;
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\StockController;
-use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\PagamentoController;
-use App\Http\Controllers\CandidaturaController;
+use App\Http\Controllers\SaldoController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 // Public routes (no authentication required)
 Route::get('', [UserController::class, 'welcome'])->name('welcome');
@@ -61,11 +61,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/candidaturas/{id}', [CandidaturaController::class, 'show'])->name('admin.candidaturas.show');
 
     // Documents downloads (plano curricular, regulamento interno)
-        Route::get('/documents/plano/{course?}', [SettingsController::class, 'downloadPlano'])->name('documents.plano');
-        Route::get('/documents/regulamento/{course?}', [SettingsController::class, 'downloadRegulamento'])->name('documents.regulamento');
-        Route::get('/documents/guia', [SettingsController::class, 'downloadGuia'])->name('documents.guia');
-        Route::get('/documents/criterios', [SettingsController::class, 'downloadCriterios'])->name('documents.criterios');
-        Route::get('/documents/administracao', [SettingsController::class, 'downloadAdministracao'])->name('documents.administracao');
+    Route::get('/documents/plano/{course?}', [SettingsController::class, 'downloadPlano'])->name('documents.plano');
+    Route::get('/documents/regulamento/{course?}', [SettingsController::class, 'downloadRegulamento'])->name('documents.regulamento');
+    Route::get('/documents/guia', [SettingsController::class, 'downloadGuia'])->name('documents.guia');
+    Route::get('/documents/criterios', [SettingsController::class, 'downloadCriterios'])->name('documents.criterios');
+    Route::get('/documents/administracao', [SettingsController::class, 'downloadAdministracao'])->name('documents.administracao');
     Route::get('/staionery', [SettingsController::class, 'staionery'])->name('staionery');
     Route::get('/drink', [SettingsController::class, 'drink'])->name('drink');
     Route::get('/products', [SettingsController::class, 'products'])->name('products');
@@ -105,6 +105,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/stock/{id}', [StockController::class, 'destroy'])->name('stock.destroy');
 });
 
-Route::fallback(function() {
+Route::fallback(function () {
     return view('fallback');
 });
