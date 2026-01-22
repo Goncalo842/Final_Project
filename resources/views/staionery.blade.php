@@ -253,9 +253,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 28px;
-            box-shadow: 0 28px 60px rgba(0,0,0,0.12);
-            border: 1px solid rgba(138,77,0,0.12);
+
         }
 
         .floating-note {
@@ -635,11 +633,34 @@
             box-shadow: 0 6px 20px rgba(223, 124, 4, 0.4);
         }
 
+        @media (max-width: 1200px) {
+            .hero {
+                padding: 60px 5%;
+            }
+
+            .left {
+                padding-right: 30px;
+            }
+
+            .notebook-visual {
+                width: 400px;
+            }
+
+            .shop {
+                padding: 60px 5% 80px;
+            }
+        }
+
         @media (max-width: 1024px) {
             .hero {
                 flex-direction: column;
                 text-align: center;
-                padding: 40px 5%;
+                padding: 50px 5%;
+                min-height: auto;
+            }
+
+            .hero .container {
+                flex-direction: column;
             }
 
             .left {
@@ -647,49 +668,296 @@
                 margin-bottom: 40px;
             }
 
+            .hero h1,
+            .hero p,
+            .hero-meta {
+                max-width: 100%;
+            }
+
+            .notebook-visual {
+                width: 360px;
+            }
+
+            .hero-decor {
+                width: 360px;
+                height: 360px;
+                right: 50%;
+                transform: translateX(50%) rotate(-8deg);
+            }
+
             .products {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 30px;
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 24px;
+            }
+
+            .features {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 20px;
             }
         }
 
         @media (max-width: 768px) {
+            .hero {
+                padding: 40px 5%;
+            }
+
             .hero h1 {
                 font-size: 2rem;
+                line-height: 1.15;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin: 16px 0 24px;
+            }
+
+            .premium-badge,
+            .subline {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+
+            .notebook-visual {
+                width: 300px;
+            }
+
+            .floating-note {
+                bottom: 10px;
+                right: -8px;
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+
+            .hero-meta {
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .pill {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+
+            .btn-cta {
+                padding: 13px 28px;
+                font-size: 0.95rem;
+            }
+
+            .btn-secondary {
+                font-size: 0.9rem;
             }
 
             .features {
                 grid-template-columns: 1fr;
-                padding: 60px 5%;
-                gap: 25px;
+                padding: 50px 5%;
+                gap: 20px;
+            }
+
+            .feature {
+                padding: 22px 18px;
+            }
+
+            .shop {
+                padding: 50px 5% 70px;
+            }
+
+            .shop-header h2 {
+                font-size: 2rem;
             }
 
             .products {
                 grid-template-columns: 1fr;
-                gap: 25px;
+                gap: 24px;
             }
 
             .category-tabs {
-                gap: 10px;
+                gap: 8px;
             }
 
             .category-btn {
-                padding: 10px 20px;
+                padding: 10px 18px;
+                font-size: 0.88rem;
+            }
+
+            .card .card-body {
+                padding: 18px 20px;
+            }
+
+            .actions {
+                padding: 0 20px 16px;
+                flex-direction: column;
+            }
+
+            .btn-view,
+            .btn-buy {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 30px 4%;
+                border-radius: 18px;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+                margin: 10px 0 14px;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .notebook-visual {
+                width: 260px;
+            }
+
+            .floating-note {
+                padding: 8px 10px;
+                font-size: 0.75rem;
+                bottom: 8px;
+                right: -6px;
+            }
+
+            .hero::before {
+                width: 380px;
+                height: 380px;
+                filter: blur(40px);
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pill {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .features {
+                padding: 40px 4%;
+                gap: 18px;
+            }
+
+            .feature {
+                padding: 20px 16px;
+            }
+
+            .feature .icon {
+                width: 46px;
+                height: 46px;
+                font-size: 1.2rem;
+            }
+
+            .feature h3 {
+                font-size: 1.1rem;
+            }
+
+            .shop {
+                padding: 40px 4% 60px;
+            }
+
+            .shop-header h2 {
+                font-size: 1.6rem;
+                margin-bottom: 24px;
+            }
+
+            .category-tabs {
+                gap: 6px;
+            }
+
+            .category-btn {
+                padding: 9px 16px;
+                font-size: 0.82rem;
+            }
+
+            .products {
+                gap: 20px;
+                margin-top: 32px;
+            }
+
+            .card .card-body {
+                padding: 16px 18px;
+            }
+
+            .card h3 {
+                font-size: 1.1rem;
+            }
+
+            .desc {
+                font-size: 0.9rem;
+                min-height: auto;
+            }
+
+            .price-badge {
+                font-size: 0.88rem;
+                padding: 6px 10px;
+            }
+
+            .actions {
+                padding: 0 18px 14px;
+                gap: 8px;
+            }
+
+            .btn-view,
+            .btn-buy {
+                padding: 12px 14px;
                 font-size: 0.9rem;
             }
         }
 
         @media (max-width: 480px) {
+            .hero {
+                padding: 24px 4%;
+            }
+
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+                margin: 12px 0 20px;
+            }
+
+            .notebook-visual {
+                width: 220px;
+            }
+
             .btn-cta {
-                padding: 14px 30px;
-                font-size: 1rem;
+                padding: 12px 24px;
+                font-size: 0.9rem;
+            }
+
+            .shop {
+                padding: 32px 4% 50px;
             }
 
             .shop-header h2 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
 
-            .card .card-body { padding: 20px; }
+            .category-btn {
+                padding: 8px 14px;
+                font-size: 0.78rem;
+            }
+
+            .card .card-body {
+                padding: 14px 16px;
+            }
+
+            .img-wrap {
+                height: 200px;
+            }
+
+            .tag {
+                top: 12px;
+                left: 12px;
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
         }
     </style>
 
@@ -728,7 +996,7 @@
             </div>
             <div class="hero-decor" aria-hidden="true"></div>
             <div class="notebook-visual" aria-hidden="true">
-                <img src="{{ asset('images/caderno.png') }}" alt="Caderno premium" loading="lazy">
+                <img src="{{ asset('images/CA.png') }}" alt="Caderno premium" loading="lazy">
                 <div class="floating-note">
                     <i class="fas fa-book-open"></i>
                     <span>Papel 100 g/m²</span>

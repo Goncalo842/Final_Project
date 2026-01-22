@@ -48,6 +48,7 @@ route::get('/mestrado-cloud', [CourseController::class, 'cloud'])->name('cloud')
 
 // Protected routes (authentication required)
 Route::middleware(['auth'])->group(function () {
+    Route::get('/admin', [SettingsController::class, 'admin'])->name('admin');
     // Settings and Profile
     Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
     route::get('/grade', [SettingsController::class, 'grade'])->name('grade');
@@ -69,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/staionery', [SettingsController::class, 'staionery'])->name('staionery');
     Route::get('/drink', [SettingsController::class, 'drink'])->name('drink');
     Route::get('/products', [SettingsController::class, 'products'])->name('products');
+    Route::post('/caderno/adquirir', [SettingsController::class, 'buyNotebook'])->name('caderno.adquirir');
     Route::get('/documents/download', [SettingsController::class, 'downloadDocuments'])->name('documents.download');
 
     Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('user.edit');

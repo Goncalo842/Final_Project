@@ -5,9 +5,53 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class SettingsController extends Controller
 {
+    public function admin()
+    {
+        if (auth()->user()->user_type != 30) {
+            return redirect()->route('welcome');
+        }
+
+        $totalUsers = DB::table('users')->where('user_type', 10)->count();
+
+        $totalPagamentosPagos = DB::table('pagamentos')->where('pago', true)->count();
+
+        $pagamentosPendentes = DB::table('pagamentos')->where('pago', false)->count();
+
+        $totalStock = DB::table('stock')->count();
+
+        $ultimosUsers = DB::table('users')
+            ->where('user_type', 10)
+            ->orderBy('created_at', 'desc')
+            ->limit(4)
+            ->get();
+
+        $ultimosPagamentos = DB::table('pagamentos')
+            ->join('users', 'pagamentos.user_id', '=', 'users.id')
+            ->select('pagamentos.id', 'pagamentos.mes', 'pagamentos.pago', 'pagamentos.created_at', 'users.name')
+            ->orderBy('pagamentos.created_at', 'desc')
+            ->paginate(3);
+
+        $totalFaltas = DB::table('faltas')->count();
+
+        $totalDisciplinas = DB::table('disciplina')->count();
+
+        return view('admin.dashboard', compact(
+            'totalUsers',
+            'totalPagamentosPagos',
+            'pagamentosPendentes',
+            'totalStock',
+            'ultimosUsers',
+            'ultimosPagamentos',
+            'totalFaltas',
+            'totalDisciplinas'
+        ));
+    }
+
     public function staionery()
     {
 
@@ -19,7 +63,7 @@ class SettingsController extends Controller
         $user = auth()->user();
 
         if ($user->user_type == 30) {
-            return redirect()->route('admin.candidaturas.index');
+            return redirect()->route('admin');
         }
 
         $userId = $user->id;
@@ -399,5 +443,24 @@ class SettingsController extends Controller
         }
 
         return redirect()->route('settings')->with('message', 'Notas inseridas com sucesso!');
+    }
+
+    public function buyNotebook(Request $request)
+    {
+        $request->validate([
+            'preco' => 'required|numeric|in:12,15',
+        ]);
+
+        $user = auth()->user();
+        $preco = (float) $request->preco;
+
+        if ($user->saldo < $preco) {
+            return redirect()->route('products')->with('error', 'Saldo insuficiente! Necessita de €' . number_format($preco, 2, ',', '.'));
+        }
+
+        $user->saldo -= $preco;
+        $user->save();
+
+        return redirect()->route('products')->with('success', 'Caderno ISTP Deluxe adquirido com sucesso! Novo saldo: €' . number_format($user->saldo, 2, ',', '.'));
     }
 }

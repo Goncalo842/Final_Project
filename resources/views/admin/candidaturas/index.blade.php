@@ -170,6 +170,212 @@
             font-weight: 500;
             box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
         }
+
+        @media (max-width: 1200px) {
+            main {
+                flex-direction: column;
+                gap: 20px;
+                padding: 30px 20px !important;
+            }
+
+            aside {
+                width: 100% !important;
+            }
+
+            .main-panel {
+                max-width: 100% !important;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th {
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+
+            td {
+                padding: 10px 8px;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .status-badge {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 20px 16px !important;
+            }
+
+            .card {
+                padding: 18px;
+                border-radius: 12px;
+            }
+
+            .card h2 {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .card p {
+                font-size: 14px;
+            }
+
+            table {
+                font-size: 12px;
+                border-spacing: 0;
+            }
+
+            th {
+                padding: 10px 6px;
+                font-size: 11px;
+            }
+
+            td {
+                padding: 8px 6px;
+            }
+
+            td:first-child {
+                font-size: 12px;
+            }
+
+            .btn {
+                padding: 5px 10px;
+                font-size: 11px;
+                margin: 2px;
+            }
+
+            .status-badge {
+                padding: 3px 6px;
+                font-size: 10px;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody,
+            tr,
+            td {
+                display: block;
+                width: 100%;
+            }
+
+            tr {
+                margin-bottom: 15px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                overflow: hidden;
+                background: white;
+            }
+
+            td {
+                text-align: left !important;
+                padding: 10px 12px;
+                border: none;
+                border-bottom: 1px solid #f0f0f0;
+                position: relative;
+                padding-left: 35%;
+            }
+
+            td:last-child {
+                border-bottom: none;
+            }
+
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: 600;
+                color: var(--primary-color);
+                font-size: 11px;
+                text-transform: uppercase;
+                width: 30%;
+            }
+
+            td:first-child:before {
+                content: "ID";
+            }
+
+            td:nth-child(2):before {
+                content: "Nome";
+            }
+
+            td:nth-child(3):before {
+                content: "Email";
+            }
+
+            td:nth-child(4):before {
+                content: "Localidade";
+            }
+
+            td:nth-child(5):before {
+                content: "Curso";
+            }
+
+            td:nth-child(6):before {
+                content: "Status";
+            }
+
+            td:last-child:before {
+                content: "Ações";
+            }
+
+            td div {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 16px 12px !important;
+                gap: 15px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .card h2 {
+                font-size: 18px;
+            }
+
+            td {
+                padding: 8px 10px;
+                padding-left: 40%;
+                font-size: 11px;
+            }
+
+            td:before {
+                font-size: 10px;
+                left: 8px;
+                width: 35%;
+            }
+
+            .btn {
+                padding: 5px 8px;
+                font-size: 10px;
+            }
+        }
     </style>
 
     <canvas id="particles"></canvas>
@@ -205,12 +411,12 @@
                     <tbody>
                         @foreach ($candidaturas as $c)
                             <tr>
-                                <td><strong>#{{ $c->id }}</strong></td>
-                                <td><strong>{{ $c->nome }}</strong></td>
-                                <td style="color: #666;">{{ $c->email }}</td>
-                                <td>{{ $c->localidade }}</td>
-                                <td>{{ $c->tipo_curso }}</td>
-                                <td>
+                                <td data-label="ID"><strong>#{{ $c->id }}</strong></td>
+                                <td data-label="Nome"><strong>{{ $c->nome }}</strong></td>
+                                <td data-label="Email" style="color: #666;">{{ $c->email }}</td>
+                                <td data-label="Localidade">{{ $c->localidade }}</td>
+                                <td data-label="Curso">{{ $c->tipo_curso }}</td>
+                                <td data-label="Status">
                                     <span class="status-badge status-{{ $c->status }}">
                                         @if($c->status === 'pending')
                                             Pendente
@@ -223,7 +429,7 @@
                                         @endif
                                     </span>
                                 </td>
-                                <td>
+                                <td data-label="Ações">
                                     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
                                         <a href="{{ route('admin.candidaturas.show', $c->id) }}" class="btn btn-warning">Ver</a>
                                         @if ($c->status === 'pending')

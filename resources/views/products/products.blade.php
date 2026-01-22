@@ -13,15 +13,6 @@
             --white: #FFFFFF;
             --text-dark: #2C2C2C;
             --notebook-cover: #1b1b1b;
-            --notebook-spiral: #b5b9c1;
-            --notebook-price: 24.99;
-            --page-style: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.16) 0, rgba(0, 0, 0, 0.16) 1px, transparent 24px);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
 
         body {
@@ -46,49 +37,6 @@
             padding: 2rem;
         }
 
-        .luxury-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .exclusive-badge {
-            display: inline-block;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 2px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(170, 126, 63, 0.3);
-        }
-
-        .exclusive-badge::after {
-            content: "";
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
-            color: var(--text-dark);
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 300;
-            font-style: italic;
-        }
-
         .luxury-product {
             display: flex;
             background: var(--white);
@@ -96,7 +44,7 @@
             overflow: hidden;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
             margin-bottom: 4rem;
-            min-height: 600px;
+            min-height: 850px;
             position: relative;
         }
 
@@ -108,32 +56,88 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             padding: 2.5rem;
-            perspective: 1400px;
+            perspective: 1600px;
         }
 
-        .notebook-model {
-            width: 330px;
-            height: 460px;
-            background-color: var(--notebook-cover);
-            background-image:
-                linear-gradient(120deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.12)),
-                repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 2px, transparent 2px, transparent 4px),
-                repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 2px, transparent 2px, transparent 4px);
-            border-radius: 5px 18px 18px 5px;
-            box-shadow:
-                inset 3px 0 6px rgba(0, 0, 0, 0.22),
-                inset -2px 0 6px rgba(255, 255, 255, 0.12),
-                16px 22px 44px rgba(0, 0, 0, 0.42);
+        .pause-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(170, 126, 63, 0.3);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .pause-button:hover {
+            background: var(--gold-dark);
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(170, 126, 63, 0.4);
+        }
+
+        .notebook-container {
+            width: 420px;
+            height: 580px;
             position: relative;
-            transform: rotate(-3deg) perspective(1400px) rotateY(2deg);
-            transition: transform 0.4s ease, background-color 0.4s, box-shadow 0.4s ease;
-            z-index: 10;
-            overflow: hidden;
+            transform-style: preserve-3d;
+            animation: spin3d-full 7s linear infinite;
         }
 
-        .notebook-model::after {
+        .notebook-container.paused {
+            animation-play-state: paused;
+        }
+
+        @keyframes spin3d-full {
+            from {
+                transform: rotateY(9deg) rotateX(10deg);
+            }
+
+            to {
+                transform: rotateY(360deg) rotateX(5deg);
+            }
+        }
+
+        .notebook-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.12), transparent 35%),
+                radial-gradient(circle at 70% 65%, rgba(0, 0, 0, 0.2), transparent 45%),
+                repeating-linear-gradient(25deg,
+                    rgba(255, 255, 255, 0.08) 0px,
+                    rgba(255, 255, 255, 0.08) 1px,
+                    rgba(0, 0, 0, 0.06) 1px,
+                    rgba(0, 0, 0, 0.06) 2px),
+                repeating-linear-gradient(25deg,
+                    rgba(255, 255, 255, 0.08) 0px,
+                    rgba(255, 255, 255, 0.08) 1px,
+                    rgba(0, 0, 0, 0.06) 1px,
+                    rgba(0, 0, 0, 0.06) 2px),
+
+                linear-gradient(135deg, var(--notebook-cover) 0%, color-mix(in srgb, var(--notebook-cover) 88%, #000) 100%);
+            border-radius: 0 20px 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow:
+                inset 12px 0 10px rgba(104, 104, 104, 0.5),
+                inset -8px 0 15px rgba(104, 104, 104, 0.5),
+                25px 35px 90px rgba(104, 104, 104, 0.5);
+            transform: translateZ(22px);
+        }
+
+        .notebook-front::after {
             content: "";
             position: absolute;
             top: 12px;
@@ -145,106 +149,122 @@
             pointer-events: none;
         }
 
-        .product-image-container:hover .notebook-model {
-            box-shadow:
-                inset 3px 0 6px rgba(0, 0, 0, 0.22),
-                20px 26px 52px rgba(0, 0, 0, 0.36);
-        }
-
-        .notebook-spiral-side {
+        .notebook-back::after {
+            content: "";
             position: absolute;
-            left: -15px;
-            top: 20px;
-            bottom: 20px;
-            width: 30px;
-            background: transparent;
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 5px 0;
+            top: 12px;
+            left: 12px;
+            bottom: 12px;
+            right: 40px;
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 12px 3px 3px 12px;
+            pointer-events: none;
         }
 
-        .spiral-ring {
+        .notebook-back {
+            position: absolute;
             width: 100%;
-            height: 12px;
-            background: linear-gradient(90deg,
-                    rgba(0, 0, 0, 0.5) 0%,
-                    var(--notebook-spiral) 20%,
-                    white 50%,
-                    var(--notebook-spiral) 80%,
-                    rgba(0, 0, 0, 0.5) 100%);
-            border-radius: 6px;
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-            margin-bottom: 8px;
+            height: 100%;
+            background:
+                radial-gradient(circle at 28% 35%, rgba(255, 255, 255, 0.1), transparent 38%),
+                radial-gradient(circle at 72% 60%, rgba(0, 0, 0, 0.18), transparent 50%),
+                repeating-linear-gradient(30deg,
+                    rgba(255, 255, 255, 0.07) 0px,
+                    rgba(255, 255, 255, 0.07) 1px,
+                    rgba(0, 0, 0, 0.055) 1px,
+                    rgba(0, 0, 0, 0.055) 2px),
+                repeating-linear-gradient(120deg,
+                    rgba(255, 255, 255, 0.045) 0px,
+                    rgba(255, 255, 255, 0.045) 1px,
+                    rgba(0, 0, 0, 0.045) 1px,
+                    rgba(0, 0, 0, 0.045) 2px),
+                linear-gradient(135deg, color-mix(in srgb, var(--notebook-cover) 86%, #000) 0%, var(--notebook-cover) 100%);
+            border-radius: 20px 0 0 20px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow:
+                inset -12px 0 10px rgba(104, 104, 104, 0.5),
+                inset 8px 0 15px rgba(104, 104, 104, 0.5),
+                -25px 35px 90px rgba(104, 104, 104, 0.5);
+            transform: rotateY(180deg) translateZ(22px);
         }
 
-        .notebook-pages {
+        .notebook-pages-side1 {
             position: absolute;
-            right: -12px;
-            top: 10px;
-            bottom: 10px;
-            width: 15px;
-            background: repeating-linear-gradient(90deg, #fdfbf7, #e8e6e1 1px, #fdfbf7 2px);
-            border-radius: 0 5px 5px 0;
-            box-shadow: inset 2px 0 5px rgba(0, 0, 0, 0.1), 3px 3px 5px rgba(0, 0, 0, 0.1);
-            z-index: 5;
-            transform: translateZ(-2px);
-        }
-
-        .notebook-pages-bottom {
-            position: absolute;
-            bottom: -12px;
-            left: 10px;
+            width: 44px;
+            height: 100%;
             right: 0;
-            height: 15px;
-            background: repeating-linear-gradient(180deg, #fdfbf7, #e8e6e1 1px, #fdfbf7 2px);
-            border-radius: 0 0 5px 15px;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1), 3px 3px 5px rgba(0, 0, 0, 0.1);
-            transform: skewX(45deg);
-            z-index: 4;
-            width: 98%;
+            top: 0;
+            background: repeating-linear-gradient(180deg,
+                #fdfbf7 0px,
+                #fdfbf7 2px,
+                #e8e6e1 2px,
+                #e8e6e1 4px,
+                #fdfbf7 4px,
+                #fdfbf7 6px,
+                #d4d0cb 6px,
+                #d4d0cb 8px
+            );
+            transform: rotateY(90deg) translateZ(5px);
+            transform-origin: center;
+        }
+
+        .notebook-pages-side2 {
+            position: absolute;
+            width: 44px;
+            height: 100%;
+            right: 0;
+            top: 0;
+            background: var(--notebook-cover);
+            transform: rotateY(90deg) translateZ(-398px);
+            transform-origin: center;
         }
 
         .notebook-elastic {
             position: absolute;
-            top: -2px;
-            bottom: -2px;
-            right: 40px;
-            width: 12px;
-            background-color: var(--notebook-cover);
-            filter: brightness(0.8);
-            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
-            z-index: 15;
-            display: none;
-        }
-
-        .notebook-inner,
-        .notebook-spine,
-        .page-sheet {
-            display: none;
-        }
-
-        .notebook-shine {
-            position: absolute;
-            inset: -10% -30% 20% 30%;
-            background: linear-gradient(125deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.02) 35%, rgba(255, 255, 255, 0) 50%);
-            mix-blend-mode: screen;
+            top: 0px;
+            bottom: 0px;
+            right: 26px;
+            width: 14px;
+            background: rgb(166, 157, 90);
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.25),
+                2px 0 6px rgba(0, 0, 0, 0.35),
+                -1px 0 4px rgba(255, 255, 255, 0.08);
+            z-index: 18;
+            display: block;
             pointer-events: none;
+        }
+
+        .notebook-elastic::after {
+            content: "";
+            position: absolute;
+            inset: 6px 3px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+            border-radius: 6px;
             opacity: 0.8;
-            transition: opacity 0.3s ease;
         }
 
-        .notebook-shadow {
+        .notebook-elastic-back {
             position: absolute;
-            width: 420px;
-            height: 120px;
-            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 70%);
-            filter: blur(12px);
-            opacity: 0.6;
-            transform: translateY(120px) rotate(-3deg);
-            z-index: 1;
+            left: 50px;
+            height: 70px;
+            width: 10px;
+            background: rgb(166, 157, 90);
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.25),
+                -2px 0 6px rgba(0, 0, 0, 0.35),
+                1px 0 4px rgba(255, 255, 255, 0.08);
+            z-index: 18;
+            display: block;
             pointer-events: none;
+        }
+
+        .notebook-elastic-back.top {
+            top: 0px;
+        }
+
+        .notebook-elastic-back.bottom {
+            bottom: 0px;
         }
 
         .notebook-logo {
@@ -272,27 +292,35 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .product-image {
-            display: none;
+        .notebook-tagline {
+            position: absolute;
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1.4;
+            z-index: 10;
         }
 
-        .gold-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(170, 126, 63, 0.03) 0%, transparent 70%);
-            pointer-events: none;
+        .notebook-tagline-first {
+            font-size: 1rem;
+        }
+
+        .notebook-tagline-second {
+            font-size: 1.2rem;
+            margin-top: 2px;
         }
 
         .product-details {
             flex: 1;
-            padding: 3rem;
+            padding: 4rem 3rem;
             background: var(--white);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-evenly;
             position: relative;
         }
 
@@ -323,10 +351,6 @@
             color: #555;
         }
 
-        .features-list {
-            margin-bottom: 2.5rem;
-        }
-
         .feature-item {
             display: flex;
             align-items: center;
@@ -345,12 +369,6 @@
             color: var(--white);
             margin-right: 1rem;
             font-size: 0.9rem;
-        }
-
-        .pricing-section {
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding-top: 2rem;
-            margin-top: auto;
         }
 
         .price-container {
@@ -423,7 +441,6 @@
             background: var(--white);
             color: var(--gold);
             border: 2px solid var(--gold);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             flex-grow: 1;
         }
 
@@ -431,7 +448,6 @@
             background: var(--gold);
             color: var(--white);
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .purchase-button i,
@@ -462,7 +478,6 @@
         #customizer {
             background: linear-gradient(135deg, #ffffff, #fbf8f3);
             border-radius: 16px;
-            box-shadow: 0 18px 55px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(170, 126, 63, 0.15);
             transform: translateY(8px);
             max-height: 0;
@@ -527,7 +542,6 @@
             border-radius: 12px;
             padding: 1.5rem;
             border: 1px solid #f0f0f0;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
         }
 
         .option-title {
@@ -554,7 +568,6 @@
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.25s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
             position: relative;
         }
 
@@ -564,7 +577,6 @@
 
         .swatch.active {
             border: 3px solid var(--gold);
-            box-shadow: 0 0 0 5px rgba(170, 126, 63, 0.28);
         }
 
         .finish-button {
@@ -615,25 +627,47 @@
     <canvas id="particles"></canvas>
 
     <div class="luxury-container">
+        @if (session('success'))
+            <div style="background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px;
+            border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-check-circle"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div style="background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 15px;
+            border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
         <main>
             <section class="luxury-product animate-in delay-1">
                 <div class="product-image-container">
-                    <div class="gold-accent accent-1"></div>
-                    <div class="gold-accent accent-2"></div>
-                    <div class="gold-overlay"></div>
 
-                    <div class="notebook-shadow"></div>
-                    <div class="notebook-model" id="notebook-preview">
-                        <div class="notebook-pages-bottom"></div>
-                        <div class="notebook-pages"></div>
-                        <div class="notebook-elastic"></div>
-                        <div class="notebook-spiral-side" id="spiral-preview">
-                            @for ($i = 0; $i < 20; $i++)
-                                <div class="spiral-ring"></div>
-                            @endfor
-                        </div>
-                        <div class="notebook-shine"></div>
-                        <div class="notebook-logo gold-foil">ISTP</div>
+                    <button class="pause-button" id="pause-btn" title="Pausar/Retomar">
+                        <i class="fas fa-pause"></i>
+                    </button>
+
+                    <div class="notebook-container">
+                            <div class="notebook-pages-side1"></div>
+                            <div class="notebook-pages-side2"></div>
+
+                            <div class="notebook-front">
+                                <div class="notebook-elastic"></div>
+                                <div class="notebook-logo gold-foil">ISTP</div>
+                                <div class="notebook-tagline">
+                                    <div class="notebook-tagline-first">O teu futuro</div>
+                                    <div class="notebook-tagline-second">começa aqui</div>
+                                </div>
+                            </div>
+
+                            <div class="notebook-back">
+                                <div class="notebook-elastic-back top"></div>
+                                <div class="notebook-elastic-back bottom"></div>
+                            </div>
                     </div>
                 </div>
 
@@ -647,41 +681,41 @@
                     <div class="features-list">
                         <div class="feature-item">
                             <div class="feature-icon"><i class="fas fa-feather-alt"></i></div>
-                            <span>Papel de 100g/m² | Sem sangria de tinta</span>
+                            <span>Papel de 100g/m² </span>
                         </div>
                         <div class="feature-item">
                             <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
-                            <span>Capa rígida personalizável (Fosco ou Brilhante)</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon"><i class="fas fa-cogs"></i></div>
-                            <span>Espiral de Metal Dupla (Gold, Silver ou Black)</span>
+                            <span>Capa rígida personalizável</span>
                         </div>
                         <div class="feature-item">
                             <div class="feature-icon"><i class="fas fa-ruler-combined"></i></div>
-                            <span>Formato A5 | 180 páginas numeradas</span>
+                            <span>Formato A5 | 200 páginas numeradas</span>
                         </div>
                     </div>
 
                     <div class="pricing-section">
                         <div class="price-container">
-                            <span class="original-price">€29,99</span>
-                            <span id="current-price-display">€24,99</span>
-                            <span class="discount-badge">Lançamento</span>
+                            <span class="original-price">€15,00</span>
+                            <span id="current-price-display">€12,00</span>
+                            <span class="discount-badge">Lançamento -20%</span>
                         </div>
 
                         <div class="purchase-buttons-group">
                             <button type="button" class="personalize-button" id="toggle-customizer-btn">
                                 <i class="fas fa-brush"></i> Personalizar
                             </button>
-                            <a href="#" class="purchase-button" onclick="alert('Caderno Padrão Adquirido!')">
-                                <i class="fas fa-lock"></i> Adquirir (Padrão)
-                            </a>
+                            <form action="{{ route('caderno.adquirir') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <input type="hidden" name="preco" value="12">
+                                <button type="submit" class="purchase-button">
+                                    <i class="fas fa-lock"></i> Adquirir (€12,00)
+                                </button>
+                            </form>
                         </div>
 
                         <div class="guarantee">
                             <i class="fas fa-star-of-life"></i>
-                            <span>100% Satisfação Garantida | Produção artesanal em Portugal</span>
+                            <span>Saldo Atual: €{{ number_format(Auth::user()->saldo, 2, ',', '.') }}</span>
                         </div>
                     </div>
                 </div>
@@ -705,43 +739,21 @@
                         <div class="color-swatch-grid" id="cover-options">
                             <div class="swatch active" style="background-color: #1b1b1b;" data-cover-color="#1b1b1b"
                                 title="Preto profundo" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #4a4a4a;" data-cover-color="#4a4a4a"
+                            <div class="swatch" style="background-color: #3c3c3c;" data-cover-color="#3c3c3c"
                                 title="Cinza grafite" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #6b7a8f;" data-cover-color="#6b7a8f"
-                                title="Slate urbano" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #0f3b2f;" data-cover-color="#0f3b2f"
-                                title="Verde escuro" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #0c1f3f;" data-cover-color="#0c1f3f"
+                            <div class="swatch" style="background-color: #4f5968;" data-cover-color="#4f5968"
+                                title="Azul aço" onclick="setCoverColor(this, 0)"></div>
+                            <div class="swatch" style="background-color: #0f2f26;" data-cover-color="#0f2f26"
+                                title="Verde oliva escuro" onclick="setCoverColor(this, 0)"></div>
+                            <div class="swatch" style="background-color: #122d4a;" data-cover-color="#122d4a"
                                 title="Azul noite" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #c0392b;" data-cover-color="#c0392b"
-                                title="Vermelho rubi" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #27ae60;" data-cover-color="#27ae60"
-                                title="Verde clássico" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #8e44ad;" data-cover-color="#8e44ad"
-                                title="Roxo profundo" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #ff9f43;" data-cover-color="#ff9f43"
-                                title="Âmbar" onclick="setCoverColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #00bcd4;" data-cover-color="#00bcd4"
-                                title="Turquesa" onclick="setCoverColor(this, 0)"></div>
+                            <div class="swatch" style="background-color: #7a2e2a;" data-cover-color="#7a2e2a"
+                                title="Bordô" onclick="setCoverColor(this, 0)"></div>
+                            <div class="swatch" style="background-color: #566b3a;" data-cover-color="#566b3a"
+                                title="Verde musgo" onclick="setCoverColor(this, 0)"></div>
+                            <div class="swatch" style="background-color: #8f5306;" data-cover-color="#8f5306"
+                                title="Couro caramelo" onclick="setCoverColor(this, 0)"></div>
                         </div>
-                    </div>
-
-                    <div class="option-block">
-                        <div class="option-title">Acabamento da Espiral</div>
-                        <div class="color-swatch-grid" id="spiral-options">
-                            <div class="swatch active" style="background-color: #b5b9c1;" data-spiral-color="#b5b9c1"
-                                data-price-modifier="0" title="Aço escovado" onclick="setSpiralColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #4c4c4c;" data-spiral-color="#4c4c4c"
-                                data-price-modifier="0" title="Grafite fosco" onclick="setSpiralColor(this, 0)"></div>
-                            <div class="swatch" style="background-color: #b08d57;" data-spiral-color="#b08d57"
-                                data-price-modifier="3.00" title="Bronze quente" onclick="setSpiralColor(this, 3.00)">
-                            </div>
-                            <div class="swatch" style="background-color: #8a6a46;" data-spiral-color="#8a6a46"
-                                data-price-modifier="4.00" title="Cobre envelhecido"
-                                onclick="setSpiralColor(this, 4.00)"></div>
-                        </div>
-                        <p style="text-align: center; font-size: 0.9em; margin-top: 10px; color: #777;">Metais naturais sem
-                            acréscimo | Bronze +€3.00 | Cobre +€4.00</p>
                     </div>
 
                     <div class="option-block">
@@ -799,7 +811,7 @@
     </div>
 
     <script>
-        let currentBasePrice = 24.99;
+        let currentBasePrice = 12.00;
         let spiralPriceModifier = 0;
 
         function updatePrice() {
@@ -834,7 +846,6 @@
             document.querySelectorAll('.finish-button').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
-            // Atualiza visual do acabamento
             const model = document.querySelector('.notebook-model');
             if (!model) return;
             if (finish === 'brilhante') {
@@ -852,8 +863,6 @@
                     repeating-linear-gradient(-45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px)`;
             }
         }
-
-        function setPageStyle(type) {}
 
         function toggleCustomizer(forceOpen = null) {
             const customizer = document.getElementById('customizer');
@@ -922,6 +931,24 @@
             const baseZ = -3;
             const baseY = 2;
             const maxTilt = 7;
+            // Controlar pausa/retomada da rotação
+            const pauseBtn = document.getElementById('pause-btn');
+            const notebookContainer = document.querySelector('.notebook-container');
+            let isPaused = false;
+
+            if (pauseBtn && notebookContainer) {
+                pauseBtn.addEventListener('click', function() {
+                    isPaused = !isPaused;
+                    if (isPaused) {
+                        notebookContainer.classList.add('paused');
+                        pauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    } else {
+                        notebookContainer.classList.remove('paused');
+                        pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    }
+                });
+            }
+
             if (imageContainer && model) {
                 imageContainer.addEventListener('mousemove', (e) => {
                     const rect = imageContainer.getBoundingClientRect();

@@ -152,7 +152,7 @@
 
         <section class="main-panel">
             <div class="card">
-                <h2>🎓 Candidatura #{{ $cand->id }}</h2>
+                <h2>Candidatura #{{ $cand->id }}</h2>
 
                 <dl class="info-grid">
                     <dt>Nome</dt>

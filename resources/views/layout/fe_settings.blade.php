@@ -23,6 +23,12 @@
         </div>
 
         <nav class="nav-center">
+            @auth
+                @if (Auth::user()->user_type == 30)
+                    <a href="{{ route('admin') }}">Dashboard</a>
+                @endif
+            @endauth
+
             @if (!Auth::check() || Auth::user()->user_type != 30)
                 <a href="{{ url('/settings') }}">Inicio</a>
                 <a href="{{ route('user.edit') }}">Caderneta</a>
@@ -39,8 +45,11 @@
                     <a href="{{ route('admin.candidaturas.index') }}">Candidaturas</a>
                 @endif
                 <a href="{{ url('staionery') }}">Loja</a>
-                <a href="{{ url('grade') }}">Avaliações</a>
             @endauth
+
+            @if (!Auth::check() || Auth::user()->user_type != 30)
+                <a href="{{ url('grade') }}">Avaliações</a>
+            @endif
         </nav>
 
         <nav class="d-flex align-items-center gap-3">
