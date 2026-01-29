@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SettingsController extends Controller
 {
@@ -116,19 +115,7 @@ class SettingsController extends Controller
 
         $html = view('documents.all_documents', $data)->render();
 
-        if (class_exists(\Dompdf\Dompdf::class)) {
-            $dompdf = new \Dompdf\Dompdf;
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'portrait');
-            $dompdf->render();
-
-            return response($dompdf->output(), 200, [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="documentos_escola.pdf"',
-            ]);
-        }
-
-        return back()->with('sucesso', 'Para gerar PDFs instale o Dompdf: execute `composer require dompdf/dompdf`.');
+        return Pdf::loadHTML($html)->setPaper('A4', 'portrait')->download('documentos_escola.pdf');
     }
 
     public function downloadPlano($course = null)

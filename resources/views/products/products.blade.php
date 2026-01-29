@@ -579,33 +579,7 @@
             border: 3px solid var(--gold);
         }
 
-        .finish-button {
-            flex: 1;
-            padding: 0.95rem 1rem;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            background: #f7f7f7;
-            color: var(--text-dark);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
 
-        .finish-button.glossy {
-            background: linear-gradient(135deg, #fff, #fcefdc);
-            color: var(--gold-dark);
-            border-color: rgba(170, 126, 63, 0.5);
-        }
-
-        .finish-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
-        }
-
-        .finish-button.active {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px rgba(170, 126, 63, 0.25);
-        }
 
         @media (max-width: 1200px) {
             .luxury-product {
@@ -755,19 +729,6 @@
                                 title="Couro caramelo" onclick="setCoverColor(this, 0)"></div>
                         </div>
                     </div>
-
-                    <div class="option-block">
-                        <div class="option-title">Acabamento da Capa</div>
-                        <div class="color-swatch-grid" style="justify-content: space-between;">
-                            <button type="button" class="finish-button matte"
-                                onclick="setFinish(this, 'fosco')">Fosco</button>
-                            <button type="button" class="finish-button glossy"
-                                onclick="setFinish(this, 'brilhante')">Brilhante</button>
-                        </div>
-                        <p style="text-align: center; font-size: 0.9em; margin-top: 10px; color: #777;">Escolha o toque
-                            final: elegante fosco ou brilho sofisticado.</p>
-                    </div>
-
 
                 </div>
 
@@ -931,7 +892,6 @@
             const baseZ = -3;
             const baseY = 2;
             const maxTilt = 7;
-            // Controlar pausa/retomada da rotação
             const pauseBtn = document.getElementById('pause-btn');
             const notebookContainer = document.querySelector('.notebook-container');
             let isPaused = false;
