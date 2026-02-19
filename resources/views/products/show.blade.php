@@ -163,10 +163,76 @@
         }
 
         .product-description {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 2rem;
-            line-height: 1.8;
-            color: #555;
+            line-height: 2;
+            color: #333;
+            font-weight: 500;
+            letter-spacing: 0.6px;
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            position: relative;
+            padding: 0;
+        }
+
+        .product-description::first-letter {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #333;
+            margin-right: 0.4rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .description-wrapper {
+            position: relative;
+            padding: 1.2rem 0;
+            background: transparent;
+            border-radius: 0;
+            margin-bottom: 2rem;
+            overflow: visible;
+            box-shadow: none;
+            border-top: none;
+            border-bottom: none;
+        }
+
+        .description-wrapper::before {
+            content: "✦ ✧ ✦ ✧ ✦";
+            display: block;
+            text-align: center;
+            color: #8a4d00;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+            letter-spacing: 0.6rem;
+            font-weight: 600;
+        }
+
+        .description-wrapper::after {
+            content: "✦ ✧ ✦ ✧ ✦";
+            display: block;
+            text-align: center;
+            color: #8a4d00;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            opacity: 0.6;
+            letter-spacing: 0.6rem;
+            font-weight: 600;
+        }
+
+        .description-wrapper:hover {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
         }
 
         .pricing-section {
@@ -359,12 +425,18 @@
                     <div class="gold-accent accent-1"></div>
                     <div class="gold-accent accent-2"></div>
                     <div class="gold-overlay"></div>
-                    <img class="product-image" src="{{ asset('storage/' . $produto->imagem) }}" alt="{{ $produto->nome }}">
+                    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+                    <model-viewer src="{{ asset('images/' . $produto->modelo_3d) }}" alt="Modelo 3D" auto-rotate camera-controls
+                        style="width: 500px; height: 500px;">
+                    </model-viewer>
                 </div>
 
                 <div class="product-details">
                     <h2 class="brand-name">{{ $produto->nome }}</h2>
-                    <p class="product-description">{{ $produto->descricao }}</p>
+                    <div class="description-wrapper">
+                        <p class="product-description">{{ $produto->descricao }}</p>
+                    </div>
 
                     <div class="pricing-section">
                         <div class="price-container">

@@ -173,7 +173,6 @@
                     <img src="{{ asset($produto->imagem ? 'storage/' . $produto->imagem : 'images/default.png') }}" alt="{{ $produto->nome }}" class="product-image">
                     <div class="product-content">
                         <div class="product-title">{{ $produto->nome }}</div>
-                        <div class="product-description">{{ $produto->descricao }}</div>
                         <div class="product-price">€ {{ number_format($produto->preco, 2, ',', '.') }}</div>
                     </div>
                 </a>

@@ -698,7 +698,7 @@
             <section id="customizer" class="animate-in delay-2" aria-expanded="false">
                 <div class="customizer-header">
                     <h2>Selecione o Seu Acabamento</h2>
-                    <p>Ajuste as cores da capa, o tipo de espiral e acabamentos premium.</p>
+                    <p>Ajuste as cores da capa e o acabamentos premium.</p>
                 </div>
 
                 <div class="customizer-meta">

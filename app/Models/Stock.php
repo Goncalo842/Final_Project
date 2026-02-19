@@ -15,6 +15,7 @@ class Stock extends Model
         'nome',
         'descricao',
         'preco',
-        'imagem'
+        'imagem',
+        'modelo_3d'
     ];
 }

@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::table('stock', function (Blueprint $table) {
+            $table->string('modelo_3d')->nullable()->after('imagem');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('stock', function (Blueprint $table) {
+            $table->dropColumn('modelo_3d');
+        });
+    }
+};

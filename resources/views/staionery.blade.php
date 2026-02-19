@@ -47,7 +47,6 @@
             padding: 90px 6%;
             background: linear-gradient(135deg, #e3e2e2 0%, #fff7f1 38%, rgba(176, 109, 0, 0.06) 60%, #ffffff 100%);
             border: 1px solid rgba(0,0,0,0.03);
-            border-radius: 26px;
             box-shadow: 0 22px 54px rgba(0,0,0,0.06);
             overflow: hidden;
         }
@@ -694,11 +693,46 @@
                 grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
                 gap: 20px;
             }
+
+            .hero .container {
+                gap: 32px;
+            }
+
+            .category-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .category-btn {
+                flex: 1 1 180px;
+            }
+
+            .products {
+                grid-template-columns: repeat(2, minmax(240px, 1fr));
+                gap: 22px;
+            }
+
+            .img-wrap {
+                height: 220px;
+            }
+
+            .card h3 {
+                font-size: 1.15rem;
+            }
+
+            .hero-decor {
+                opacity: 0.5;
+                filter: blur(16px);
+            }
         }
 
         @media (max-width: 768px) {
             .hero {
                 padding: 40px 5%;
+            }
+
+            .hero .container {
+                gap: 24px;
             }
 
             .hero h1 {
@@ -745,6 +779,14 @@
 
             .btn-secondary {
                 font-size: 0.9rem;
+                padding: 12px 0;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .btn-cta {
+                width: 100%;
+                justify-content: center;
             }
 
             .features {
@@ -772,11 +814,40 @@
 
             .category-tabs {
                 gap: 8px;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                width: 100%;
+                max-width: 520px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .category-btn {
                 padding: 10px 18px;
                 font-size: 0.88rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+                margin-left: auto;
+                margin-right: auto;
+                gap: 20px;
+            }
+
+            .card {
+                border-radius: 16px;
+            }
+
+            .img-wrap {
+                height: 210px;
+            }
+
+            .actions {
+                padding: 0 18px 16px;
+                gap: 10px;
             }
 
             .card .card-body {
@@ -811,6 +882,7 @@
 
             .notebook-visual {
                 width: 260px;
+                margin: 0 auto;
             }
 
             .floating-note {
@@ -829,6 +901,7 @@
             .hero-meta {
                 flex-direction: column;
                 align-items: center;
+                gap: 8px;
             }
 
             .pill {
@@ -865,7 +938,8 @@
             }
 
             .category-tabs {
-                gap: 6px;
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
 
             .category-btn {
@@ -976,7 +1050,7 @@
                 </div>
                 <h1>Cadernos de <span class="highlight">papel premium</span> para estudar com estilo</h1>
                 <p>Páginas que não marcam, capas com detalhe dourado e abertura 180° para anotações impecáveis. Um caderno que acompanha seu ritmo e eleva cada página.</p>
-                <div style="display:flex;gap:15px;align-items:center;margin-top:30px;flex-wrap:wrap;">
+                <div class="hero-actions" style="display:flex;gap:15px;align-items:center;margin-top:30px;flex-wrap:wrap;">
                     <a href="{{ route('products') }}" class="btn-cta">
                         <span>
                             <i class="fas fa-shopping-cart"></i>

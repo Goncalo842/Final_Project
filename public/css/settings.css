@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: url("http://www.rw-designer.com/cursor-extern.php?id=18678"), auto !important;
+    cursor: url("https://www.rw-designer.com/cursor-extern.php?id=18678"), auto !important;
 }
 
 body {
@@ -97,4 +97,115 @@ a {
     height: 26px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+@media (max-width: 767.98px) {
+    .bar-container {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px 0;
+        gap: 10px;
+    }
+
+    .logo {
+        flex: 0 0 auto;
+        justify-content: flex-start;
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    .nav-center {
+        flex: 1 1 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .nav-center a {
+        font-size: 14px;
+        padding: 8px 6px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .bar-container > nav.d-flex {
+        flex: 1 1 100%;
+        justify-content: center;
+        margin-top: 6px;
+    }
+
+    .bar-container > nav.d-flex .dropdown {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .bar-container > nav.d-flex .account-button {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .bar-container > nav.d-flex .dropdown-menu {
+        left: 50% !important;
+        transform: translateX(-50%);
+        right: auto;
+    }
+
+    .bar-container .navbar-collapse {
+        flex-basis: 100%;
+        width: 100%;
+        order: 3;
+    }
+
+    .bar-container .navbar-toggler {
+        margin-left: auto;
+        border: 0;
+    }
+}
+
+/* Navbar layout (desktop/tablet like before) */
+.navbar .navbar-brand {
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+.navbar .nav-link {
+    font-weight: bold;
+    padding: 10px;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+    font-size: 16px;
+}
+
+.navbar .nav-link:hover {
+    color: #d9850f;
+}
+
+@media (min-width: 992px) {
+    .navbar .navbar-collapse {
+        width: 100%;
+    }
+
+    .navbar .navbar-nav.mx-auto {
+        flex: 1;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .navbar .navbar-nav.ms-lg-3 {
+        margin-left: auto;
+    }
+}
+
+/* Mobile-only adjustments */
+@media (max-width: 991.98px) {
+    .navbar .navbar-nav {
+        gap: 6px;
+    }
+
+    .navbar .nav-link {
+        padding: 8px 4px;
+    }
 }
