@@ -32,7 +32,7 @@
             <nav class="nav-center">
                 @auth
                     @if (Auth::user()->user_type == 30)
-                        <a href="{{ route('admin') }}">Dashboard</a>
+                        <a href="{{ route('admin') }}">Inicial</a>
                     @endif
                 @endauth
 
