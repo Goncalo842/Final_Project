@@ -1,563 +1,389 @@
 @extends('layout.fe_settings')
 @section('content')
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap"
         rel="stylesheet">
+
     <style>
-        :root {
-            --gold: #8a4d00;
-            --black: #0A0A0A;
-            --dark-charcoal: #1A1A1A;
-            --white: #FFFFFF;
-            --text-dark: #2C2C2C;
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                transform: translateX(400px);
+            }
+        }
+
+        :root {
+            --accent-gold: #8a4d00;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
         }
 
         body {
             background: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
-            overflow-x: hidden;
-            min-height: 100vh;
+            color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        canvas#particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .luxury-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .luxury-product {
-            display: flex;
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
-            margin-bottom: 4rem;
-            min-height: 600px;
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: 30px;
-            left: 30px;
-            background: linear-gradient(135deg, #8a4d00, #874b03);
-            color: #fff;
-            padding: 0.8rem 1.8rem;
-            border-radius: 8px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .back-button i {
-            margin-right: 0.6rem;
-            transition: transform 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: linear-gradient(135deg, #e6c158, #d4af37);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.5);
-        }
-
-        .back-button:active {
-            transform: translateY(1px) scale(0.98);
-        }
-
-        @media (max-width: 600px) {
-            .back-button {
-                top: 20px;
-                left: 20px;
-                padding: 0.6rem 1.4rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        .product-image-container {
-            flex: 1;
-            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 2rem;
-        }
-
-        .product-image {
-            max-width: 85%;
-            height: auto;
-            filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.3));
-            transform: rotate(5deg);
-            transition: transform 0.7s ease;
-            z-index: 2;
-        }
-
-        .product-image-container:hover .product-image {
-            transform: rotate(0deg) scale(1.02);
-        }
-
-        .gold-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .product-details {
-            flex: 1;
-            padding: 3rem;
-            background: var(--white);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-        .brand-name {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .brand-name::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background: var(--gold);
-        }
-
-        .product-description {
-            font-size: 1.15rem;
-            margin-bottom: 2rem;
-            line-height: 2;
-            color: #333;
-            font-weight: 500;
-            letter-spacing: 0.6px;
-            font-family: 'Cormorant Garamond', serif;
-            text-align: center;
-            position: relative;
+            margin: 0;
             padding: 0;
         }
 
-        .product-description::first-letter {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #333;
-            margin-right: 0.4rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .serif-display {
+            font-family: 'Cormorant Garamond', serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
         }
 
-        .description-wrapper {
-            position: relative;
-            padding: 1.2rem 0;
-            background: transparent;
-            border-radius: 0;
-            margin-bottom: 2rem;
-            overflow: visible;
-            box-shadow: none;
-            border-top: none;
-            border-bottom: none;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px;
         }
-
-        .description-wrapper::before {
-            content: "✦ ✧ ✦ ✧ ✦";
-            display: block;
-            text-align: center;
-            color: #8a4d00;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            opacity: 0.6;
-            letter-spacing: 0.6rem;
-            font-weight: 600;
-        }
-
-        .description-wrapper::after {
-            content: "✦ ✧ ✦ ✧ ✦";
-            display: block;
-            text-align: center;
-            color: #8a4d00;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-            opacity: 0.6;
-            letter-spacing: 0.6rem;
-            font-weight: 600;
-        }
-
-        .description-wrapper:hover {
-            background: transparent;
-            box-shadow: none;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-5px);
-            }
-            to {
-                opacity: 0.8;
-                transform: translateY(0);
-            }
-        }
-
-        .pricing-section {
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding-top: 2rem;
-            margin-top: auto;
-        }
-
-        .price-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .current-price {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--gold);
-            margin-right: 1.5rem;
-        }
-
-        .purchase-button {
+        .btn-back {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--gold), var(--gold));
-            color: var(--white);
-            padding: 1.2rem 2.5rem;
-            border: none;
-            border-radius: 2px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #f5f5f7;
+            color: var(--text-main);
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-            position: relative;
-            overflow: hidden;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+            margin-bottom: 20px;
         }
 
-        .purchase-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-            background: linear-gradient(135deg, #e6c158, #d4af37);
+        .btn-back:hover {
+            background: #e8e8e8;
+            transform: translateX(-3px);
+        }
+        .breadcrumb {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: var(--text-muted);
         }
 
-        .purchase-button:active {
-            transform: translateY(1px);
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.3s;
         }
 
-        .purchase-button i {
-            margin-right: 0.8rem;
+        .breadcrumb a:hover {
+            color: var(--accent-gold);
         }
 
-        .gold-accent {
-            position: absolute;
-            background: var(--gold);
-            opacity: 0.1;
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .visual-container {
+            position: sticky;
+            top: 40px;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 700px;
+            --poster-color: transparent;
+            background-color: transparent;
+        }
+
+        .info-container {
+            padding-top: 20px;
+        }
+
+        .product-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .product-ref {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .description-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .buy-controls {
+            border-top: 1px solid #d2d2d7;
+            padding-top: 40px;
+        }
+
+        .quantity-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            width: fit-content;
+            border-radius: 30px;
+            padding: 5px;
+            margin-bottom: 30px;
+            border: 1px solid #d2d2d7;
+        }
+
+        .qty-selector button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 18px;
             border-radius: 50%;
+            transition: 0.2s;
         }
 
-        .accent-1 {
-            width: 200px;
-            height: 200px;
-            top: -100px;
-            right: -100px;
+        .qty-selector button:hover {
+            background: #f5f5f7;
         }
 
-        .accent-2 {
-            width: 150px;
-            height: 150px;
-            bottom: -75px;
-            left: -75px;
+        .qty-selector input {
+            border: none;
+            text-align: center;
+            width: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            background: transparent;
         }
 
-        @media (max-width: 1200px) {
-            .luxury-product {
-                flex-direction: column;
-            }
-
-            .product-image-container {
-                min-height: 400px;
-            }
+        .btn-primary-apple {
+            width: 100%;
+            background: var(--text-main);
+            color: #fff;
+            border: none;
+            padding: 22px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @media (max-width: 600px) {
-            .product-details {
-                padding: 2rem;
-            }
-
-            .brand-name {
-                font-size: 2rem;
-            }
-
-            .current-price {
-                font-size: 2rem;
-            }
+        .btn-primary-apple:hover {
+            background: var(--accent-gold);
+            transform: scale(1.02);
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-in {
-            animation: fadeIn 1s ease forwards;
-        }
-
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-
-        .luxury-details {
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 4rem;
+            gap: 2px;
+            background: #d2d2d7;
+            margin-top: 80px;
+            border: 1px solid #d2d2d7;
         }
 
-        .detail-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
+        .feature-item {
+            background: #fff;
+            padding: 60px 30px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .detail-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        .feature-item i {
+            font-size: 24px;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            display: block;
         }
 
-        .detail-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .detail-title {
-            font-family: 'Cinzel', serif;
+        .feature-item h4 {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-            color: var(--black);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
         }
 
-        .detail-description {
-            color: #666;
-            font-size: 1rem;
+        .feature-item p {
+            font-size: 13px;
+            color: var(--text-muted);
             line-height: 1.6;
         }
 
-        @media (max-width: 900px) {
-            .luxury-details {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .luxury-details {
+        @media (max-width: 1024px) {
+            .product-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .visual-container {
+                position: relative;
+                top: 0;
+            }
+
+            model-viewer {
+                height: 500px;
+            }
+
+            .product-header h1 {
+                font-size: 3rem;
             }
         }
     </style>
 
-    <canvas id="particles"></canvas>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/">Início</a> / <a href="{{ route('products') }}">Coleção</a> / <span>{{ $produto->nome }}</span>
+        </nav>
 
-    <div class="luxury-container">
-        <main>
-            <section class="luxury-product animate-in delay-1">
+        <a href="{{ route('stock') }}" class="btn-back">
+            <i class="fas fa-arrow-left"></i>
+            Voltar para a Loja
+        </a>
 
-                <a href="javascript:void(0);" class="back-button" onclick="history.back();">
-                    <i class="fas fa-arrow-left"></i> Voltar
-                </a>
+        <div class="product-grid">
+            <div class="visual-container">
+                <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+                <model-viewer src="{{ asset('images/' . $produto->modelo_3d) }}" alt="{{ $produto->nome }}" auto-rotate
+                    camera-controls shadow-intensity="0.5" exposure="1">
+                </model-viewer>
+            </div>
 
-                <div class="product-image-container">
-                    <div class="gold-accent accent-1"></div>
-                    <div class="gold-accent accent-2"></div>
-                    <div class="gold-overlay"></div>
-                    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
-                    <model-viewer src="{{ asset('images/' . $produto->modelo_3d) }}" alt="Modelo 3D" auto-rotate camera-controls
-                        style="width: 500px; height: 500px;">
-                    </model-viewer>
+            <div class="info-container">
+                <div class="product-header">
+                    <div class="product-ref">Ref. {{ $produto->id }} — Série Design</div>
+                    <h1>{{ $produto->nome }}</h1>
                 </div>
 
-                <div class="product-details">
-                    <h2 class="brand-name">{{ $produto->nome }}</h2>
-                    <div class="description-wrapper">
-                        <p class="product-description">{{ $produto->descricao }}</p>
+                <div class="price-tag" id="totalPrice">
+                    {{ number_format($produto->preco, 2) }}€
+                </div>
+
+                <div class="description-text">
+                    {{ $produto->descricao }}
+                    <br><br>
+                    Inspirado na elegância das linhas puras e no compromisso com a excelência técnica. Cada detalhe foi
+                    concebido para proporcionar uma experiência sensorial única.
+                </div>
+
+                <div class="buy-controls">
+                    <span class="quantity-label">Quantidade</span>
+                    <div class="qty-selector">
+                        <button type="button" onclick="decreaseQty()">–</button>
+                        <input type="number" id="quantity" value="1" min="1" readonly>
+                        <button type="button" onclick="increaseQty()">+</button>
                     </div>
 
-                    <div class="pricing-section">
-                        <div class="price-container">
-                            <span class="current-price">€{{ $produto->preco }}</span>
-                        </div>
-                        <form method="POST" action="{{ route('produto.adquirir', $produto->id) }}">
-                            @csrf
-                            <button type="submit" class="purchase-button">
-                                <i class="fas fa-lock"></i> Adquirir Agora
-                            </button>
-                        </form>
-                    </div>
+                    <form method="POST" action="{{ route('produto.adquirir', $produto->id) }}">
+                        @csrf
+                        <input type="hidden" name="quantity" id="formQuantity" value="1">
+                        <button type="submit" class="btn-primary-apple">
+                            Adicionar ao Carrinho
+                        </button>
+                    </form>
                 </div>
-            </section>
+            </div>
+        </div>
 
-            <section class="luxury-details">
-                <div class="detail-card animate-in delay-2">
-                    <div class="detail-icon"><i class="fas fa-award"></i></div>
-                    <h3 class="detail-title">Artesanato Excelente</h3>
-                    <p class="detail-description">Cada caneta é trabalhada à mão por nossos mestres artesãos, com um
-                        processo que leva mais de 100 horas para ser concluído.</p>
-                </div>
-
-                <div class="detail-card animate-in delay-2">
-                    <div class="detail-icon"><i class="fas fa-feather-alt"></i></div>
-                    <h3 class="detail-title">Experiência de Escrita</h3>
-                    <p class="detail-description">Equilibrada perfeitamente para uma escrita suave e sem esforço,
-                        proporcionando uma experiência de escrita incomparável.</p>
-                </div>
-
-                <div class="detail-card animate-in delay-2">
-                    <div class="detail-icon"><i class="fas fa-gift"></i></div>
-                    <h3 class="detail-title">Embalagem de Luxo</h3>
-                    <p class="detail-description">Apresentada em uma caixa de madeira personalizada, forrada a veludo, com
-                        certificado de autenticidade numerado.</p>
-                </div>
-            </section>
-        </main>
+        <section class="features-grid">
+            <div class="feature-item">
+                <i class="fas fa-gem"></i>
+                <h4>Qualidade Premium</h4>
+                <p>Materiais selecionados para garantir durabilidade e um acabamento impecável.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-leaf"></i>
+                <h4>Design Minimalista</h4>
+                <p>A harmonia perfeita entre forma e função, focada no essencial.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-award"></i>
+                <h4>Garantia Dupla</h4>
+                <p>Controlo de qualidade rigoroso antes de cada envio para sua total confiança.</p>
+            </div>
+        </section>
     </div>
 
+    @if (session('success'))
+        <div style="position: fixed; top: 100px; right: 20px; z-index: 9999; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 20px 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-in 4.5s forwards; max-width: 400px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-check-circle" style="font-size: 24px;"></i>
+                <span style="font-size: 15px; font-weight: 500;">{{ session('success') }}</span>
+            </div>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div style="position: fixed; top: 100px; right: 20px; z-index: 9999; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 20px 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3); animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-in 4.5s forwards; max-width: 400px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-exclamation-circle" style="font-size: 24px;"></i>
+                <span style="font-size: 15px; font-weight: 500;">{{ session('error') }}</span>
+            </div>
+        </div>
+    @endif
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const purchaseBtn = document.querySelector('.purchase-button');
-            purchaseBtn.addEventListener('mouseover', function() {
-                this.style.background = 'linear-gradient(135deg, #e6c158, #d4af37)';
-            });
+        const basePrice = {{ $produto->preco }};
 
-            purchaseBtn.addEventListener('mouseout', function() {
-                this.style.background = 'linear-gradient(135deg, var(--gold), var(--gold))';
-            });
-        });
-
-        const canvas = document.getElementById("particles");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particles = [];
-        const total = 80;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.5;
-                this.vy = (Math.random() - 0.5) * 1.5;
-                this.radius = 3;
-            }
-
-            move() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = "#ffffff";
-                ctx.fill();
-            }
+        function updatePrice() {
+            const qty = parseInt(document.getElementById('quantity').value);
+            const total = basePrice * qty;
+            document.getElementById('totalPrice').textContent = total.toLocaleString('pt-PT', {
+                minimumFractionDigits: 2
+            }) + '€';
+            document.getElementById('formQuantity').value = qty;
         }
 
-        function connectParticles() {
-            for (let a = 0; a < total; a++) {
-                for (let b = a + 1; b < total; b++) {
-                    let dx = particles[a].x - particles[b].x;
-                    let dy = particles[a].y - particles[b].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 150) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.strokeStyle = "rgba(255,255,255,0.3)";
-                        ctx.stroke();
-                    }
-                }
+        function increaseQty() {
+            let input = document.getElementById('quantity');
+            input.value = parseInt(input.value) + 1;
+            updatePrice();
+        }
+
+        function decreaseQty() {
+            let input = document.getElementById('quantity');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+                updatePrice();
             }
         }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let p of particles) {
-                p.move();
-                p.draw();
-            }
-            connectParticles();
-            requestAnimationFrame(animate);
-        }
-
-        function init() {
-            for (let i = 0; i < total; i++) particles.push(new Particle());
-            animate();
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        init();
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @endsection

@@ -206,40 +206,41 @@
             font-weight: 600;
         }
 
-            .status-pill {
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                padding: 7px 12px;
-                border-radius: 12px;
-                font-weight: 700;
-                font-size: 0.9rem;
-                box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-                border: 1px solid rgba(0,0,0,0.03);
-            }
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
 
-            .status-pill i {
-                width: 28px;
-                height: 28px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                background: rgba(0,0,0,0.04);
-                font-size: 0.95rem;
-            }
+        .status-pill i {
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.04);
+            font-size: 0.95rem;
+        }
 
-            .status-paid {
-                background: linear-gradient(90deg,#eaf6f1,#e6f4ea);
-                color: #1b6b49;
-                border-color: rgba(27,107,73,0.10);
-            }
+        .status-paid {
+            background: linear-gradient(90deg, #eaf6f1, #e6f4ea);
+            color: #1b6b49;
+            border-color: rgba(27, 107, 73, 0.10);
+        }
 
-            .status-pending {
-                background: linear-gradient(90deg,#fff6f6,#fff9f9);
-                color: #b71c1c;
-                border-color: rgba(183,28,28,0.10);
-            }
+        .status-pending {
+            background: linear-gradient(90deg, #fff6f6, #fff9f9);
+            color: #b71c1c;
+            border-color: rgba(183, 28, 28, 0.10);
+        }
+
         .status-pending {
             background: rgba(198, 40, 40, 0.15);
             color: #c62828;
@@ -373,7 +374,6 @@
             transform: translateY(-2px);
         }
 
-        /* Botão de download mais discreto e integrado ao sidebar */
         .btn-download {
             display: inline-flex;
             align-items: center;
@@ -384,13 +384,15 @@
             font-weight: 700;
             color: var(--primary-color);
             background: #fff;
-            border: 1px solid rgba(158,80,7,0.12);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            border: 1px solid rgba(158, 80, 7, 0.12);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
             text-decoration: none;
             margin-left: 8px;
         }
 
-        .btn-download i { color: var(--primary-color); }
+        .btn-download i {
+            color: var(--primary-color);
+        }
 
         .btn-download:hover {
             background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
@@ -664,7 +666,9 @@
                                         <i class="fas fa-check-circle"></i> Pago
                                     </span>
 
-                                    <a href="{{ route('pagamentos.receipt', ['mes' => $mes]) }}" class="btn-download btn-download-mini" target="_blank" title="Descarregar comprovativo">
+                                    <a href="{{ route('pagamentos.receipt', ['mes' => $mes]) }}"
+                                        class="btn-download btn-download-mini" target="_blank"
+                                        title="Descarregar comprovativo">
                                         <i class="fas fa-download"></i>
                                     </a>
                                 @else
@@ -691,7 +695,9 @@
                                         <i class="fas fa-check-circle"></i> Pago
                                     </span>
 
-                                    <a href="{{ route('pagamentos.receipt', ['mes' => $mes]) }}" class="btn-download btn-download-mini" target="_blank" title="Descarregar comprovativo">
+                                    <a href="{{ route('pagamentos.receipt', ['mes' => $mes]) }}"
+                                        class="btn-download btn-download-mini" target="_blank"
+                                        title="Descarregar comprovativo">
                                         <i class="fas fa-download"></i>
                                     </a>
                                 @else

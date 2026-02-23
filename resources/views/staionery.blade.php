@@ -1,1267 +1,273 @@
 @extends('layout.fe_settings')
 @section('content')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
     <style>
         :root {
-            --primary: #8a4d00;
-            --primary-dark: #5a2f00;
-            --primary-light: #c17a2f;
-            --accent: rgba(138, 77, 0, 0.12);
-            --warm: #f6f6f6;
-            --ink: #0f172a;
-            --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
-            --shadow-xl: 0 22px 60px rgba(138, 77, 0, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --light-bg: #f5f5f7;
+            --text-dark: #1d1d1f;
+            --accent-gray: #86868b;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
-            color: #1f2937;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
             overflow-x: hidden;
-        }
-
-        canvas#particles {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
         }
 
-        .hero {
-            position: relative;
-            min-height: 93vh;
+        .full-screen-container {
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-apple {
+            height: 100vh;
+            width: 100%;
             display: flex;
             align-items: center;
-            padding: 90px 6%;
-            background: linear-gradient(135deg, #e3e2e2 0%, #fff7f1 38%, rgba(176, 109, 0, 0.06) 60%, #ffffff 100%);
-            border: 1px solid rgba(0,0,0,0.03);
-            box-shadow: 0 22px 54px rgba(0,0,0,0.06);
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -12%;
-            right: 0;
-            width: 520px;
-            height: 520px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, rgba(138,77,0,0.22), rgba(0,0,0,0.06) 55%, transparent 75%);
-            filter: blur(52px) saturate(1.05);
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 12% 88%, rgba(0,0,0,0.06), transparent 32%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+            justify-content: center;
             position: relative;
-            z-index: 1;
+            background: #f5f5f7;
         }
 
-        .left,
-        .right {
-            flex: 1;
-        }
-
-        .left {
-            padding-right: 50px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.6rem, 5vw, 3.9rem);
-            font-weight: 500;
-            color: var(--ink);
-            margin: 12px 0 18px;
-            line-height: 1.08;
-            text-shadow: 0 8px 28px rgba(0,0,0,0.06);
-            letter-spacing: -0.01em;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero h1 .highlight {
-            color: var(--primary);
-            display: inline-block;
-            position: relative;
-        }
-
-        .hero h1 .highlight::after {
-            content: '';
+        .hero-bg-text {
             position: absolute;
-            bottom: 6px;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: linear-gradient(90deg, rgba(138,77,0,0.25), rgba(193,122,47,0.12));
-            z-index: -1;
-            border-radius: 999px;
-        }
-
-        .hero p {
-            font-size: clamp(1.04rem, 2vw, 1.2rem);
-            color: #374151;
-            line-height: 1.8;
-            margin: 18px 0 26px;
-            animation: fadeInUp 1s ease-out;
-            max-width: 640px;
-        }
-
-        .premium-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(138,77,0,0.1);
-            padding: 9px 14px;
-            border-radius: 14px;
-            margin-bottom: 14px;
-            color: #8a4d00;
-            font-weight: 700;
-            font-size: 0.85rem;
-            border: 1px solid rgba(138,77,0,0.22);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.06);
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .subline {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
-            background: rgba(138,77,0,0.08);
-            color: #1f2937;
-            border-radius: 12px;
-            font-weight: 700;
-            letter-spacing: 0.01em;
-            box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
-            flex-wrap: wrap;
-        }
-
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            background: white;
-            border-radius: 14px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(75,85,99,0.14);
-            font-weight: 600;
-            color: #1f2937;
-        }
-
-        .pill i { color: var(--primary); }
-
-        .btn-cta {
-            display: inline-block;
-            padding: 15px 34px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
+            font-size: 28vw;
             font-weight: 800;
-            font-size: 1.02rem;
-            text-decoration: none;
-            border-radius: 14px;
-            box-shadow: 0 16px 36px rgba(138,77,0,0.2);
-            transition: all 0.3s ease;
-            animation: fadeInUp 1.2s ease-out;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(138,77,0,0.2);
-        }
-
-        .btn-cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .btn-cta:hover::before { opacity: 1; }
-
-        .btn-cta:hover {
-            color: white;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 22px 48px rgba(138,77,0,0.22);
-            border-color: rgba(138,77,0,0.24);
-        }
-
-        .btn-cta span {
-            position: relative;
+            color: rgba(0, 0, 0, 0.03);
             z-index: 1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            line-height: 0.8;
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
         }
 
-        .btn-secondary {
-            color: var(--primary);
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            animation: fadeInUp 1.4s ease-out;
-        }
-
-        .btn-secondary:hover { gap: 12px; color: var(--primary-dark); }
-
-        .notebook-visual {
-            position: relative;
-            width: 480px;
-            max-width: 100%;
-            aspect-ratio: 4 / 5;
+        .hero-content-wrapper {
             display: grid;
-            place-items: center;
+            grid-template-columns: 1fr 1fr;
+            width: 90%;
+            max-width: 1600px;
             z-index: 2;
-            animation: floatBottle 4s cubic-bezier(0.4,0.0,0.2,1) infinite;
+            align-items: center;
+            gap: 50px;
         }
 
-        .notebook-visual img {
+        .hero-image-main {
+            text-align: center;
+        }
+
+        .hero-image-main img {
+            width: 100%;
+            max-width: 700px;
+            filter: drop-shadow(0 50px 100px rgba(0, 0, 0, 0.12));
+        }
+
+        .hero-text-side h1 {
+            font-size: 6rem;
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .hero-text-side p {
+            font-size: 1.3rem;
+            color: var(--accent-gray);
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        .btn-apple {
+            display: inline-block;
+            padding: 18px 50px;
+            border: 1px solid #d2d2d7;
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-apple:hover {
+            background: #fff;
+            transform: translateY(-2px);
+        }
+
+        .feature-split {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            width: 100%;
+            min-height: 80vh;
+            background: #fff;
+            align-items: center;
+        }
+
+        .feature-image-card {
+            height: 100%;
+            width: 100%;
+            background-color: #e8e8e8;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 50px;
+        }
+
+        .feature-image-card img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-
+            max-height: 600px;
+            object-fit: contain;
+            filter: grayscale(100%);
         }
 
-        .floating-note {
-            position: absolute;
-            bottom: 16px;
-            right: -12px;
-            background: white;
-            padding: 14px 16px;
-            border-radius: 16px;
-            box-shadow: 0 18px 44px rgba(15,23,42,0.12);
-            display: inline-flex;
+        .feature-text-overlay {
+            padding: 0 10%;
+        }
+
+        .feature-text-overlay h2 {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: #1d1d1f;
+        }
+
+        .feature-text-overlay p {
+            font-size: 1.1rem;
+            color: var(--accent-gray);
+            line-height: 1.8;
+        }
+
+        .magical-section {
+            padding: 150px 5%;
+            display: flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(138,77,0,0.2);
-            backdrop-filter: blur(6px);
-            animation: floatBottle 5s ease-in-out infinite;
+            justify-content: space-around;
+            background: #f5f5f7;
         }
 
-        .floating-note span { font-weight: 700; color: #8a4d00; }
-
-        @keyframes floatBottle {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            35% { transform: translateY(-28px) rotate(-4deg) scale(1.02); }
-
-            65% { transform: translateY(-12px) rotate(3deg); }
-
-            100% { transform: translateY(0px) rotate(0deg); }
+        .magical-content {
+            max-width: 500px;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .magical-content h2 {
+            font-size: 5.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 40px;
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
-            padding: 60px 6% 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            background: transparent;
+        .magical-image img {
+            width: 100%;
+            max-width: 800px;
+            transform: rotate(10deg);
         }
 
-        .feature {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 26px 22px;
-            border-radius: 18px;
-            text-align: left;
-            box-shadow: 0 14px 30px rgba(0,0,0,0.06);
-            transition: all 0.25s ease;
-            border: 1px solid rgba(138,77,0,0.1);
-            backdrop-filter: blur(8px);
-        }
-
-        .feature:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 38px rgba(0,0,0,0.08);
-            border-color: rgba(138,77,0,0.2);
+        .products-container {
+            padding: 100px 5%;
             background: #fff;
         }
 
-        .feature .icon {
-            width: 52px;
-            height: 52px;
-            background: linear-gradient(135deg, #8a4d00, #c17a2f);
-            color: white;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.35rem;
-            margin: 0 0 14px;
-            box-shadow: 0 8px 20px rgba(138,77,0,0.18);
-        }
-
-        .feature h3 {
-            font-size: 1.2rem;
-            color: #111827;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .feature small {
-            color: #4b5563;
-            font-size: 0.98rem;
-            line-height: 1.6;
-        }
-
-        .shop {
-            padding: 80px 6% 100px;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .shop::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 52%;
-            background: linear-gradient(180deg, rgba(209,213,219,0.14) 0%, transparent 100%);
-            pointer-events: none;
-            border-radius: 40px;
-        }
-
-        .shop-header {
-            text-align: center;
+        .section-label {
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-gray);
             margin-bottom: 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .shop-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: #2d3748;
-            margin-bottom: 30px;
-            font-weight: 800;
-            position: relative;
-            display: inline-block;
-        }
-
-        .shop-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(223, 124, 4, 0.3);
-        }
-
-        .category-tabs {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 28px;
-        }
-
-        .category-btn {
-            padding: 12px 22px;
-            background: #ffffff;
-            color: #111827;
-            border: 1px solid rgba(138,77,0,0.18);
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.98rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 10px 24px rgba(0,0,0,0.06);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(8px);
-        }
-
-        .category-btn:hover,
-        .category-btn.active {
-            background: linear-gradient(135deg, #8a4d00, #c17a2f);
-            color: #ffffff;
-            border-color: rgba(138,77,0,0.26);
-            transform: translateY(-1px);
-            box-shadow: 0 14px 28px rgba(138,77,0,0.16);
-        }
-
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 28px;
-            margin-top: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-            transition: all 0.25s ease;
-            position: relative;
-            border: 1px solid rgba(0,0,0,0.06);
-            backdrop-filter: blur(8px);
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 36px rgba(0,0,0,0.1);
-            border-color: rgba(138,77,0,0.18);
-            background: white;
-        }
-
-        .tag {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background: linear-gradient(135deg, #8a4d00, #c17a2f);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            z-index: 2;
-            box-shadow: 0 10px 20px rgba(138,77,0,0.18);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .img-wrap {
-            position: relative;
-            height: 240px;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(148, 163, 184, 0.08), rgba(255, 255, 255, 0.75));
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .img-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .card:hover .img-wrap img {
-            transform: scale(1.15) rotate(2deg);
-        }
-
-        .hero-decor {
-            position: absolute;
-            right: 4%;
-            top: 6%;
-            width: 460px;
-            height: 460px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(138,77,0,0.2), rgba(209,213,219,0.35) 35%, rgba(226,232,240,0.08) 60%, transparent 70%);
-            filter: blur(8px) saturate(1.04);
-            transform: rotate(-8deg);
-            z-index: 1;
-            pointer-events: none;
-            box-shadow: 0 40px 120px rgba(0,0,0,0.06);
-        }
-
-        .card .card-body {
-            padding: 22px 24px 6px;
-            text-align: left;
-            width: 100%;
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            color: #111827;
-            margin-bottom: 10px;
-            font-weight: 800;
-        }
-
-        .price-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(90deg,#f8f3ec,#f3e7d9);
-            color: #8a4d00;
-            padding: 7px 12px;
-            border-radius: 999px;
-            font-weight: 800;
-            box-shadow: 0 6px 18px rgba(138,77,0,0.12);
-            border: 1px solid rgba(138,77,0,0.18);
-            margin-top: 4px;
-            font-size: 0.95rem;
-        }
-
-        .desc {
-            color: #4b5563;
-            font-size: 0.98rem;
-            line-height: 1.6;
-            margin: 10px 0 16px;
-            min-height: 48px;
-        }
-
-        .actions {
-            margin-top: 10px;
-            display:flex;
-            gap:10px;
-            padding: 0 24px 18px;
-            width: 100%;
-        }
-
-        .btn-view {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex: 1;
-            padding: 14px 18px;
-            background: linear-gradient(135deg, #8a4d00, #c17a2f);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.98rem;
             text-align: center;
-            transition: all 0.25s ease;
-            box-shadow: 0 8px 20px rgba(138,77,0,0.18);
-            position: relative;
-            overflow: hidden;
+            display: block;
         }
 
-        .btn-buy {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex: 1;
-            padding: 14px 16px;
-            background: linear-gradient(90deg,#f9fafb,#f3f4f6);
-            color: #111827;
-            text-decoration: none;
-            border-radius: 10px;
+        .products-grid-apple {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .product-card-apple {
+            background: #f5f5f7;
+            border-radius: 40px;
+            padding: 50px 30px;
+            text-align: center;
+            transition: 0.4s;
+        }
+
+        .product-card-apple:hover {
+            transform: scale(1.03);
+            background: #eee;
+        }
+
+        .product-card-apple img {
+            width: 90%;
+            margin-bottom: 30px;
+        }
+
+        .product-card-apple h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .apple-price {
             font-weight: 800;
-            font-size: 0.98rem;
-            border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-        }
-
-        .btn-buy:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(223,124,4,0.18); }
-
-        .btn-view::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-view:hover::before {
-            left: 100%;
-        }
-
-        .btn-view:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(223, 124, 4, 0.4);
-        }
-
-        @media (max-width: 1200px) {
-            .hero {
-                padding: 60px 5%;
-            }
-
-            .left {
-                padding-right: 30px;
-            }
-
-            .notebook-visual {
-                width: 400px;
-            }
-
-            .shop {
-                padding: 60px 5% 80px;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 50px 5%;
-                min-height: auto;
-            }
-
-            .hero .container {
-                flex-direction: column;
-            }
-
-            .left {
-                padding-right: 0;
-                margin-bottom: 40px;
-            }
-
-            .hero h1,
-            .hero p,
-            .hero-meta {
-                max-width: 100%;
-            }
-
-            .notebook-visual {
-                width: 360px;
-            }
-
-            .hero-decor {
-                width: 360px;
-                height: 360px;
-                right: 50%;
-                transform: translateX(50%) rotate(-8deg);
-            }
-
-            .products {
-                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-                gap: 24px;
-            }
-
-            .features {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 20px;
-            }
-
-            .hero .container {
-                gap: 32px;
-            }
-
-            .category-tabs {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .category-btn {
-                flex: 1 1 180px;
-            }
-
-            .products {
-                grid-template-columns: repeat(2, minmax(240px, 1fr));
-                gap: 22px;
-            }
-
-            .img-wrap {
-                height: 220px;
-            }
-
-            .card h3 {
-                font-size: 1.15rem;
-            }
-
-            .hero-decor {
-                opacity: 0.5;
-                filter: blur(16px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 40px 5%;
-            }
-
-            .hero .container {
-                gap: 24px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-                line-height: 1.15;
-            }
-
-            .hero p {
-                font-size: 1rem;
-                margin: 16px 0 24px;
-            }
-
-            .premium-badge,
-            .subline {
-                font-size: 0.8rem;
-                padding: 8px 12px;
-            }
-
-            .notebook-visual {
-                width: 300px;
-            }
-
-            .floating-note {
-                bottom: 10px;
-                right: -8px;
-                padding: 10px 12px;
-                font-size: 0.85rem;
-            }
-
-            .hero-meta {
-                gap: 10px;
-                justify-content: center;
-            }
-
-            .pill {
-                padding: 10px 14px;
-                font-size: 0.85rem;
-            }
-
-            .btn-cta {
-                padding: 13px 28px;
-                font-size: 0.95rem;
-            }
-
-            .btn-secondary {
-                font-size: 0.9rem;
-                padding: 12px 0;
-                width: 100%;
-                justify-content: center;
-            }
-
-            .btn-cta {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-                padding: 50px 5%;
-                gap: 20px;
-            }
-
-            .feature {
-                padding: 22px 18px;
-            }
-
-            .shop {
-                padding: 50px 5% 70px;
-            }
-
-            .shop-header h2 {
-                font-size: 2rem;
-            }
-
-            .products {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .category-tabs {
-                gap: 8px;
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                width: 100%;
-                max-width: 520px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .category-btn {
-                padding: 10px 18px;
-                font-size: 0.88rem;
-                width: 100%;
-                justify-content: center;
-            }
-
-            .products {
-                grid-template-columns: 1fr;
-                max-width: 520px;
-                margin-left: auto;
-                margin-right: auto;
-                gap: 20px;
-            }
-
-            .card {
-                border-radius: 16px;
-            }
-
-            .img-wrap {
-                height: 210px;
-            }
-
-            .actions {
-                padding: 0 18px 16px;
-                gap: 10px;
-            }
-
-            .card .card-body {
-                padding: 18px 20px;
-            }
-
-            .actions {
-                padding: 0 20px 16px;
-                flex-direction: column;
-            }
-
-            .btn-view,
-            .btn-buy {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero {
-                padding: 30px 4%;
-                border-radius: 18px;
-            }
-
-            .hero h1 {
-                font-size: 1.75rem;
-                margin: 10px 0 14px;
-            }
-
-            .hero p {
-                font-size: 0.95rem;
-            }
-
-            .notebook-visual {
-                width: 260px;
-                margin: 0 auto;
-            }
-
-            .floating-note {
-                padding: 8px 10px;
-                font-size: 0.75rem;
-                bottom: 8px;
-                right: -6px;
-            }
-
-            .hero::before {
-                width: 380px;
-                height: 380px;
-                filter: blur(40px);
-            }
-
-            .hero-meta {
-                flex-direction: column;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .pill {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-
-            .features {
-                padding: 40px 4%;
-                gap: 18px;
-            }
-
-            .feature {
-                padding: 20px 16px;
-            }
-
-            .feature .icon {
-                width: 46px;
-                height: 46px;
-                font-size: 1.2rem;
-            }
-
-            .feature h3 {
-                font-size: 1.1rem;
-            }
-
-            .shop {
-                padding: 40px 4% 60px;
-            }
-
-            .shop-header h2 {
-                font-size: 1.6rem;
-                margin-bottom: 24px;
-            }
-
-            .category-tabs {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .category-btn {
-                padding: 9px 16px;
-                font-size: 0.82rem;
-            }
-
-            .products {
-                gap: 20px;
-                margin-top: 32px;
-            }
-
-            .card .card-body {
-                padding: 16px 18px;
-            }
-
-            .card h3 {
-                font-size: 1.1rem;
-            }
-
-            .desc {
-                font-size: 0.9rem;
-                min-height: auto;
-            }
-
-            .price-badge {
-                font-size: 0.88rem;
-                padding: 6px 10px;
-            }
-
-            .actions {
-                padding: 0 18px 14px;
-                gap: 8px;
-            }
-
-            .btn-view,
-            .btn-buy {
-                padding: 12px 14px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 24px 4%;
-            }
-
-            .hero h1 {
-                font-size: 1.6rem;
-            }
-
-            .hero p {
-                font-size: 0.9rem;
-                margin: 12px 0 20px;
-            }
-
-            .notebook-visual {
-                width: 220px;
-            }
-
-            .btn-cta {
-                padding: 12px 24px;
-                font-size: 0.9rem;
-            }
-
-            .shop {
-                padding: 32px 4% 50px;
-            }
-
-            .shop-header h2 {
-                font-size: 1.5rem;
-            }
-
-            .category-btn {
-                padding: 8px 14px;
-                font-size: 0.78rem;
-            }
-
-            .card .card-body {
-                padding: 14px 16px;
-            }
-
-            .img-wrap {
-                height: 200px;
-            }
-
-            .tag {
-                top: 12px;
-                left: 12px;
-                padding: 5px 10px;
-                font-size: 0.75rem;
-            }
+            font-size: 1.4rem;
         }
     </style>
 
-    <canvas id="particles"></canvas>
+    <div class="full-screen-container">
 
-    <section class="hero" aria-label="Hero banner">
-        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 40px;">
-            <div class="left">
-                <div class="premium-badge">
-                    <i class="fas fa-star"></i>
-                    <span>LANÇAMENTO 2026</span>
+        <section class="hero-apple">
+            <div class="hero-bg-text">ISTP</div>
+            <div class="hero-content-wrapper">
+                <div class="hero-image-main">
+                    <img src="{{ asset('images/fones.png') }}" alt="Fones">
                 </div>
-                <div class="subline">
-                    <i class="fas fa-feather-alt"></i>
-                    Papel 100 g/m², textura sedosa
-                </div>
-                <h1>Cadernos de <span class="highlight">papel premium</span> para estudar com estilo</h1>
-                <p>Páginas que não marcam, capas com detalhe dourado e abertura 180° para anotações impecáveis. Um caderno que acompanha seu ritmo e eleva cada página.</p>
-                <div class="hero-actions" style="display:flex;gap:15px;align-items:center;margin-top:30px;flex-wrap:wrap;">
-                    <a href="{{ route('products') }}" class="btn-cta">
-                        <span>
-                            <i class="fas fa-shopping-cart"></i>
-                            VER MODELOS
-                        </span>
-                    </a>
-                    <a href="{{ route('products') }}" class="btn-secondary">
-                        <span>Ver reviews</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                <div class="hero-meta">
-                    <div class="pill"><i class="fas fa-leaf"></i><span>Papel certificado FSC</span></div>
-                    <div class="pill"><i class="fas fa-star"></i><span>4.9/5 por estudantes</span></div>
-                    <div class="pill"><i class="fas fa-pen-ruler"></i><span>Abertura 180°</span></div>
+                <div class="hero-text-side">
+                    <h1>Fones<br>Max</h1>
+                    <p>A mais pura essência do som técnico, desenhada para uma clareza absoluta nos teus estudos e projetos
+                        no ISTP.</p>
                 </div>
             </div>
-            <div class="hero-decor" aria-hidden="true"></div>
-            <div class="notebook-visual" aria-hidden="true">
-                <img src="{{ asset('images/CA.png') }}" alt="Caderno premium" loading="lazy">
-                <div class="floating-note">
-                    <i class="fas fa-book-open"></i>
-                    <span>Papel 100 g/m²</span>
-                </div>
+        </section>
+
+        <section class="feature-split">
+            <div class="feature-image-card">
+                <img src="{{ asset('images/cadernos.png') }}"
+                    alt="Cadernos Premium">
             </div>
-        </div>
-    </section>
-
-    <section class="shop" aria-label="Shop">
-        <div class="shop-header">
-            <h2>Nossa Coleção Exclusiva</h2>
-            <div class="category-tabs">
-                <button class="category-btn active" onclick="filterProducts('all', this)">
-                    <i class="fas fa-th-large"></i>
-                    <span>Todos</span>
-                </button>
-                <button class="category-btn" onclick="filterProducts('cadernos', this)">
-                    <i class="fas fa-book"></i>
-                    <span>Cadernos</span>
-                </button>
-                <button class="category-btn" onclick="filterProducts('kits', this)">
-                    <i class="fas fa-layer-group"></i>
-                    <span>Kits</span>
-                </button>
-                <button class="category-btn" onclick="filterProducts('acessorios', this)">
-                    <i class="fas fa-pen"></i>
-                    <span>Acessórios</span>
-                </button>
+            <div class="feature-text-overlay">
+                <h2>Cadernos<br>Essenciais</h2>
+                <p>Cadernos premium desenvolvidos para os teus apontamentos e projetos académicos. Design funcional que combina qualidade e durabilidade para acompanhar o teu dia a dia no ISTP.</p>
+                <a href="{{ route('products') }}" class="btn-apple" style="margin-top: 30px;">Ver Detalhes</a>
             </div>
+        </section>
+
+        <div class="products-container">
+            <span class="section-label">Novidades & Promoções</span>
+            <section class="products-grid-apple">
+                @php
+                    $produtos = \App\Models\Stock::take(4)->get();
+                @endphp
+                @foreach ($produtos as $produto)
+                    <div class="product-card-apple">
+                        <img src="{{ asset($produto->imagem ? 'storage/' . $produto->imagem : 'images/default.png') }}" alt="{{ $produto->nome }}">
+                        <h3 class="serif-display">{{ $produto->nome }}</h3>
+                        <div class="apple-price">{{ number_format($produto->preco, 2) }}€</div>
+                    </div>
+                @endforeach
+            </section>
         </div>
 
-        <div class="products" role="list">
-            <article class="card" role="listitem" data-category="cadernos">
-                <div class="img-wrap">
-                    <img src="{{ asset('images/default.png') }}" alt="Caderno minimalista">
-                </div>
-                <div class="card-body">
-                        <h3>Caderno Dot Grid A5</h3>
-                        <p class="desc">Costura exposta, abertura 180°, ideal para mapas mentais e bullet journal</p>
-                        <div class="price-badge">€ 18.90</div>
-                </div>
-                <div class="actions">
-                        <a href="{{ route('products') }}" class="btn-buy">
-                            <i class="fas fa-cart-plus"></i>
-                            Comprar
-                        </a>
-                        <a href="{{ route('stock') }}" class="btn-view">
-                            <span>Ver detalhes</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                </div>
-            </article>
-
-            <article class="card" role="listitem" data-category="kits">
-                <div class="tag">
-                    <i class="fas fa-star"></i>
-                    <span>KIT</span>
-                </div>
-                <div class="img-wrap">
-                    <img src="{{ asset('images/default.png') }}" alt="Kit de estudo premium">
-                </div>
-                <div class="card-body">
-                    <h3>Kit Estudo Signature</h3>
-                    <p class="desc">Caderno capa dura, bloco pautado e marcador em dourado para sua rotina</p>
-                    <div class="price-badge">€ 42.00</div>
-                </div>
-                <div class="actions">
-                    <a href="{{ route('products') }}" class="btn-buy">
-                        <i class="fas fa-cart-plus"></i>
-                        Comprar
-                    </a>
-                    <a href="{{ route('stock') }}" class="btn-view">
-                        <span>Ver detalhes</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="card" role="listitem" data-category="acessorios">
-                <div class="img-wrap">
-                    <img src="{{ asset('images/default.png') }}" alt="Estojo minimalista">
-                </div>
-                <div class="card-body">
-                    <h3>Estojo Canvas Minimal</h3>
-                    <p class="desc">Compartimentos inteligentes, lona resistente e zíper dourado</p>
-                    <div class="price-badge">€ 16.50</div>
-                </div>
-                <div class="actions">
-                    <a href="{{ route('products') }}" class="btn-buy">
-                        <i class="fas fa-cart-plus"></i>
-                        Comprar
-                    </a>
-                    <a href="{{ route('stock') }}" class="btn-view">
-                        <span>Ver detalhes</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <script>
-        window.addEventListener('load', () => {
-            const canvas = document.getElementById("particles");
-            const ctx = canvas.getContext("2d");
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            const particles = [];
-            const totalParticles = 80;
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.vx = (Math.random() - 0.5) * 1.5;
-                    this.vy = (Math.random() - 0.5) * 1.5;
-                    this.radius = 3;
-                }
-
-                move() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                }
-
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-                    ctx.fill();
-                }
-            }
-
-            for (let i = 0; i < totalParticles; i++) {
-                particles.push(new Particle());
-            }
-
-            function connectParticles() {
-                for (let a = 0; a < totalParticles; a++) {
-                    for (let b = a + 1; b < totalParticles; b++) {
-                        let dx = particles[a].x - particles[b].x;
-                        let dy = particles[a].y - particles[b].y;
-                        let distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 150) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[a].x, particles[a].y);
-                            ctx.lineTo(particles[b].x, particles[b].y);
-                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.3 * (1 - distance / 150)})`;
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let p of particles) {
-                    p.move();
-                    p.draw();
-                }
-                connectParticles();
-                requestAnimationFrame(animate);
-            }
-
-            animate();
-        });
-
-        function filterProducts(category, el) {
-            const cards = document.querySelectorAll('.card');
-            const buttons = document.querySelectorAll('.category-btn');
-
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if (el) el.classList.add('active');
-
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                    card.style.animation = 'fadeInUp 0.6s ease-out';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
+        <section class="magical-section">
+            <div class="magical-content">
+                <h2>Descobre<br>Tudo</h2>
+                <p>Explora a nossa coleção completa de produtos. Desde headphones premium a acessórios essenciais,
+                    encontra tudo o que precisas para elevar a tua experiência.</p>
+                <a href="{{ route('stock') }}" class="btn-apple">Ver Todos os Produtos</a>
+            </div>
+            <div class="magical-image">
+                <img src="{{ asset('images/fones.png') }}" alt="Coleção Completa">
+            </div>
+        </section>
+    </div>
 @endsection

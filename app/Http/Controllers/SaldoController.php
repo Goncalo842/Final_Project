@@ -27,18 +27,20 @@ class SaldoController extends Controller
         return redirect()->back()->with('success', 'Recarga de R$ ' . number_format($valor, 2, ',', '.') . ' realizada com sucesso!');
     }
 
-    public function adquirir($id)
+    public function adquirir(Request $request, $id)
     {
         $produto = Stock::findOrFail($id);
         $user = Auth::user();
+        $quantidade = $request->input('quantity', 1);
+        $totalPrice = $produto->preco * $quantidade;
 
-        if ($user->saldo < $produto->preco) {
-            return redirect()->back()->with('error', 'Saldo insuficiente para adquirir este produto.');
+        if ($user->saldo < $totalPrice) {
+            return redirect()->back()->with('error', 'Não tem saldo suficiente para esta compra. Necessita de ' . number_format($totalPrice, 2) . '€');
         }
 
-        $user->saldo -= $produto->preco;
+        $user->saldo -= $totalPrice;
         $user->save();
 
-        return redirect()->back()->with('success', 'Produto adquirido com sucesso!');
+        return redirect()->back()->with('success', 'Compra efetuada com sucesso! Total: ' . number_format($totalPrice, 2) . '€');
     }
 }
