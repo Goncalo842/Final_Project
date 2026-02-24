@@ -1,16 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: url("http://www.rw-designer.com/cursor-extern.php?id=18678"), auto !important;
+    cursor: url("https://www.rw-designer.com/cursor-extern.php?id=18678"), auto !important;
 }
 
-body {
-    font-family: 'Montserrat', sans-serif;
-    color: #333333;
-    line-height: 1.5;
+:root {
+    --gradient-accent: linear-gradient(
+        135deg,
+        #e3e2e2,
+        #e3e2e2,
+        #c4c4c4,
+        #e3e2e2,
+        #e3e2e2
+    );
+    --primary: #eb7207;
+    --primary-color: #eb7207;
+    --light-orange: #ff9a3c;
+    --light-gray: #f5f5f5;
+    --primary-dark: #9e5007;
+    --text-dark: #343a40;
+    --dark: #333333;
+    --white: #ffffff;
+    --primary-light: #ff9a3c;
+    --text-medium: #495057;
+    --text-light: #6c757d;
+    --light-bg: #f8fafc;
+    --gray-light: #e9ecef;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+canvas#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 a {
@@ -358,4 +388,285 @@ a {
     syntax: "<angle>";
     inherits: false;
     initial-value: -45deg;
+}
+
+#n8n-chat-toggle {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 64px;
+    height: 64px;
+    border: none;
+    border-radius: 50%;
+    font-size: 28px;
+    cursor: pointer;
+    background: var(
+        --n8n-accent,
+        linear-gradient(135deg, #f87808, #f9aa66, #f87808)
+    );
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+}
+
+#n8n-chat-toggle.n8n-left {
+    left: 20px;
+    right: auto;
+}
+
+#n8n-chat-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 360px;
+    max-height: 70vh;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    display: none;
+    flex-direction: column;
+    z-index: 10000;
+}
+
+#n8n-chat-container.n8n-left {
+    left: 20px;
+    right: auto;
+}
+
+#n8n-chat-header {
+    padding: 12px 14px;
+    color: #fff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px 12px 0 0;
+    background: var(
+        --n8n-accent,
+        linear-gradient(135deg, #f87808, #f9aa66, #c46306)
+    );
+}
+
+#n8n-chat-header button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#n8n-chat-messages {
+    flex: 1;
+    padding: 12px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font: 14px/1.5 Inter, system-ui, Arial;
+}
+
+.n8n-msg {
+    padding: 10px 12px;
+    border-radius: 8px;
+    max-width: 85%;
+}
+
+.n8n-bot {
+    background: #ffffff;
+    align-self: flex-start;
+}
+
+.n8n-user {
+    background: #fbe9dd;
+    align-self: flex-end;
+    text-align: right;
+}
+
+#n8n-chat-inputbar {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    border-top: 1px solid #ebe8e5;
+}
+
+#n8n-chat-input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+#n8n-chat-send {
+    padding: 0 14px;
+    border: none;
+    border-radius: 8px;
+    background: #f87808;
+    color: #fff;
+    cursor: pointer;
+}
+
+.n8n-chat-link {
+    color: #f87808;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.n8n-chat-link:hover {
+    text-decoration: underline;
+}
+
+.n8n-time,
+.n8n-meta {
+    margin-top: 6px;
+    color: #374151;
+    font-size: 13px;
+}
+
+@media (max-width: 768px) {
+    #n8n-chat-container.n8n-mobile {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        max-height: none;
+        border-radius: 0;
+    }
+
+    #n8n-chat-header {
+        border-radius: 0;
+    }
+}
+
+.footer-column a {
+    display: block;
+    margin: 4px 0;
+    font-size: 1rem;
+}
+
+footer {
+    background-color: #f5f5f5;
+    padding: 4rem 5% 2rem;
+    color: var(--text-dark);
+    border-top: 1px solid #ddd;
+    position: relative;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-column h3 {
+    color: #b45602 ;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.footer-column p,
+.footer-column a {
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ddd;
+    color: #6b6b6b;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.complaint-book {
+    position: absolute;
+    right: 5%;
+    bottom: 20px;
+    display: inline-block;
+}
+
+.social-icons-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.social-icons-list {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-icons-list .icon {
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 12px;
+    margin: 8px;
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.social-icons-list .instagram:hover {
+    background: linear-gradient(
+        45deg,
+        #f09433,
+        #e6683c,
+        #dc2743,
+        #cc2366,
+        #bc1888
+    );
+    color: #ffffff;
+}
+
+.social-icons-list .github:hover {
+    background: linear-gradient(45deg, #6e5494, #503873, #2b2a49);
+    color: #ffffff;
+}
+
+.social-icons-list .youtube:hover {
+    background: linear-gradient(45deg, #ff0000, #e62117, #cc0000);
+    color: #ffffff;
 }

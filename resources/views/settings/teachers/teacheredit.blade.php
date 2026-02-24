@@ -1,5 +1,4 @@
 @extends('layout.fe_settings')
-
 @section('content')
     <style>
         :root {
@@ -25,7 +24,7 @@
         }
 
         .profile-edit-container {
-            width: 100%;
+            width: 90%;
             max-width: 900px;
             margin: 60px auto;
             background: var(--card-bg);

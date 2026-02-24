@@ -2,13 +2,6 @@
 @section('content')
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
     <style>
-        :root {
-            --gradient-accent: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
-            --primary-color: #f87808;
-            --primary-dark: #9e5007;
-            --text-dark: #343a40;
-        }
-
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -21,26 +14,23 @@
             overflow-x: hidden;
         }
 
-        canvas#particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
         .banner {
             height: 94vh;
             background-size: 300% 100%;
             background-position: 0% 50%;
             padding: 22%;
             text-align: center;
-            color: white;
+            color: rgb(255, 255, 255);
         }
 
         .banner h1 {
-            font-size: 48px;
+            font-size: 50px;
             margin: 0;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            font-weight: 900;
+            text-shadow:
+                3px 3px 5px rgba(0, 0, 0, 0.7),
+                6px 6px 10px rgba(0, 0, 0, 0.5),
+                0px 0px 15px rgba(0, 0, 0, 0.3);
         }
 
         .banner p {
@@ -65,7 +55,7 @@
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 3rem;
-            color: var(--primary-color);
+            color: #d36605;
             position: relative;
             display: inline-block;
             left: 50%;
@@ -135,7 +125,7 @@
         }
 
         h2 {
-            color: #f87808;
+            color: #df7c04;
         }
 
         @keyframes gradientAnimation {
@@ -164,7 +154,7 @@
 
         .spline-banner-bg spline-viewer {
             width: 100%;
-            height: 100%;
+            height: 105%;
         }
 
         .stats-section {
@@ -197,118 +187,6 @@
         .stat-label {
             font-size: 1.2rem;
             color: var(--text-dark);
-        }
-
-        footer {
-            background-color: #f5f5f5;
-            padding: 4rem 5% 2rem;
-            color: var(--text-dark);
-            border-top: 1px solid #ddd;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 3rem;
-        }
-
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .footer-column h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary-color);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        .footer-column a {
-            margin-bottom: 1rem;
-            display: block;
-            color: var(--text-dark);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-column a:hover {
-            color: var(--primary-color);
-            transform: translateX(5px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #ddd;
-            color: #777;
-            font-size: 0.9rem;
-        }
-
-        .social-icons-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-
-        .social-icons-list {
-            display: inline-flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .social-icons-list .icon {
-            background: #ffffff;
-            border-radius: 50%;
-            padding: 12px;
-            margin: 8px;
-            width: 42px;
-            height: 42px;
-            font-size: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .social-icons-list .instagram:hover {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: #ffffff;
-        }
-
-        .social-icons-list .github:hover {
-            background: linear-gradient(45deg, #6e5494, #503873, #2b2a49);
-            color: #ffffff;
-        }
-
-        .social-icons-list .youtube:hover {
-            background: linear-gradient(45deg, #ff0000, #e62117, #cc0000);
-            color: #ffffff;
         }
 
         #btnTopo {
@@ -459,7 +337,7 @@
 
     <canvas id="particles"></canvas>
 
-    <div class="spline-banner-bg">
+    <div class="spline-banner-bg" aria-hidden="true">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.96/build/spline-viewer.js"></script>
         <spline-viewer url="https://prod.spline.design/O7pPnNjyvqQmU34n/scene.splinecode"></spline-viewer>
     </div>
@@ -640,20 +518,20 @@
             </div>
             <div class="footer-column">
                 <h3>Links Rápidos</h3>
-                <a href="#">Cursos</a>
-                <a href="#">Candidatos</a>
-                <a href="#">Contacto</a>
-                <a href="#">Eventos</a>
+                <a href="{{ route('courses') }}">Cursos</a>
+                <a href="{{ route('info') }}">Candidatos</a>
+                <a href="{{ route('contact') }}">Contacto</a>
+                <a href="{{ route('eventos') }}">Eventos</a>
             </div>
         </div>
         <div class="copyright">
-            &copy; 2025 ISTP - Todos os direitos reservados.
+            <span>&copy; 2025 ISTP - Todos os direitos reservados.</span>
+            <a href="https://www.livroreclamacoes.pt" target="_blank" class="complaint-book">
+                <img src="{{ asset('images/livro.png') }}" alt="Livro de Reclamações"
+                    style="width: 150px; height: auto;">
+            </a>
         </div>
     </footer>
-
-    <button id="btnTopo" title="Voltar ao início">
-        <i class="fas fa-arrow-up"></i>
-    </button>
 
     <script>
         const track = document.querySelector('.carousel-track');
@@ -738,19 +616,41 @@
 
         const btnTopo = document.getElementById("btnTopo");
 
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
+        function updateBtnTopoVisibility(scrollY) {
+            if (!btnTopo) {
+                return;
+            }
+            if (scrollY > 300) {
                 btnTopo.style.display = "block";
             } else {
                 btnTopo.style.display = "none";
             }
+        }
+
+        let lastKnownScrollY = window.scrollY || 0;
+        let ticking = false;
+
+        window.addEventListener("scroll", () => {
+            lastKnownScrollY = window.scrollY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateBtnTopoVisibility(lastKnownScrollY);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
 
-        btnTopo.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
+        updateBtnTopoVisibility(lastKnownScrollY);
+
+        if (btnTopo) {
+            btnTopo.addEventListener("click", () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
             });
-        });
+        }
     </script>
 @endsection

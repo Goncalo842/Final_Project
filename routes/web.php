@@ -1,30 +1,36 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\FaltaController;
+use App\Http\Controllers\CandidaturaController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\FaltaController;
 use App\Http\Controllers\PagamentoController;
+use App\Http\Controllers\SaldoController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
-
+// Public routes (no authentication required)
 Route::get('', [UserController::class, 'welcome'])->name('welcome');
 Route::get('/info', [UserController::class, 'info'])->name('info');
 Route::get('/courses', [UserController::class, 'courses'])->name('courses');
 Route::get('/contact', [UserController::class, 'contact'])->name('contact');
+Route::get('/eventos', [EventController::class, 'index'])->name('eventos');
 
 Route::post('/login', [UserController::class, 'loginPost'])->name('login.post');
+
+Route::get('/candidaturas/create', [CandidaturaController::class, 'create'])->name('candidaturas.create');
+Route::post('/candidaturas', [CandidaturaController::class, 'store'])->name('candidaturas.store');
 
 Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'store'])->name('storeuser');
 
-Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
-route::get('/grade', [SettingsController::class, 'grade'])->name('grade');
-Route::post('/store-grade', [SettingsController::class, 'store'])->name('store.grade');
-
-route::get('/licenciatura', [CourseController::class, 'licenciatura'])->name('courses.licenciatura');
-route::get('/ctesp', [CourseController::class, 'ctesp'])->name('courses.ctesp');
-route::get('/posgraduacao', [CourseController::class, 'posgraduacao'])->name('courses.posgraduacao');
+// Course routes (public)
+Route::get('/licenciatura', [CourseController::class, 'licenciatura'])->name('courses.licenciatura');
+Route::get('/ctesp', [CourseController::class, 'ctesp'])->name('courses.ctesp');
+Route::get('/posgraduacao', [CourseController::class, 'posgraduacao'])->name('courses.posgraduacao');
 
 route::get('/ctesp-dm', [CourseController::class, 'dm'])->name('dm');
 route::get('/ctesp-dmm', [CourseController::class, 'dmm'])->name('dmm');
@@ -40,22 +46,67 @@ route::get('/licenciatura-multimedia', [CourseController::class, 'multimedia'])-
 route::get('/mestrado-business', [CourseController::class, 'business'])->name('business');
 route::get('/mestrado-cloud', [CourseController::class, 'cloud'])->name('cloud');
 
-Route::get('/faltas', [FaltaController::class, 'index'])->name('faltas.index');
-Route::get('/faltas/alunos', [FaltaController::class, 'alunos']);
-Route::get('/faltas/disciplina/{disciplinaId}', [FaltaController::class, 'faltasPorDisciplina']);
-Route::post('/professor/faltas', [FaltaController::class, 'store']);
+// Protected routes (authentication required)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin', [SettingsController::class, 'admin'])->name('admin');
+    // Settings and Profile
+    Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
+    route::get('/grade', [SettingsController::class, 'grade'])->name('grade');
+    Route::post('/store-grade', [SettingsController::class, 'store'])->name('store.grade');
+    Route::get('/grades/download', [SettingsController::class, 'downloadGrades'])->name('grades.download');
+    // Candidaturas admin actions
+    Route::post('/candidaturas/{id}/accept', [CandidaturaController::class, 'accept'])->name('candidaturas.accept');
+    Route::post('/candidaturas/{id}/reject', [CandidaturaController::class, 'reject'])->name('candidaturas.reject');
+    // Admin UI for candidaturas
+    Route::get('/admin/candidaturas', [CandidaturaController::class, 'index'])->name('admin.candidaturas.index');
+    Route::get('/admin/candidaturas/{id}', [CandidaturaController::class, 'show'])->name('admin.candidaturas.show');
 
-Route::get('/pagamentos', [PagamentoController::class, 'pay'])->name('pay');
-Route::post('/pagamentos/finalizar', [PagamentoController::class, 'complete'])->name('complete');
+    // Documents downloads (plano curricular, regulamento interno)
+    Route::get('/documents/plano/{course?}', [SettingsController::class, 'downloadPlano'])->name('documents.plano');
+    Route::get('/documents/regulamento/{course?}', [SettingsController::class, 'downloadRegulamento'])->name('documents.regulamento');
+    Route::get('/documents/guia', [SettingsController::class, 'downloadGuia'])->name('documents.guia');
+    Route::get('/documents/criterios', [SettingsController::class, 'downloadCriterios'])->name('documents.criterios');
+    Route::get('/documents/administracao', [SettingsController::class, 'downloadAdministracao'])->name('documents.administracao');
+    Route::get('/staionery', [SettingsController::class, 'staionery'])->name('staionery');
+    Route::get('/drink', [SettingsController::class, 'drink'])->name('drink');
+    Route::get('/products', [SettingsController::class, 'products'])->name('products');
+    Route::post('/caderno/adquirir', [SettingsController::class, 'buyNotebook'])->name('caderno.adquirir');
+    Route::get('/documents/download', [SettingsController::class, 'downloadDocuments'])->name('documents.download');
 
-Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('user.edit');
-Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('user.update');
+    Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('user.edit');
+    Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('user.update');
 
-Route::get('/staionery', [SettingsController::class, 'staionery'])->name('staionery');
-Route::get('/drink', [SettingsController::class, 'drink'])->name('drink');
+    // Absences (Faltas)
+    Route::get('/faltas', [FaltaController::class, 'index'])->name('faltas.index');
+    Route::get('/faltas/alunos', [FaltaController::class, 'alunos']);
+    Route::get('/faltas/disciplina/{disciplinaId}', [FaltaController::class, 'faltasPorDisciplina']);
+    Route::post('/professor/faltas', [FaltaController::class, 'store']);
 
-Route::get('/sproducts', [SettingsController::class, 'products'])->name('products');
+    // Payments
+    Route::get('/pagamentos', [PagamentoController::class, 'pay'])->name('pay');
+    Route::post('/pagamentos/finalizar', [PagamentoController::class, 'complete'])->name('complete');
+    Route::get('/pagamentos/{mes}/comprovativo', [PagamentoController::class, 'downloadReceipt'])->name('pagamentos.receipt');
 
-Route::fallback(function() {
+    // Balance (Saldo)
+    Route::get('/saldo/recarregar', [SaldoController::class, 'saldo'])->name('saldo.recarregar');
+    Route::post('/saldo/recarregar', [SaldoController::class, 'recarregar'])->name('saldo.recarregar');
+    Route::post('/produto/adquirir/{id}', [SaldoController::class, 'adquirir'])->name('produto.adquirir');
+
+    // Stripe
+    Route::post('/create-checkout', [StripeController::class, 'checkout'])->name('stripe.checkout');
+    Route::get('/payment-success', [StripeController::class, 'success'])->name('payment.success');
+    Route::get('/payment-failure', [StripeController::class, 'failure'])->name('payment.failure');
+
+    // Stock
+    Route::get('/stock', [StockController::class, 'index'])->name('stock');
+    Route::get('/stock/create', [StockController::class, 'create'])->name('stock.create');
+    Route::post('/stock/store', [StockController::class, 'store'])->name('stock.store');
+    Route::get('/stock/{id}', [StockController::class, 'show'])->name('stock.show');
+    Route::get('/stock/{id}/edit', [StockController::class, 'edit'])->name('stock.edit');
+    Route::put('/stock/{id}', [StockController::class, 'update'])->name('stock.update');
+    Route::delete('/stock/{id}', [StockController::class, 'destroy'])->name('stock.destroy');
+});
+
+Route::fallback(function () {
     return view('fallback');
 });

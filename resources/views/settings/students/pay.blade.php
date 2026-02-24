@@ -206,9 +206,39 @@
             font-weight: 600;
         }
 
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .status-pill i {
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.04);
+            font-size: 0.95rem;
+        }
+
         .status-paid {
-            background: rgba(46, 125, 50, 0.15);
-            color: #2e7d32;
+            background: linear-gradient(90deg, #eaf6f1, #e6f4ea);
+            color: #1b6b49;
+            border-color: rgba(27, 107, 73, 0.10);
+        }
+
+        .status-pending {
+            background: linear-gradient(90deg, #fff6f6, #fff9f9);
+            color: #b71c1c;
+            border-color: rgba(183, 28, 28, 0.10);
         }
 
         .status-pending {
@@ -341,6 +371,33 @@
 
         .btn-secondary:hover {
             background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: #fff;
+            border: 1px solid rgba(158, 80, 7, 0.12);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            text-decoration: none;
+            margin-left: 8px;
+        }
+
+        .btn-download i {
+            color: var(--primary-color);
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
+            color: #fff;
+            border-color: transparent;
             transform: translateY(-2px);
         }
 
@@ -598,17 +655,24 @@
                 <div class="semester-content active" data-semester="1">
                     @foreach (['Setembro', 'Outubro', 'Novembro', 'Dezembro', 'Janeiro', 'Fevereiro'] as $mes)
                         <div class="history-item">
-                            <div>
-                                <span>{{ $mes }}</span><br>
-                                <span class="summary-total">220 €</span>
+                            <div class="history-left">
+                                <div class="history-month">{{ $mes }}</div>
+                                <div class="history-amount">220 €</div>
                             </div>
-                            <div>
+
+                            <div class="history-right">
                                 @if (in_array($mes, $mesesPagos))
-                                    <span class="history-status status-paid">
+                                    <span class="status-pill status-paid">
                                         <i class="fas fa-check-circle"></i> Pago
                                     </span>
+
+                                    <a href="{{ route('pagamentos.receipt', ['mes' => $mes]) }}"
+                                        class="btn-download btn-download-mini" target="_blank"
+                                        title="Descarregar comprovativo">
+                                        <i class="fas fa-download"></i>
+                                    </a>
                                 @else
-                                    <span class="history-status status-pending">
+                                    <span class="status-pill status-pending">
                                         <i class="fas fa-exclamation-circle"></i> Pendente
                                     </span>
                                 @endif
@@ -620,17 +684,24 @@
                 <div class="semester-content" data-semester="2">
                     @foreach (['Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto'] as $mes)
                         <div class="history-item">
-                            <div>
-                                <span>{{ $mes }}</span><br>
-                                <span class="summary-total">220 €</span>
+                            <div class="history-left">
+                                <div class="history-month">{{ $mes }}</div>
+                                <div class="history-amount">220 €</div>
                             </div>
-                            <div>
+
+                            <div class="history-right">
                                 @if (in_array($mes, $mesesPagos))
-                                    <span class="history-status status-paid">
+                                    <span class="status-pill status-paid">
                                         <i class="fas fa-check-circle"></i> Pago
                                     </span>
+
+                                    <a href="{{ route('pagamentos.receipt', ['mes' => $mes]) }}"
+                                        class="btn-download btn-download-mini" target="_blank"
+                                        title="Descarregar comprovativo">
+                                        <i class="fas fa-download"></i>
+                                    </a>
                                 @else
-                                    <span class="history-status status-pending">
+                                    <span class="status-pill status-pending">
                                         <i class="fas fa-exclamation-circle"></i> Pendente
                                     </span>
                                 @endif

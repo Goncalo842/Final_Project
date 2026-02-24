@@ -1,617 +1,425 @@
 @extends('layout.fe_settings')
 @section('content')
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        :root {
-            --gold: #8a4d00;
-            --black: #0A0A0A;
-            --dark-charcoal: #1A1A1A;
-            --white: #FFFFFF;
-            --text-dark: #2C2C2C;
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                transform: translateX(400px);
+            }
+        }
+
+        :root {
+            --accent-gold: #AA7E3F;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --notebook-cover: #1b1b1b;
+            --bg-light: #f5f5f7;
         }
 
         body {
-            background: linear-gradient(135deg, #e3e2e2, #e3e2e2, #c4c4c4, #e3e2e2, #e3e2e2);
-            overflow-x: hidden;
-            min-height: 100vh;
+            background-color: var(--bg-light);
+            color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
-            color: var(--text-dark);
-            line-height: 1.6;
+            margin: 0;
         }
 
-        canvas#particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .luxury-container {
-            max-width: 1600px;
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 40px 60px;
         }
 
-        .luxury-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .exclusive-badge {
-            display: inline-block;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 2px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .exclusive-badge::after {
-            content: "";
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-
-        .main-title {
-            font-family: 'Cinzel', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--black);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
-            color: var(--text-dark);
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 300;
-            font-style: italic;
-        }
-
-        .luxury-product {
-            display: flex;
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
-            margin-bottom: 4rem;
-            min-height: 600px;
-            position: relative;
-        }
-
-        .product-image-container {
-            flex: 1;
-            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 2rem;
-        }
-
-        .product-image {
-            max-width: 85%;
-            height: auto;
-            filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.3));
-            transform: rotate(5deg);
-            transition: transform 0.7s ease;
-            z-index: 2;
-        }
-
-        .product-image-container:hover .product-image {
-            transform: rotate(0deg) scale(1.02);
-        }
-
-        .gold-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .product-details {
-            flex: 1;
-            padding: 3rem;
-            background: var(--white);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-        .brand-name {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .brand-name::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background: var(--gold);
-        }
-
-        .product-description {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        .features-list {
-            margin-bottom: 2.5rem;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .feature-icon {
-            width: 28px;
-            height: 28px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            margin-right: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .pricing-section {
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding-top: 2rem;
-            margin-top: auto;
-        }
-
-        .price-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .original-price {
-            font-size: 1.5rem;
-            color: #999;
-            text-decoration: line-through;
-            margin-right: 1rem;
-        }
-
-        .current-price {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--gold);
-            margin-right: 1.5rem;
-        }
-
-        .discount-badge {
-            background: var(--gold);
-            color: var(--white);
-            padding: 0.4rem 1rem;
-            border-radius: 3px;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .purchase-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--gold));
-            color: var(--white);
-            padding: 1.2rem 2.5rem;
-            border: none;
-            border-radius: 2px;
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .purchase-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .purchase-button:active {
-            transform: translateY(1px);
-        }
-
-        .purchase-button i {
-            margin-right: 0.8rem;
-        }
-
-        .guarantee {
-            display: flex;
-            align-items: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #777;
-        }
-
-        .guarantee i {
-            color: var(--gold);
-            margin-right: 0.5rem;
-        }
-
-        .luxury-details {
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 100px;
+            align-items: center;
         }
 
-        .detail-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .visual-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1600px;
+            height: 700px;
         }
 
-        .detail-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        .notebook-container {
+            width: 420px;
+            height: 580px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: spin3d-full 7s linear infinite;
         }
 
-        .detail-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
+        .notebook-container.paused {
+            animation-play-state: paused;
         }
 
-        .detail-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-            color: var(--black);
-        }
-
-        .detail-description {
-            color: #666;
-            font-size: 1rem;
-        }
-
-        .luxury-footer {
-            text-align: center;
-            padding: 2rem 0;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            color: #777;
-            font-size: 0.9rem;
-        }
-
-        .gold-accent {
-            position: absolute;
-            background: var(--gold);
-            opacity: 0.1;
-            border-radius: 50%;
-        }
-
-        .accent-1 {
-            width: 200px;
-            height: 200px;
-            top: -100px;
-            right: -100px;
-        }
-
-        .accent-2 {
-            width: 150px;
-            height: 150px;
-            bottom: -75px;
-            left: -75px;
-        }
-
-        @media (max-width: 1200px) {
-            .luxury-product {
-                flex-direction: column;
-            }
-
-            .product-image-container {
-                min-height: 400px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .luxury-details {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .main-title {
-                font-size: 2.8rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .luxury-details {
-                grid-template-columns: 1fr;
-            }
-
-            .main-title {
-                font-size: 2.2rem;
-            }
-
-            .product-details {
-                padding: 2rem;
-            }
-
-            .brand-name {
-                font-size: 2rem;
-            }
-
-            .current-price {
-                font-size: 2rem;
-            }
-        }
-
-        @keyframes fadeIn {
+        @keyframes spin3d-full {
             from {
-                opacity: 0;
-                transform: translateY(20px);
+                transform: rotateY(9deg) rotateX(10deg);
             }
 
             to {
-                opacity: 1;
-                transform: translateY(0);
+                transform: rotateY(360deg) rotateX(5deg);
             }
         }
 
-        .animate-in {
-            animation: fadeIn 1s ease forwards;
+        .notebook-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.12), transparent 35%), radial-gradient(circle at 70% 65%, rgba(0, 0, 0, 0.2), transparent 45%), repeating-linear-gradient(25deg, rgba(255, 255, 255, 0.08) 0px, rgba(255, 255, 255, 0.08) 1px, rgba(0, 0, 0, 0.06) 1px, rgba(0, 0, 0, 0.06) 2px), repeating-linear-gradient(25deg, rgba(255, 255, 255, 0.08) 0px, rgba(255, 255, 255, 0.08) 1px, rgba(0, 0, 0, 0.06) 1px, rgba(0, 0, 0, 0.06) 2px), linear-gradient(135deg, var(--notebook-cover) 0%, color-mix(in srgb, var(--notebook-cover) 88%, #000) 100%);
+            border-radius: 0 20px 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: inset 12px 0 10px rgba(104, 104, 104, 0.5), inset -8px 0 15px rgba(104, 104, 104, 0.5), 25px 35px 90px rgba(104, 104, 104, 0.5);
+            transform: translateZ(22px);
         }
 
-        .delay-1 {
-            animation-delay: 0.2s;
+        .notebook-front::after {
+            content: "";
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            bottom: 12px;
+            left: 40px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 3px 12px 12px 3px;
+            pointer-events: none;
         }
 
-        .delay-2 {
-            animation-delay: 0.4s;
+        .notebook-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 28% 35%, rgba(255, 255, 255, 0.1), transparent 38%), radial-gradient(circle at 72% 60%, rgba(0, 0, 0, 0.18), transparent 50%), repeating-linear-gradient(30deg, rgba(255, 255, 255, 0.07) 0px, rgba(255, 255, 255, 0.07) 1px, rgba(0, 0, 0, 0.055) 1px, rgba(0, 0, 0, 0.055) 2px), repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.045) 0px, rgba(255, 255, 255, 0.045) 1px, rgba(0, 0, 0, 0.045) 1px, rgba(0, 0, 0, 0.045) 2px), linear-gradient(135deg, color-mix(in srgb, var(--notebook-cover) 86%, #000) 0%, var(--notebook-cover) 100%);
+            border-radius: 20px 0 0 20px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow: inset -12px 0 10px rgba(104, 104, 104, 0.5), inset 8px 0 15px rgba(104, 104, 104, 0.5), -25px 35px 90px rgba(104, 104, 104, 0.5);
+            transform: rotateY(180deg) translateZ(22px);
         }
 
-        .delay-3 {
-            animation-delay: 0.6s;
+        .notebook-back::after {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            bottom: 12px;
+            right: 40px;
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 12px 3px 3px 12px;
+            pointer-events: none;
+        }
+
+        .notebook-pages-side1 {
+            position: absolute;
+            width: 44px;
+            height: 100%;
+            right: 0;
+            top: 0;
+            background: repeating-linear-gradient(180deg, #fdfbf7 0px, #fdfbf7 2px, #e8e6e1 2px, #e8e6e1 4px, #fdfbf7 4px, #fdfbf7 6px, #d4d0cb 6px, #d4d0cb 8px);
+            transform: rotateY(90deg) translateZ(5px);
+            transform-origin: center;
+        }
+
+        .notebook-pages-side2 {
+            position: absolute;
+            width: 44px;
+            height: 100%;
+            right: 0;
+            top: 0;
+            background: var(--notebook-cover);
+            transform: rotateY(90deg) translateZ(-398px);
+            transform-origin: center;
+        }
+
+        .notebook-elastic {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            right: 26px;
+            width: 14px;
+            background: rgb(166, 157, 90);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 2px 0 6px rgba(0, 0, 0, 0.35), -1px 0 4px rgba(255, 255, 255, 0.08);
+            z-index: 18;
+            display: block;
+            pointer-events: none;
+        }
+
+        .notebook-elastic::after {
+            content: "";
+            position: absolute;
+            inset: 6px 3px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+            border-radius: 6px;
+            opacity: 0.8;
+        }
+
+        .notebook-elastic-back {
+            position: absolute;
+            left: 50px;
+            height: 70px;
+            width: 10px;
+            background: rgb(166, 157, 90);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), -2px 0 6px rgba(0, 0, 0, 0.35), 1px 0 4px rgba(255, 255, 255, 0.08);
+            z-index: 18;
+            display: block;
+            pointer-events: none;
+        }
+
+        .notebook-elastic-back.top {
+            top: 0px;
+        }
+
+        .notebook-elastic-back.bottom {
+            bottom: 0px;
+        }
+
+        .notebook-logo.gold-foil {
+            position: absolute;
+            top: 40%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(135deg, #d4af37 0%, #f9f295 50%, #aa8e28 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 4px;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .notebook-tagline {
+            position: absolute;
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1.4;
+            z-index: 10;
+        }
+
+        .notebook-tagline-first {
+            font-size: 1rem;
+        }
+
+        .notebook-tagline-second {
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+        .product-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.8rem;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .price-tag {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 40px;
+        }
+
+        .color-selector {
+            margin-bottom: 40px;
+        }
+
+        .swatches {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .swatch {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .swatch.active {
+            border-color: var(--text-main);
+            transform: scale(1.15);
+        }
+
+        .btn-buy-apple {
+            width: 100%;
+            background: var(--text-main);
+            color: white;
+            border: none;
+            padding: 22px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-buy-apple:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .pause-control {
+            position: absolute;
+            bottom: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .pause-control:hover {
+            background: #f0f0f0;
         }
     </style>
-    <canvas id="particles"></canvas>
 
-    <div class="luxury-container">
-        <main>
-            <section class="luxury-product animate-in delay-1">
-                <div class="product-image-container">
-                    <div class="gold-accent accent-1"></div>
-                    <div class="gold-accent accent-2"></div>
-                    <div class="gold-overlay"></div>
-                    <img class="product-image" src="{{ asset('images/caneta.png') }}" alt="Caneta ISTP Premium">
-                </div>
+    <div class="container">
+        <div class="product-grid">
 
-                <div class="product-details">
-                    <h2 class="brand-name">Caneta ISTP</h2>
-                    <p class="product-description">
-                        Cada caneta ISTP é meticulosamente fabricada com os mais altos padrões de qualidade, utilizando
-                        materiais premium e tecnologia de ponta para garantir uma experiência de escrita excepcional. Para
-                        aqueles que apreciam o extraordinário.
-                    </p>
+            <div class="visual-container">
+                <div class="notebook-container" id="notebook">
+                    <div class="notebook-pages-side1"></div>
+                    <div class="notebook-pages-side2"></div>
 
-                    <div class="features-list">
-                        <div class="feature-item">
-                            <div class="feature-icon"><i class="fas fa-pen-nib"></i></div>
-                            <span>Ponta de precisão 0.5mm em ouro 18k</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon"><i class="fas fa-weight-hanging"></i></div>
-                            <span>Balanceamento perfeito com detalhes em platina</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon"><i class="fas fa-infinity"></i></div>
-                            <span>Tinta de longa duração com reserva exclusiva</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon"><i class="fas fa-gem"></i></div>
-                            <span>Acabamento em metal premium com detalhes em diamante</span>
+                    <div class="notebook-front">
+                        <div class="notebook-elastic"></div>
+                        <div class="notebook-logo gold-foil">ISTP</div>
+                        <div class="notebook-tagline">
+                            <div class="notebook-tagline-first">O teu futuro</div>
+                            <div class="notebook-tagline-second">começa aqui</div>
                         </div>
                     </div>
 
-                    <div class="pricing-section">
-                        <div class="price-container">
-                            <span class="original-price">€499,00</span>
-                            <span class="current-price">€399,00</span>
-                            <span class="discount-badge">Poupa 20%</span>
-                        </div>
-
-                        <a href="#" class="purchase-button">
-                            <i class="fas fa-lock"></i> Adquirir Agora
-                        </a>
-
-                        <div class="guarantee">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Garantia vitalícia | Entrega gratuita | Embalagem presente premium</span>
-                        </div>
+                    <div class="notebook-back">
+                        <div class="notebook-elastic-back top"></div>
+                        <div class="notebook-elastic-back bottom"></div>
                     </div>
                 </div>
-            </section>
 
-            <section class="luxury-details">
-                <div class="detail-card animate-in delay-2">
-                    <div class="detail-icon"><i class="fas fa-award"></i></div>
-                    <h3 class="detail-title">Artesanato Excelente</h3>
-                    <p class="detail-description">Cada caneta é trabalhada à mão por nossos mestres artesãos, com um
-                        processo que leva mais de 100 horas para ser concluído.</p>
+                <button class="pause-control" onclick="toggleAnim()">
+                    <i class="fas fa-pause"></i> PAUSAR ROTAÇÃO
+                </button>
+            </div>
+
+            <div class="info-container">
+                <div class="product-header">
+                    <span
+                        style="color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 2px;">ISTP
+                        Signature</span>
+                    <h1>Notebook Deluxe</h1>
+                    <div class="price-tag">12,00€</div>
                 </div>
 
-                <div class="detail-card animate-in delay-2">
-                    <div class="detail-icon"><i class="fas fa-feather-alt"></i></div>
-                    <h3 class="detail-title">Experiência de Escrita</h3>
-                    <p class="detail-description">Equilibrada perfeitamente para uma escrita suave e sem esforço,
-                        proporcionando uma experiência de escrita incomparável.</p>
+                <p style="line-height: 1.8; color: #444; font-size: 1.1rem; font-weight: 300;">
+                    A união perfeita entre funcionalidade e estética. O caderno ISTP Deluxe oferece uma experiência de
+                    escrita inigualável, envolta num design 3D minimalista com acabamentos em folha de ouro.
+                </p>
+
+                <div class="color-selector">
+                    <span style="font-size: 12px; font-weight: 600; text-transform: uppercase;">Escolher Cor da Capa</span>
+                    <div class="swatches">
+                        <div class="swatch active" style="background-color: #1b1b1b;" title="Preto profundo"
+                            onclick="updateColor('#1b1b1b', this)"></div>
+                        <div class="swatch" style="background-color: #3c3c3c;" title="Cinza grafite"
+                            onclick="updateColor('#3c3c3c', this)"></div>
+                        <div class="swatch" style="background-color: #4f5968;" title="Azul aço"
+                            onclick="updateColor('#4f5968', this)"></div>
+                        <div class="swatch" style="background-color: #0f2f26;" title="Verde oliva escuro"
+                            onclick="updateColor('#0f2f26', this)"></div>
+                        <div class="swatch" style="background-color: #122d4a;" title="Azul noite"
+                            onclick="updateColor('#122d4a', this)"></div>
+                        <div class="swatch" style="background-color: #7a2e2a;" title="Bordô"
+                            onclick="updateColor('#7a2e2a', this)"></div>
+                        <div class="swatch" style="background-color: #566b3a;" title="Verde musgo"
+                            onclick="updateColor('#566b3a', this)"></div>
+                        <div class="swatch" style="background-color: #8f5306;" title="Couro caramelo"
+                            onclick="updateColor('#8f5306', this)"></div>
+                    </div>
                 </div>
 
-                <div class="detail-card animate-in delay-2">
-                    <div class="detail-icon"><i class="fas fa-gift"></i></div>
-                    <h3 class="detail-title">Embalagem de Luxo</h3>
-                    <p class="detail-description">Apresentada em uma caixa de madeira personalizada, forrada a veludo, com
-                        certificado de autenticidade numerado.</p>
+                <form action="{{ route('caderno.adquirir') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="preco" value="12">
+                    <button type="submit" class="btn-buy-apple">Adquirir Agora</button>
+                </form>
+
+                <div style="margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                    <i class="fas fa-wallet" style="margin-right: 8px;"></i> Saldo Atual:
+                    €{{ number_format(Auth::user()->saldo, 2, ',', '.') }}
                 </div>
-            </section>
-        </main>
+            </div>
+        </div>
     </div>
 
+    @if (session('success'))
+        <div style="position: fixed; top: 100px; right: 20px; z-index: 9999; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 20px 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-in 4.5s forwards; max-width: 400px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-check-circle" style="font-size: 24px;"></i>
+                <span style="font-size: 15px; font-weight: 500;">{{ session('success') }}</span>
+            </div>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div style="position: fixed; top: 100px; right: 20px; z-index: 9999; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 20px 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3); animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-in 4.5s forwards; max-width: 400px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-exclamation-circle" style="font-size: 24px;"></i>
+                <span style="font-size: 15px; font-weight: 500;">{{ session('error') }}</span>
+            </div>
+        </div>
+    @endif
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const subtitle = document.querySelector('.subtitle');
-            const originalText = subtitle.textContent;
-            subtitle.textContent = '';
-
-            let i = 0;
-
-            function typeWriter() {
-                if (i < originalText.length) {
-                    subtitle.textContent += originalText.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 50);
-                }
-            }
-
-            setTimeout(typeWriter, 1000);
-
-            const purchaseBtn = document.querySelector('.purchase-button');
-            purchaseBtn.addEventListener('mouseover', function() {
-                this.style.background = `linear-gradient(135deg, #e6c158, #d4af37)`;
-            });
-
-            purchaseBtn.addEventListener('mouseout', function() {
-                this.style.background = `linear-gradient(135deg, var(--gold), var(--gold-dark))`;
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script>
-    <script>
-        const canvas = document.getElementById("particles");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particles = [];
-        const total = 80;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.5;
-                this.vy = (Math.random() - 0.5) * 1.5;
-                this.radius = 3;
-            }
-
-            move() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = "#ffffff";
-                ctx.fill();
-            }
+        function toggleAnim() {
+            const nb = document.getElementById('notebook');
+            nb.classList.toggle('paused');
+            const btn = event.currentTarget;
+            btn.innerHTML = nb.classList.contains('paused') ?
+                '<i class="fas fa-play"></i> RETOMAR ROTAÇÃO' :
+                '<i class="fas fa-pause"></i> PAUSAR ROTAÇÃO';
         }
 
-        function connectParticles() {
-            for (let a = 0; a < total; a++) {
-                for (let b = a + 1; b < total; b++) {
-                    let dx = particles[a].x - particles[b].x;
-                    let dy = particles[a].y - particles[b].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.strokeStyle = "rgba(255,255,255,0.3)";
-                        ctx.stroke();
-                    }
-                }
-            }
+        function updateColor(color, el) {
+            document.documentElement.style.setProperty('--notebook-cover', color);
+            document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
         }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let p of particles) {
-                p.move();
-                p.draw();
-            }
-            connectParticles();
-            requestAnimationFrame(animate);
-        }
-
-        function init() {
-            for (let i = 0; i < total; i++) {
-                particles.push(new Particle());
-            }
-            animate();
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        init();
     </script>
 @endsection

@@ -159,6 +159,43 @@
             font-weight: 500;
         }
 
+        .edit-toggle-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--primary-color);
+            padding: 6px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-toggle-btn:hover {
+            background: rgba(138, 77, 0, 0.1);
+            color: var(--primary-light);
+        }
+
+        .edit-toggle-btn.active {
+            background: rgba(138, 77, 0, 0.2);
+            color: var(--primary-light);
+        }
+
+        .grade-input.existing-grade-input:disabled {
+            background: #f5f5f5;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .grade-input.existing-grade-input:not(:disabled) {
+            background: #fffacd;
+            border: 2px solid var(--primary-color);
+            cursor: text;
+        }
+
+        .edit-mode .grade-input {
+            transition: all 0.2s ease;
+        }
+
         .grade-input {
             width: 70px;
             padding: 8px;
@@ -195,6 +232,85 @@
 
         .btn-orange:hover {
             background-color: var(--primary-light);
+        }
+
+        .grades-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+            gap: 8px;
+        }
+
+        .btn-orange--small {
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 6px;
+        }
+
+        .grades-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .grades-header-actions {
+            position: relative;
+        }
+
+        .grades-toggle {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--primary-color);
+            padding: 6px;
+            border-radius: 6px;
+        }
+
+        .grades-toggle:focus { outline: none; box-shadow: 0 0 0 3px rgba(138,77,0,0.12); }
+
+        .grades-dropdown {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+            transform-origin: top right;
+            transition: opacity 220ms cubic-bezier(.2,.8,.2,1), transform 220ms cubic-bezier(.2,.8,.2,1);
+            pointer-events: none;
+            min-width: 220px;
+            z-index: 30;
+        }
+
+        .grades-dropdown.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .grades-dropdown a { display: block; text-decoration: none; }
+
+        .grades-toggle .fa-chevron-down { transition: transform 200ms ease; }
+        .grades-toggle[aria-expanded="true"] .fa-chevron-down { transform: rotate(180deg); }
+
+        .download-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .download-item:hover {
+            background: rgba(138,77,0,0.06);
         }
 
         .reader {
@@ -288,9 +404,9 @@
             <section class="card">
                 <h2><i class="fas fa-question-circle"></i> Ajuda</h2>
                 <div class="subcard">
-                    <p><a href="#"><i class="fas fa-external-link-alt"></i> Guia de lançamento</a></p>
-                    <p><a href="#"><i class="fas fa-external-link-alt"></i> Critérios de avaliação</a></p>
-                    <p><a href="#"><i class="fas fa-external-link-alt"></i> Contatar administração</a></p>
+                    <p><a href="{{ route('documents.guia') }}"><i class="fas fa-external-link-alt"></i> Guia de lançamento</a></p>
+                    <p><a href="{{ route('documents.criterios') }}"><i class="fas fa-external-link-alt"></i> Critérios de avaliação</a></p>
+                    <p><a href="{{ route('documents.administracao') }}"><i class="fas fa-external-link-alt"></i> Contatar administração</a></p>
                 </div>
             </section>
         </aside>
@@ -302,9 +418,26 @@
             </div>
 
             <div class="grades-card">
-                <h2><i class="fas fa-edit"></i> Lançamento de Notas</h2>
+                <div class="grades-header">
+                    <h2><i class="fas fa-edit"></i> Lançamento de Notas</h2>
+                    <div class="grades-header-actions">
+                        <button type="button" class="grades-toggle edit-toggle-btn" id="editToggle" aria-expanded="false" title="Ativar modo de edição">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
 
-                <form action="{{ route('store.grade') }}" method="POST">
+                        <button class="grades-toggle" id="gradesToggle" aria-expanded="false" aria-controls="gradesDropdown">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+
+                        <div class="grades-dropdown" id="gradesDropdown" role="menu" aria-hidden="true">
+                            <a href="{{ route('grades.download') }}" class="btn-orange btn-orange--small">
+                                <i class="fas fa-download"></i> Descarregar Todas as Notas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <form action="{{ route('store.grade') }}" method="POST" id="gradesForm">
                     @csrf
 
                     <div style="overflow-x: auto;">
@@ -330,12 +463,23 @@
                                             @endphp
                                             <td>
                                                 @if ($existingGrade && !is_null($existingGrade->nota))
-                                                    <input type="number" value="{{ $existingGrade->nota }}" disabled
-                                                        class="grade-input disabled-input" title="Nota já lançada" />
+                                                    <input type="number"
+                                                        class="grade-input existing-grade-input"
+                                                        value="{{ $existingGrade->nota }}"
+                                                        disabled
+                                                        data-user-id="{{ $user->id }}"
+                                                        data-discipline-id="{{ $disciplina->id }}"
+                                                        title="Clique em 'Editar' para modificar" />
+                                                    <input type="hidden"
+                                                        name="grades[{{ $user->id }}][{{ $disciplina->id }}]"
+                                                        class="grade-hidden-input"
+                                                        data-user-id="{{ $user->id }}"
+                                                        data-discipline-id="{{ $disciplina->id }}"
+                                                        value="{{ $existingGrade->nota }}" />
                                                 @else
                                                     <input type="number"
                                                         name="grades[{{ $user->id }}][{{ $disciplina->id }}]"
-                                                        min="0" max="20" step="0.1" class="grade-input"
+                                                        min="0" max="20" step="0.1" class="grade-input new-grade-input"
                                                         placeholder="0-20" />
                                                 @endif
                                             </td>
@@ -346,9 +490,14 @@
                         </table>
                     </div>
 
-                    <button type="submit" class="btn-orange">
-                        <i class="fas fa-save"></i> Salvar Notas
-                    </button>
+                    <div style="display: flex; gap: 12px; margin-top: 16px;">
+                        <button type="submit" class="btn-orange" id="submitBtn">
+                            <i class="fas fa-save"></i> Salvar Notas
+                        </button>
+                        <button type="button" class="btn-orange" id="cancelBtn" style="display: none; background: #999;">
+                            <i class="fas fa-times"></i> Cancelar Edição
+                        </button>
+                    </div>
                 </form>
             </div>
         </section>
@@ -439,7 +588,100 @@
             });
         });
 
+        const gradesToggle = document.getElementById('gradesToggle');
+        const gradesDropdown = document.getElementById('gradesDropdown');
+
+        if (gradesToggle && gradesDropdown) {
+            gradesToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isShown = gradesDropdown.classList.toggle('show');
+                gradesDropdown.setAttribute('aria-hidden', !isShown);
+                gradesToggle.setAttribute('aria-expanded', isShown);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!gradesDropdown.contains(e.target) && !gradesToggle.contains(e.target)) {
+                    gradesDropdown.classList.remove('show');
+                    gradesDropdown.setAttribute('aria-hidden', 'true');
+                    gradesToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
         init();
+
+        const editToggle = document.getElementById('editToggle');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const gradesForm = document.getElementById('gradesForm');
+        const existingGradeInputs = document.querySelectorAll('.grade-input.existing-grade-input');
+
+        let isEditMode = false;
+        const originalValues = {};
+
+        editToggle.addEventListener('click', () => {
+            isEditMode = !isEditMode;
+
+            if (isEditMode) {
+                editToggle.classList.add('active');
+                existingGradeInputs.forEach(input => {
+                    originalValues[`${input.dataset.userId}-${input.dataset.disciplineId}`] = input.value;
+                    input.disabled = false;
+                    input.focus();
+
+                    input.addEventListener('input', syncToHiddenInput);
+                });
+                cancelBtn.style.display = 'inline-block';
+                gradesForm.classList.add('edit-mode');
+            } else {
+                cancelEditMode();
+            }
+        });
+
+        function syncToHiddenInput(event) {
+            const visibleInput = event.target;
+            const userId = visibleInput.dataset.userId;
+            const disciplineId = visibleInput.dataset.disciplineId;
+
+            const hiddenInput = document.querySelector(
+                `input[type="hidden"].grade-hidden-input[data-user-id="${userId}"][data-discipline-id="${disciplineId}"]`
+            );
+
+            if (hiddenInput) {
+                hiddenInput.value = visibleInput.value;
+            }
+        }
+
+        cancelBtn.addEventListener('click', () => {
+            cancelEditMode();
+        });
+
+        function cancelEditMode() {
+            isEditMode = false;
+            editToggle.classList.remove('active');
+
+            existingGradeInputs.forEach(input => {
+                const key = `${input.dataset.userId}-${input.dataset.disciplineId}`;
+                input.value = originalValues[key];
+                input.disabled = true;
+                input.removeEventListener('input', syncToHiddenInput);
+            });
+
+            cancelBtn.style.display = 'none';
+            gradesForm.classList.remove('edit-mode');
+        }
+
+        existingGradeInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const value = parseFloat(this.value);
+                if (isNaN(value) || value < 0) {
+                    this.value = 0;
+                } else if (value > 20) {
+                    this.value = 20;
+                }
+                syncToHiddenInput({ target: this });
+            });
+        });
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
